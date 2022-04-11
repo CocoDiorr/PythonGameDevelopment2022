@@ -2,6 +2,7 @@ import pygame
 from config.Config import *
 from level.Level import Level
 
+
 class Game:
     def __init__(self):
         self.screen = pygame.display.set_mode(WINDOW_RESOLUTION)

@@ -2,9 +2,10 @@ import pygame
 from config.Config import PLAYER_SPEED
 from objects.main.Entity import Entity
 
+
 class Player(Entity):
-    def __init__(self, groups):
-        super().__init__(groups, PLAYER_SPEED, image_path="pics/red_square.jpg")
+    def __init__(self, groups, obstacle_sprites):
+        super().__init__(groups, PLAYER_SPEED, image_path="pics/red_square.jpg", obstacle_sprites=obstacle_sprites)
     
     def input(self):
         keys = pygame.key.get_pressed()
