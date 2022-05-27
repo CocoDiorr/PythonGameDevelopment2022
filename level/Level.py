@@ -2,7 +2,7 @@ import pygame
 from objects.friendly.Player import Player
 from objects.main.red_square import Square
 from objects.enemy.Enemy import Enemy
-from config.Config import BASE_ENEMY_SPEED
+from config.Config import *
 
 
 class Level:
@@ -15,7 +15,7 @@ class Level:
     def create_map(self):
         self.player = Player((self.visible_sprites,), self.obstacle_sprites)
         Square((self.visible_sprites, self.obstacle_sprites), (400, 400))
-        self.enemy = Enemy((self.visible_sprites,), BASE_ENEMY_SPEED, "rectangle", 100, (400, 0), self.obstacle_sprites)
+        self.enemy = Enemy((self.visible_sprites,), BASE_ENEMY_ABS_ACCEL, BASE_ENEMY_MAX_SPEED, "rectangle", 100, (400, 0), self.obstacle_sprites)
 
     def run(self):
         self.visible_sprites.draw(self.display_surface)

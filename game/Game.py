@@ -1,4 +1,5 @@
 import pygame
+import pygame.display
 from config.Config import *
 from level.Level import Level
 
