@@ -17,7 +17,7 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.running = False
 
+            dt = self.clock.tick(FPS) / 1000
             self.screen.fill(BACKGROUND_COLOR)
-            self.level.run()
+            self.level.run(dt)
             pygame.display.update()
-            self.clock.tick(FPS)

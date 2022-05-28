@@ -4,15 +4,15 @@ from config.Config import *
 
 
 class Enemy(Entity):
-    def __init__(self, groups, abs_accel, max_speed, monster_name, health, pos, obstacle_sprites):
-        super().__init__(groups, abs_accel, max_speed, image_path="pics/blue_rect.png", obstacle_sprites=obstacle_sprites)
-        self.monster_name = monster_name
+    def __init__(self, groups, position, abs_accel, max_speed, enemy_name, health, obstacle_sprites, bullets, player):
+        super().__init__(groups, position, abs_accel, max_speed, health, BASE_ENEMY_SPRITE_PATH, obstacle_sprites, bullets)
+        self.enemy_name = enemy_name
         self.sprite_type = "enemy"
-        self.rect = self.image.get_rect(topleft=pos)
+        self.player = player
 
-    def get_player_direction(self, player):
-        enemy_vector = pygame.math.Vector2(self.rect.center)
-        player_vector = pygame.math.Vector2(player.rect.center)
+    def get_player_direction(self):
+        enemy_vector = self.pos
+        player_vector = self.player.pos
         distance = (player_vector - enemy_vector).magnitude()
 
         if distance > 0:
@@ -21,6 +21,6 @@ class Enemy(Entity):
             direction = pygame.math.Vector2()
         return direction
 
-    def enemy_update(self, player):
-        self.accel = self.get_player_direction(player)
+    def update(self, dt):
+        self.accel = self.get_player_direction()
         self.move()
