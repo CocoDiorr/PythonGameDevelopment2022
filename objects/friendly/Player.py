@@ -1,11 +1,19 @@
 import pygame
+import pygame.sprite
+import pygame.key
+import pygame.mouse
+import pygame.math
 from config.Config import *
 from objects.main.Entity import Entity
+from objects.weapon.Bullet import Bullet
+from objects.weapon.Weapon import Weapon
 
 
 class Player(Entity):
-    def __init__(self, groups, obstacle_sprites):
-        super().__init__(groups, PLAYER_ABS_ACCEL, PLAYER_MAX_SPEED, image_path="pics/red_square.jpg", obstacle_sprites=obstacle_sprites)
+    def __init__(self, groups, position, obstacle_sprites, bullets):
+        super().__init__(groups, position, PLAYER_ABS_ACCEL, PLAYER_MAX_SPEED, PLAYER_HEALTH, PLAYER_SPRITE_PATH, obstacle_sprites, bullets) # move constants from config to __init__ (to create player with certain health, weapon, etc, in new location)
+        self.weapons = [Weapon(self, self.bullets, BULLET_SPEED, BULLET_DAMAGE, BULLET_RANGE, BULLET_SPRITE_PATH, WEAPON_COOLDOWN)]  # TODO: move to inventory later
+        self.curr_weapon = 0    # index of self.weapons array
     
     def input(self):
         keys = pygame.key.get_pressed()
@@ -28,6 +36,20 @@ class Player(Entity):
         else:
             self.accel.x = 0
 
-    def update(self):
+
+        mouse = pygame.mouse.get_pressed()
+        if mouse[0]:
+            angle = pygame.math.Vector2(pygame.mouse.get_pos()) - self.pos
+            self.weapons[self.curr_weapon].spawn_bullet(angle)
+
+    def update_weapons(self, dt):
+        for weapon in self.weapons:
+            weapon.update(dt)
+
+    def update(self, dt):
         self.input()
+        self.update_weapons(dt)
         self.move()
+    
+    # def get_hit(self, damage):  # overload later for invincible time
+    #     return super().get_hit(damage)
