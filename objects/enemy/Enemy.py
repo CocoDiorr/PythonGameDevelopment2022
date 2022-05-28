@@ -1,11 +1,11 @@
 import pygame
 from objects.main.Entity import Entity
-from config.Config import BASE_ENEMY_SPEED
+from config.Config import *
 
 
 class Enemy(Entity):
-    def __init__(self, groups, speed, monster_name, health, pos, obstacle_sprites):
-        super().__init__(groups, BASE_ENEMY_SPEED, image_path="pics/blue_rect.png", obstacle_sprites=obstacle_sprites)
+    def __init__(self, groups, abs_accel, max_speed, monster_name, health, pos, obstacle_sprites):
+        super().__init__(groups, abs_accel, max_speed, image_path="pics/blue_rect.png", obstacle_sprites=obstacle_sprites)
         self.monster_name = monster_name
         self.sprite_type = "enemy"
         self.rect = self.image.get_rect(topleft=pos)
@@ -22,5 +22,5 @@ class Enemy(Entity):
         return direction
 
     def enemy_update(self, player):
-        self.direction = self.get_player_direction(player)
+        self.accel = self.get_player_direction(player)
         self.move()
