@@ -1,4 +1,3 @@
-from asyncio import shield
 import pygame
 import pygame.sprite
 import pygame.math
