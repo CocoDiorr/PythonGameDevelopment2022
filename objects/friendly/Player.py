@@ -38,9 +38,9 @@ class Player(Entity):
 
 
         mouse = pygame.mouse.get_pressed()
+        self.look_angle = pygame.math.Vector2(pygame.mouse.get_pos()) - self.pos
         if mouse[0]:
-            angle = pygame.math.Vector2(pygame.mouse.get_pos()) - self.pos
-            self.weapons[self.curr_weapon].spawn_bullet(angle)
+            self.weapons[self.curr_weapon].spawn_bullet(self.look_angle)
 
     def update_weapons(self, dt):
         for weapon in self.weapons:

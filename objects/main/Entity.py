@@ -5,7 +5,7 @@ from config.Config import *
 
 
 class Entity(pygame.sprite.Sprite):
-    def __init__(self, groups, position, abs_accel, max_speed, health, image_path, obstacle_sprites, bullets):
+    def __init__(self, groups, position, abs_accel, max_speed, health, image_path, obstacle_sprites, bullets, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
         super().__init__(groups)
         self.image = pygame.image.load(image_path).convert_alpha()
         self.rect = self.image.get_rect()
@@ -19,6 +19,9 @@ class Entity(pygame.sprite.Sprite):
         self.health = health
         self.obstacle_sprites = obstacle_sprites
         self.bullets = bullets
+        if look_angle.length() == 0:
+            look_angle = pygame.math.Vector2(1, 0)
+        self.look_angle = look_angle.normalize()
 
     def move(self):
         if self.accel.length() != 0:
