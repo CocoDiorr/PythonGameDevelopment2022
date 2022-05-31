@@ -16,6 +16,9 @@ class Bullet(pygame.sprite.Sprite):
         self.range = ran
         self.weapon = weapon
 
+    def set_speed(self, new_speed: pygame.math.Vector2):
+        self.speed = new_speed
+
     def move(self):
         self.pos += self.speed
         self.rect.center = self.pos

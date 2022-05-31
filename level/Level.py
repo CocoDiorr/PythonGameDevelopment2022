@@ -1,3 +1,4 @@
+from asyncio import shield
 import pygame
 import pygame.sprite
 import pygame.math
@@ -16,13 +17,14 @@ class Level:
         self.obstacle = pygame.sprite.Group()
         self.entity = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
+        self.shield = pygame.sprite.Group()
         self.create_map()
 
     def create_map(self):
         self.player = Player(self, (self.visible, self.entity,), (50, 50))
         Solid(self, (self.visible, self.obstacle,), "pics/red_square.jpg", (400, 400))
         turret = Turret(self, (self.visible, self.obstacle,), "pics/red_square.jpg", (400, 500), pygame.math.Vector2(-1, 0))
-        turret.equip_weapon(Weapon(self, turret, BULLET_SPEED, BULLET_DAMAGE, BULLET_RANGE, BULLET_SPRITE_PATH, 4 * WEAPON_COOLDOWN))
+        turret.equip_weapon(Weapon(self, turret, 0.5 * BULLET_SPEED, BULLET_DAMAGE, BULLET_RANGE, BULLET_SPRITE_PATH, 4 * WEAPON_COOLDOWN))
         self.enemy = Enemy(self, (self.visible, self.entity), (400, 50), BASE_ENEMY_ABS_ACCEL, BASE_ENEMY_MAX_SPEED, "rectangle", BASE_ENEMY_HEALTH)
 
     def bullets_update(self):
@@ -39,6 +41,13 @@ class Level:
                 if entity != bullet.weapon.owner:   # mb later change on enemy group and player
                     bullet.kill()
                     entity.get_hit(bullet.damage)
+        shield_collide = pygame.sprite.groupcollide(self.shield, self.bullets, False, False)
+        for shield, bullets in shield_collide.items():
+            if shield.reflect:
+                for bullet in bullets:
+                    if bullet.weapon.owner == shield.owner:
+                        continue
+                    shield.redirect_bullet(bullet)
             
 
 
@@ -47,7 +56,6 @@ class Level:
         self.visible.draw(self.display_surface)
         self.bullets.draw(self.display_surface)
         self.visible.update(dt)
-        # self.enemy.enemy_update(self.player)
         self.bullets_update()
 
 
