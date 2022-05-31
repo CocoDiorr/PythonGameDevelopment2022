@@ -5,8 +5,9 @@ from config.Config import *
 
 
 class Entity(pygame.sprite.Sprite):
-    def __init__(self, groups, position, abs_accel, max_speed, health, image_path, obstacle_sprites, bullets):
+    def __init__(self, level, groups, image_path, position, abs_accel, max_speed, health, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
         super().__init__(groups)
+        self.level = level
         self.image = pygame.image.load(image_path).convert_alpha()
         self.rect = self.image.get_rect()
         self.pos = pygame.math.Vector2(position)
@@ -17,8 +18,9 @@ class Entity(pygame.sprite.Sprite):
         self.abs_accel = abs_accel
         self.speed_fade = ENTITY_SPEED_FADE
         self.health = health
-        self.obstacle_sprites = obstacle_sprites
-        self.bullets = bullets
+        if look_angle.length() == 0:
+            look_angle = pygame.math.Vector2(1, 0)
+        self.look_angle = look_angle.normalize()
 
     def move(self):
         if self.accel.length() != 0:
@@ -38,19 +40,15 @@ class Entity(pygame.sprite.Sprite):
 
         self.pos.x += self.speed.x
         self.rect.center = self.pos
-        # self.rect.move_ip((self.speed.x, 0))
-        # self.rect.x += self.speed.x   # don't work well with speed fading
         self.collision('horizontal')
         
         self.pos.y += self.speed.y
         self.rect.center = self.pos
-        # self.rect.move_ip((0, self.speed.y))
-        # self.rect.y += self.speed.y
         self.collision('vertical')
 
     def collision(self, direction):
         if direction == 'horizontal':
-            collided_sprite = pygame.sprite.spritecollideany(self, self.obstacle_sprites)
+            collided_sprite = pygame.sprite.spritecollideany(self, self.level.obstacle)
             if collided_sprite:
                 if self.speed.x > 0:  # moving right
                     self.rect.right = collided_sprite.rect.left
@@ -61,7 +59,7 @@ class Entity(pygame.sprite.Sprite):
 
 
         if direction == 'vertical':
-            collided_sprite = pygame.sprite.spritecollideany(self, self.obstacle_sprites)
+            collided_sprite = pygame.sprite.spritecollideany(self, self.level.obstacle)
             if collided_sprite:
                 if self.speed.y > 0:  # moving down
                     self.rect.bottom = collided_sprite.rect.top
