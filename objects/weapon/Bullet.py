@@ -4,7 +4,7 @@ import pygame.sprite
 from config.Config import *
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, level, groups, position, speed: pygame.math.Vector2, damage, ran, weapon, image_path):
+    def __init__(self, level, groups, image_path, position, speed: pygame.math.Vector2, damage, ran, weapon):
         super().__init__(groups)
         self.level = level
         self.image = pygame.image.load(image_path).convert_alpha()

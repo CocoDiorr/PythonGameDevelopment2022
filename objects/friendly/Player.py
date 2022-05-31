@@ -11,7 +11,7 @@ from objects.weapon.Weapon import Weapon
 
 class Player(Entity):
     def __init__(self, level, groups, position):
-        super().__init__(level, groups, position, PLAYER_ABS_ACCEL, PLAYER_MAX_SPEED, PLAYER_HEALTH, PLAYER_SPRITE_PATH) # move constants from config to __init__ (to create player with certain health, weapon, etc, in new location)
+        super().__init__(level, groups, PLAYER_SPRITE_PATH, position, PLAYER_ABS_ACCEL, PLAYER_MAX_SPEED, PLAYER_HEALTH) # move constants from config to __init__ (to create player with certain health, weapon, etc, in new location)
         self.weapons = [Weapon(self.level, self, BULLET_SPEED, BULLET_DAMAGE, BULLET_RANGE, BULLET_SPRITE_PATH, WEAPON_COOLDOWN)]  # TODO: move to inventory later
         self.curr_weapon = 0    # index of self.weapons array
     

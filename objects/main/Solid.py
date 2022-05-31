@@ -3,7 +3,7 @@ from objects.weapon.Weapon import Weapon
 from config.Config import *
 
 class Solid(pygame.sprite.Sprite):
-    def __init__(self, level, groups, position, image_path):
+    def __init__(self, level, groups, image_path, position):
         super().__init__(groups)
         self.level = level
         self.image = pygame.image.load(image_path).convert_alpha()

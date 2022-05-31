@@ -5,7 +5,7 @@ from config.Config import *
 
 
 class Entity(pygame.sprite.Sprite):
-    def __init__(self, level, groups, position, abs_accel, max_speed, health, image_path, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
+    def __init__(self, level, groups, image_path, position, abs_accel, max_speed, health, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
         super().__init__(groups)
         self.level = level
         self.image = pygame.image.load(image_path).convert_alpha()
@@ -40,14 +40,10 @@ class Entity(pygame.sprite.Sprite):
 
         self.pos.x += self.speed.x
         self.rect.center = self.pos
-        # self.rect.move_ip((self.speed.x, 0))
-        # self.rect.x += self.speed.x   # don't work well with speed fading
         self.collision('horizontal')
         
         self.pos.y += self.speed.y
         self.rect.center = self.pos
-        # self.rect.move_ip((0, self.speed.y))
-        # self.rect.y += self.speed.y
         self.collision('vertical')
 
     def collision(self, direction):

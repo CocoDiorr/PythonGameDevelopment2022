@@ -5,7 +5,7 @@ from config.Config import *
 
 class Enemy(Entity):
     def __init__(self, level, groups, position, abs_accel, max_speed, enemy_name, health):
-        super().__init__(level, groups, position, abs_accel, max_speed, health, BASE_ENEMY_SPRITE_PATH)
+        super().__init__(level, groups, BASE_ENEMY_SPRITE_PATH, position, abs_accel, max_speed, health)
         self.enemy_name = enemy_name
         self.sprite_type = "enemy"
 
