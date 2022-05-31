@@ -24,6 +24,9 @@ class Weapon:
             self.last_shoot = 0
             if angle.length() != 0:
                 angle = angle.normalize()
-            speed = angle * (self.bullet_speed + angle.dot(self.owner.speed))   # added speed from owner, but in direction of shoot
+            if hasattr(self.owner, "speed"):
+                speed = angle * (self.bullet_speed + angle.dot(self.owner.speed))   # added speed from owner, but in direction of shoot
+            else:
+                speed = angle * self.bullet_speed
             self.bullets.add(Bullet((self.bullets), self.owner.pos, speed, self.bullet_damage, self.bullet_range, self, self.bullet_img_path))
 
