@@ -21,9 +21,9 @@ class Companion(pygame.sprite.Sprite):
                 - -1 - shows up
         """
         super().__init__()
-        self.image = pygame.image.load('graphics/cat/sitting.png').convert_alpha()
+        self.image = pygame.image.load('../pics/cat/sitting.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (150, 150))
-        self.rect = self.image.get_rect(midbottom=(900, 300))
+        self.rect = self.image.get_rect(midbottom=(850, 300))
         self.to_show = 0  # 0 - stop, 1 -> hide, -1 -> show up
         self.to_move = 0
 
@@ -39,7 +39,7 @@ class Companion(pygame.sprite.Sprite):
         """
         Stop the cat
         """
-        if self.rect.x < 680 or self.rect.x > 900:
+        if self.rect.x < 680 or self.rect.x > 850:
             self.to_move = 0
 
     def handle_event(self, event):
@@ -71,7 +71,7 @@ class PopUpMessage(pygame.sprite.Sprite):
         companion -> rect to catch up to
         """
         self.generator = text_generator
-        self.dialogue_box = pygame.image.load('../graphics/text_box/box.png').convert_alpha()
+        self.dialogue_box = pygame.image.load('../pics/text_box/box.png').convert_alpha()
         self.rect = self.dialogue_box.get_rect(bottomright = (companion.rect.topleft))
 
 
@@ -86,7 +86,7 @@ companion = Companion()
 
 
 # Bg
-sky_surface = pygame.image.load('graphics/Sky.png').convert()
+sky_surface = pygame.image.load('../pics/Sky.png').convert()
 
 while True:
     for event in pygame.event.get():
