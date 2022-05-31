@@ -5,8 +5,8 @@ from config.Config import *
 
 
 class Turret(Entity):
-    def __init__(self, groups, position, angle: pygame.math.Vector2, obstacle_sprites, bullets, image_path):
-        super().__init__(groups, position, 0, 0, -1, image_path, obstacle_sprites, bullets, look_angle=angle)
+    def __init__(self, level, groups, position, angle: pygame.math.Vector2, image_path):
+        super().__init__(level, groups, position, 0, 0, -1, image_path, look_angle=angle)
     
     def equip_weapon(self, weapon):
         self.weapon = weapon
