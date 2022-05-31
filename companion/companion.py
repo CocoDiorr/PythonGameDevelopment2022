@@ -65,12 +65,14 @@ class Companion(pygame.sprite.Sprite):
 
 
 class PopUpMessage(pygame.sprite.Sprite):
-    def __init__(self, text_generator):
+    def __init__(self, text_generator, companion):
         """
         text_generator -> ipse dixit generator
+        companion -> rect to catch up to
         """
         self.generator = text_generator
-        self.dialogue_box = pygame.image.load('/')
+        self.dialogue_box = pygame.image.load('../graphics/text_box/box.png').convert_alpha()
+        self.rect = self.dialogue_box.get_rect(bottomright = (companion.rect.topleft))
 
 
 
