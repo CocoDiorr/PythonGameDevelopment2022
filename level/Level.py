@@ -21,24 +21,27 @@ class Level:
     def create_map(self):
         self.player = Player(self, (self.visible, self.entity,), (50, 50))
         Solid(self, (self.visible, self.obstacle,), "pics/red_square.jpg", (400, 400))
-        turret = Turret(self, (self.visible, self.obstacle,), "pics/red_square.jpg", (400, 500), pygame.math.Vector2(-1, 0))
+        turret = Turret(self, (self.visible, self.obstacle, self.entity), "pics/red_square.jpg", (400, 500), TURRET_HEALTH, TURRET_ATTACK_RADIUS, TURRET_NOTICE_RADIUS)
         turret.equip_weapon(Weapon(self, turret, BULLET_SPEED, BULLET_DAMAGE, BULLET_RANGE, BULLET_SPRITE_PATH, 4 * WEAPON_COOLDOWN))
-        self.enemy = Enemy(self, (self.visible, self.entity), (400, 50), BASE_ENEMY_ABS_ACCEL, BASE_ENEMY_MAX_SPEED, "rectangle", BASE_ENEMY_HEALTH)
+        self.enemy = Enemy(self, (self.visible, self.entity), BASE_ENEMY_SPRITE_PATH, (400, 50), BASE_ENEMY_ABS_ACCEL, BASE_ENEMY_MAX_SPEED, BASE_ENEMY_HEALTH, BASE_ENEMY_ATTACK_RADIUS, BASE_ENEMY_NOTICE_RADIUS)
+        self.enemy.equip_weapon(Weapon(self, self.enemy, BULLET_SPEED, BULLET_DAMAGE, BULLET_RANGE, BULLET_SPRITE_PATH, 4 * WEAPON_COOLDOWN))
 
     def bullets_update(self):
         self.bullets.update()
+        entity_collide = pygame.sprite.groupcollide(self.bullets, self.entity, False, False)
+        for bullet, entities in entity_collide.items():
+            for entity in entities:
+                if entity != bullet.weapon.owner:  # mb later change on enemy group and player
+                    bullet.kill()
+                    entity.get_hit(bullet.damage)
+
         obstacles_collide = pygame.sprite.groupcollide(self.bullets, self.obstacle, False, False)
         for bullet, obstacles in obstacles_collide.items():
             for obstacle in obstacles:
                 if bullet.weapon.owner != obstacle:
                     bullet.kill()
                     continue
-        entity_collide = pygame.sprite.groupcollide(self.bullets, self.entity, False, False)
-        for bullet, entities in entity_collide.items():
-            for entity in entities:
-                if entity != bullet.weapon.owner:   # mb later change on enemy group and player
-                    bullet.kill()
-                    entity.get_hit(bullet.damage)
+
             
 
 
