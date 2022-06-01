@@ -35,7 +35,7 @@ class Entity(pygame.sprite.Sprite):
             self.speed.y *= self.speed_fade
 
         self.speed += self.accel
-        if self.speed.length() >= self.max_speed:
+        if self.speed.length() >= self.max_speed and self.max_speed:
             self.speed.scale_to_length(self.max_speed)
 
         self.pos.x += self.speed.x
@@ -56,7 +56,6 @@ class Entity(pygame.sprite.Sprite):
                 if self.speed.x < 0:  # moving left
                     self.rect.left = collided_sprite.rect.right
                     self.pos = pygame.math.Vector2(self.rect.center)
-
 
         if direction == 'vertical':
             collided_sprite = pygame.sprite.spritecollideany(self, self.level.obstacle)
