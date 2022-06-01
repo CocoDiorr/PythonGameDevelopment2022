@@ -44,9 +44,8 @@ class Level:
         for shield, bullets in shield_collide.items():
             if shield.reflect:
                 for bullet in bullets:
-                    if bullet.weapon.owner == shield.owner:
-                        continue
-                    shield.redirect_bullet(bullet)
+                    if bullet.weapon.owner != shield.owner:
+                        shield.redirect_bullet(bullet)
             
 
 
