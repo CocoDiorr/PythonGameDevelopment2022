@@ -1,5 +1,6 @@
 import pygame
 from sys import exit
+from os import path
 import ipsedixit
 
 class Companion(pygame.sprite.Sprite):
@@ -21,7 +22,8 @@ class Companion(pygame.sprite.Sprite):
                 - -1 - shows up
         """
         super().__init__()
-        self.image = pygame.image.load('../pics/cat/sitting.png').convert_alpha()
+        #self.image = pygame.image.load('../pics/cat/sitting.png').convert_alpha()
+        self.image = pygame.image.load(path.join('..', 'pics', 'cat', 'sitting.png')).convert_alpha()
         self.image = pygame.transform.scale(self.image, (150, 150))
         self.rect = self.image.get_rect(midbottom=(850, 300))
         self.to_show = 0  # 0 - stop, 1 -> hide, -1 -> show up
