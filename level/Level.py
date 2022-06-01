@@ -41,6 +41,12 @@ class Level:
                 for bullet in bullets:
                     if bullet.weapon.owner != shield.owner:
                         shield.redirect_bullet(bullet)
+        obstacles_collide = pygame.sprite.groupcollide(self.bullets, self.obstacle, False, False)
+        for bullet, obstacles in obstacles_collide.items():
+            for obstacle in obstacles:
+                if bullet.weapon.owner != obstacle:
+                    bullet.kill()
+                    continue
             
 
 
