@@ -1,3 +1,5 @@
+import os
+
 WINDOW_RESOLUTION = (800, 600)
 BACKGROUND_COLOR = (0, 0, 0)
 FPS = 60
@@ -6,21 +8,21 @@ ENTITY_SPEED_FADE = 0.8
 
 PLAYER_ABS_ACCEL = 1 
 PLAYER_MAX_SPEED = 5
-PLAYER_SPRITE_PATH = "pics/red_square.jpg"
+PLAYER_SPRITE_PATH = os.path.join("pics", "red_square.jpg")
 PLAYER_HEALTH = 100
 
 BASE_ENEMY_ABS_ACCEL = 1
 BASE_ENEMY_MAX_SPEED = 3
-BASE_ENEMY_SPRITE_PATH = "pics/blue_rect.png"
+BASE_ENEMY_SPRITE_PATH = os.path.join("pics", "blue_rect.png")
 BASE_ENEMY_HEALTH = 10
 
 WEAPON_COOLDOWN = 0.1
 BULLET_SPEED = 10
 BULLET_DAMAGE = 1
 BULLET_RANGE = 500
-BULLET_SPRITE_PATH = "pics/green_square.png"
+BULLET_SPRITE_PATH = os.path.join("pics", "green_square.png")
 
-SHIELD_SPRITE_PATH = "pics/white_rect.png"
+SHIELD_SPRITE_PATH = os.path.join("pics", "white_rect.png")
 SHIELD_DISTANCE = 100
 SHIELD_COOLDOWN = 0.5
 SHIELD_ALPHA = 90
