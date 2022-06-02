@@ -6,6 +6,9 @@ FPS = 60
 
 ENTITY_SPEED_FADE = 0.8
 
+SOLID_PATH = os.path.join("pics", "red_square.jpg")
+
+
 PLAYER_ABS_ACCEL = 1 
 PLAYER_MAX_SPEED = 5
 PLAYER_SPRITE_PATH = os.path.join("pics", "red_square.jpg")
@@ -15,6 +18,15 @@ BASE_ENEMY_ABS_ACCEL = 1
 BASE_ENEMY_MAX_SPEED = 3
 BASE_ENEMY_SPRITE_PATH = os.path.join("pics", "blue_rect.png")
 BASE_ENEMY_HEALTH = 10
+BASE_ENEMY_ATTACK_RADIUS = 150
+BASE_ENEMY_NOTICE_RADIUS = 300
+
+TURRET_HEALTH = 20
+TURRET_ATTACK_RADIUS = 200
+TURRET_NOTICE_RADIUS = 400
+TURRET_PATH = os.path.join("pics", "red_square.jpg")
+
+
 
 WEAPON_COOLDOWN = 0.1
 BULLET_SPEED = 10

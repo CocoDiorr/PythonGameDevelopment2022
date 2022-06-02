@@ -28,5 +28,5 @@ class Weapon:
                 speed = angle * (self.bullet_speed + angle.dot(self.owner.speed))   # added speed from owner, but in direction of shoot
             else:
                 speed = angle * self.bullet_speed
-            self.level.bullets.add(Bullet(self.level, (self.level.bullets), self.bullet_img_path, self.owner.pos, speed, self.bullet_damage, self.bullet_range, self))
+            self.level.bullets.add(Bullet(self.level, (self.level.bullets,), self.bullet_img_path, self.owner.pos, speed, self.bullet_damage, self.bullet_range, self))
 
