@@ -6,6 +6,7 @@ from objects.main.Solid import Solid
 from objects.weapon.Weapon import Weapon
 from objects.enemy.Enemy import Enemy
 from objects.enemy.Turret import Turret
+from objects.enemy.FastShooter import FastShooter
 from config.Config import *
 
 
@@ -22,8 +23,7 @@ class Level:
     def create_map(self):
         self.player = Player(self, (self.visible, self.entity,), (50, 50))
         Solid(self, (self.visible, self.obstacle,), SOLID_PATH, (400, 400))
-        turret = Turret(self, (self.visible, self.obstacle, self.entity), TURRET_PATH, (400, 500), TURRET_HEALTH, TURRET_ATTACK_RADIUS, TURRET_NOTICE_RADIUS)
-        turret.equip_weapon(Weapon(self, turret, 0.5 * BULLET_SPEED, BULLET_DAMAGE, BULLET_RANGE, BULLET_SPRITE_PATH, 4 * WEAPON_COOLDOWN))
+        turret = Turret(self, (400, 500))
         self.enemy = Enemy(self, (self.visible, self.entity), BASE_ENEMY_SPRITE_PATH, (400, 50), BASE_ENEMY_ABS_ACCEL, BASE_ENEMY_MAX_SPEED, BASE_ENEMY_HEALTH, BASE_ENEMY_ATTACK_RADIUS, BASE_ENEMY_NOTICE_RADIUS)
         self.enemy.equip_weapon(Weapon(self, self.enemy, BULLET_SPEED, BULLET_DAMAGE, BULLET_RANGE, BULLET_SPRITE_PATH, 4 * WEAPON_COOLDOWN))
 
