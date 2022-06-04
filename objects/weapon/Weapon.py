@@ -5,6 +5,7 @@ import pygame.rect
 from config.Config import *
 from objects.weapon.Bullet import Bullet
 
+
 class Weapon:
     def __init__(self, level, owner, bullet_speed, bullet_damage, bullet_range, bullet_img_path, cooldown): # later <bullet_speed, ..., bullet_img_path> change to prepared Bullet examplar or to fabric
         self.level = level
