@@ -12,7 +12,7 @@ SOLID_PATH = os.path.join("pics", "red_square.jpg")
 PLAYER_ABS_ACCEL = 1 
 PLAYER_MAX_SPEED = 5
 PLAYER_SPRITE_PATH = os.path.join("pics", "red_square.jpg")
-PLAYER_HEALTH = 10
+PLAYER_HEALTH = 100
 
 BASE_ENEMY_ABS_ACCEL = 1
 BASE_ENEMY_MAX_SPEED = 3
@@ -57,3 +57,10 @@ COLD_STEEL_SPRITE_PATH = os.path.join("pics", "white_rect.png")
 COLD_STEEL_DISTANCE = 100
 COLD_STEEL_COOLDOWN = 0.5
 COLD_STEEL_ALPHA = 90
+COLD_STEEL_DAMAGE = 1
+
+SWORD_SPRITE_PATH = os.path.join("pics", "white_rect.png")
+SWORD_DISTANCE = 30
+SWORD_COOLDOWN = 0.5
+SWORD_ALPHA = 90
+SWORD_DAMAGE = 1

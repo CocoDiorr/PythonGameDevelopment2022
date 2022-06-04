@@ -8,6 +8,7 @@ from objects.weapon.ColdSteel import ColdSteel
 from objects.enemy.Enemy import Enemy
 from objects.enemy.Turret import Turret
 from objects.enemy.FastShooter import FastShooter
+from objects.enemy.Swordsman import Swordsman
 from config.Config import *
 
 
@@ -26,7 +27,7 @@ class Level:
         self.player = Player(self, (self.visible, self.entity,), (50, 50))
         Solid(self, (self.visible, self.obstacle,), SOLID_PATH, (400, 400))
         turret = Turret(self, (400, 500))
-        self.enemy = Enemy(self, (self.visible, self.entity), BASE_ENEMY_SPRITE_PATH, (400, 50), BASE_ENEMY_ABS_ACCEL, BASE_ENEMY_MAX_SPEED, BASE_ENEMY_HEALTH, BASE_ENEMY_ATTACK_RADIUS, BASE_ENEMY_NOTICE_RADIUS)
+        swordsman = Swordsman(self, (400, 50))
         fast_shooter = FastShooter(self, (400, 150))
 
     def bullets_update(self):

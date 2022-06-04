@@ -9,6 +9,7 @@ from objects.weapon.Bullet import Bullet
 from objects.weapon.Weapon import Weapon
 from objects.weapon.Shield import Shield
 
+
 class Player(Entity):
     def __init__(self, level, groups, position):
         super().__init__(level, groups, PLAYER_SPRITE_PATH, position, PLAYER_ABS_ACCEL, PLAYER_MAX_SPEED, PLAYER_HEALTH) # move constants from config to __init__ (to create player with certain health, weapon, etc, in new location)

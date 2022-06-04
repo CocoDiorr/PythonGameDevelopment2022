@@ -1,5 +1,3 @@
-from config.Config import *
-from objects.weapon.Bullet import Bullet
 from objects.weapon.MeleeWeapon import MeleeWeapon
 
 
@@ -7,7 +5,6 @@ class ColdSteel(MeleeWeapon):
     def __init__(self, level, groups, image_path, owner, owner_distance, cooldown, damage):
         super().__init__(level, groups, image_path, owner, owner_distance, cooldown)
         self.damage = damage
-        level.cold_steels.add(self)
         self.uses = [False, False, False]
 
     def hit(self):
