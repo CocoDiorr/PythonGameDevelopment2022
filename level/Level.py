@@ -15,7 +15,7 @@ class Level:
     def __init__(self):
 
         # settings
-        self.game_paused = False
+        self.game_state = "active"
 
         self.display_surface = pygame.display.get_surface()
         self.visible = pygame.sprite.Group()
@@ -24,7 +24,7 @@ class Level:
         self.bullets = pygame.sprite.Group()
 
         # Companion
-        self.companion = Companion()
+        self.companion = Companion(screen=self.display_surface)
 
         #self.events = []
         self.create_map()
@@ -51,12 +51,19 @@ class Level:
                     bullet.kill()
                     entity.get_hit(bullet.damage)
 
-
+    def companion_call(self):
+        if self.game_state != "companion":
+            self.game_state = "companion"
+        else:
+            self.game_state = "active"
 
 
     def run(self, dt):
         self.visible.draw(self.display_surface)
         self.bullets.draw(self.display_surface)
-        self.visible.update(dt)
+        if self.game_state == "active":
+            self.visible.update(dt)
+        elif self.game_state == "companion":
+            self.companion.display()
         # self.enemy.enemy_update(self.player)
         self.bullets_update()

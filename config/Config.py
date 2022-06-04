@@ -1,7 +1,7 @@
 import os
 
 
-WINDOW_RESOLUTION = (800, 600)
+WINDOW_RESOLUTION = (1280, 720)
 BACKGROUND_COLOR = (0, 0, 0)
 FPS = 60
 
@@ -22,3 +22,11 @@ BULLET_SPEED = 10
 BULLET_DAMAGE = 1
 BULLET_RANGE = 500
 BULLET_SPRITE_PATH = os.path.join("pics", "green_square.png")
+
+COMPANION_SIZE = (200, 200)
+COMPANION_IMAGE = os.path.join("pics", "cat","companion.png")
+COMPANION_FONT = os.path.join("fonts", "Pixeltype.ttf")
+COMPANION_FONT_SIZE = 36
+COMPANION_COLORS = {"COMPANION_MAIN_COLOR": (219, 153, 90),\
+                    "COMPANION_OUTLINE_COLOR": (101, 66, 54),\
+                    "COMPANION_FONT_COLOR": (0, 0, 0)}

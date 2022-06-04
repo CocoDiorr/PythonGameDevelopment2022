@@ -19,6 +19,9 @@ class Game:
             for event in events:
                 if event.type == pygame.QUIT:
                     self.running = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_h:
+                        self.level.companion_call()
 
                 #if event.type == pygame.KEYDOWN and event.key == pygame.K_h:
 
