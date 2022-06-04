@@ -7,22 +7,51 @@ FPS = 60
 
 ENTITY_SPEED_FADE = 0.8
 
+# UI
+UI_SETTINGS = {"BAR_HEIGHT": 20,\
+               "HEALTH_BAR_WIDTH": 200,\
+               "ENERGY_BAR_WIDTH": 140,\
+               "UI_FONT": os.path.join("fonts", "kongtext.ttf"),\
+               "UI_FONT_SIZE": 18,\
+               "UI_COLORS": {
+                             "BG_COLOR": "#222222",\
+                             "BORDER_COLOR": "#111111",\
+                             "HEALTH": "red",\
+                             "ENERGY": "blue"
+                             }
+               }
+# BAR_HEIGHT = 20
+# HEALTH_BAR_WIDTH = 200
+# ENERGY_BAR_WIDTH = 140
+# UI_FONT = os.path.join("fonts", "kongtext.ttf")
+# UI_FONT_SIZE = 18
+# UI_COLORS = {"BG_COLOR": "#222222",\
+#              "BORDER_COLOR": "#111111"}
+
+
+# Player
 PLAYER_ABS_ACCEL = 1
 PLAYER_MAX_SPEED = 5
 PLAYER_SPRITE_PATH = os.path.join("pics", "red_square.jpg")
+PLAYER_MAX_HEALTH = 100
+PLAYER_MAX_ENERGY = 250
 PLAYER_HEALTH = 100
+PLAYER_ENERGY = 250
 
+# Enemy
 BASE_ENEMY_ABS_ACCEL = 1
 BASE_ENEMY_MAX_SPEED = 3
 BASE_ENEMY_SPRITE_PATH = os.path.join("pics", "blue_rect.png")
 BASE_ENEMY_HEALTH = 10
 
+# Weapons
 WEAPON_COOLDOWN = 0.1
 BULLET_SPEED = 10
 BULLET_DAMAGE = 1
 BULLET_RANGE = 500
 BULLET_SPRITE_PATH = os.path.join("pics", "green_square.png")
 
+# Companion
 COMPANION_SIZE = (200, 200)
 COMPANION_IMAGE = os.path.join("pics", "cat","companion.png")
 COMPANION_FONT = os.path.join("fonts", "kongtext.ttf")

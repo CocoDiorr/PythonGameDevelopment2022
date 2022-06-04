@@ -8,6 +8,7 @@ from objects.weapon.Weapon import Weapon
 from objects.enemy.Enemy import Enemy
 from objects.enemy.Turret import Turret
 from companion.Companion import Companion
+from ui.UI import UI
 from config.Config import *
 
 
@@ -25,6 +26,9 @@ class Level:
 
         # Companion
         self.companion = Companion(screen=self.display_surface, level=self)
+
+        # User Interface
+        self.ui = UI()
 
         #self.events = []
         self.create_map()
@@ -66,4 +70,5 @@ class Level:
             self.bullets_update()
         elif self.game_state == "companion":
             self.companion.display()
+        self.ui.display(self.player)
         # self.enemy.enemy_update(self.player)
