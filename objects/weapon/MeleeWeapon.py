@@ -3,7 +3,6 @@ import pygame.math
 import pygame.sprite
 import pygame.rect
 from config.Config import *
-from objects.weapon.Bullet import Bullet
 
 
 class MeleeWeapon(pygame.sprite.Sprite):
@@ -17,18 +16,28 @@ class MeleeWeapon(pygame.sprite.Sprite):
         self.owner_distance = owner_distance
         self.last_use = cooldown
         self.cooldown = cooldown
-        self.use = False
+
+        # check order of Level.bullets_update and Level.visible.update - self.uses is necessary because of this order
+        self.uses = [False, False]
 
     def update(self, dt):
         self.last_use += dt
         self.move()
+        self.update_uses()
 
     def move(self):
         self.image = pygame.transform.rotate(self.start_image, self.owner.look_angle.angle_to(pygame.math.Vector2(0, 1)))
-        if not self.use:
+        if not any(self.uses):
             self.image.set_alpha(SHIELD_ALPHA)  # later add animation
         self.rect = self.image.get_rect()
         self.pos = self.owner.pos + self.owner.look_angle * self.owner_distance
         self.rect.center = self.pos
+
+    def update_uses(self):
+        if all(self.uses):
+            self.uses = [False for _ in self.uses]
+        elif any(self.uses):
+            false_index = self.uses.index(False)
+            self.uses[false_index] = True
 
 

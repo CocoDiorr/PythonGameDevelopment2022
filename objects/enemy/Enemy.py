@@ -1,5 +1,6 @@
 import pygame
 from objects.main.Entity import Entity
+from objects.weapon.Weapon import Weapon
 from config.Config import *
 
 
@@ -45,5 +46,8 @@ class Enemy(Entity):
             self.look_angle = self.get_player_direction()
             self.move()
             if self.status == "attack":
-                self.weapon.spawn_bullet(self.look_angle)
-                self.weapon.update(dt)
+                if isinstance(self.weapon, Weapon):
+                    self.weapon.spawn_bullet(self.look_angle)
+                else:
+                    self.weapon.hit()
+            self.weapon.update(dt)
