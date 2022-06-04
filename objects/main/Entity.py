@@ -71,3 +71,4 @@ class Entity(pygame.sprite.Sprite):
         self.health -= damage
         if self.health <= 0:
             self.kill()
+

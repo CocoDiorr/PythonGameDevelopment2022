@@ -18,6 +18,7 @@ class Level:
         self.entity = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
         self.shield = pygame.sprite.Group()
+        # self.melee_weapons = pygame.sprite.Group()
         self.create_map()
 
     def create_map(self):
@@ -30,27 +31,33 @@ class Level:
 
     def bullets_update(self):
         self.bullets.update()
+
         entity_collide = pygame.sprite.groupcollide(self.bullets, self.entity, False, False)
         for bullet, entities in entity_collide.items():
             for entity in entities:
-                if entity != bullet.weapon.owner:  # mb later change on enemy group and player
+                if entity != bullet.weapon.owner:  # mb later change on enemy group and playefr
                     bullet.kill()
                     entity.get_hit(bullet.damage)
+
+        # melee_weapon_collide = pygame.sprite.groupcollide(self.melee_weapon, self.entity, False, False)
+        # for entity, melee_weapon in melee_weapon_collide.items():
+        #     for entity in entities:
+        #         if entity != melee_weapon:
+        #             entity.get_hit(bullet.damage)
+
         shield_collide = pygame.sprite.groupcollide(self.shield, self.bullets, False, False)
         for shield, bullets in shield_collide.items():
-            if shield.reflect:
+            if shield.use:
                 for bullet in bullets:
                     if bullet.weapon.owner != shield.owner:
                         shield.redirect_bullet(bullet)
+
         obstacles_collide = pygame.sprite.groupcollide(self.bullets, self.obstacle, False, False)
         for bullet, obstacles in obstacles_collide.items():
             for obstacle in obstacles:
                 if bullet.weapon.owner != obstacle:
                     bullet.kill()
                     continue
-            
-
-
 
     def run(self, dt):
         self.visible.draw(self.display_surface)

@@ -42,8 +42,8 @@ class Enemy(Entity):
         self.status = self.get_status()
         if self.status in ("move", "attack"):
             self.accel = self.get_player_direction()
+            self.look_angle = self.get_player_direction()
             self.move()
             if self.status == "attack":
-                self.look_angle = self.get_player_direction()
                 self.weapon.spawn_bullet(self.look_angle)
                 self.weapon.update(dt)
