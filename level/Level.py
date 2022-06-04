@@ -24,7 +24,7 @@ class Level:
         self.bullets = pygame.sprite.Group()
 
         # Companion
-        self.companion = Companion(screen=self.display_surface)
+        self.companion = Companion(screen=self.display_surface, level=self)
 
         #self.events = []
         self.create_map()
@@ -63,7 +63,7 @@ class Level:
         self.bullets.draw(self.display_surface)
         if self.game_state == "active":
             self.visible.update(dt)
+            self.bullets_update()
         elif self.game_state == "companion":
             self.companion.display()
         # self.enemy.enemy_update(self.player)
-        self.bullets_update()

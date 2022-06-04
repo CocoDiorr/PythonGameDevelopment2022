@@ -25,8 +25,14 @@ BULLET_SPRITE_PATH = os.path.join("pics", "green_square.png")
 
 COMPANION_SIZE = (200, 200)
 COMPANION_IMAGE = os.path.join("pics", "cat","companion.png")
-COMPANION_FONT = os.path.join("fonts", "Pixeltype.ttf")
-COMPANION_FONT_SIZE = 36
-COMPANION_COLORS = {"COMPANION_MAIN_COLOR": (219, 153, 90),\
-                    "COMPANION_OUTLINE_COLOR": (101, 66, 54),\
-                    "COMPANION_FONT_COLOR": (0, 0, 0)}
+COMPANION_FONT = os.path.join("fonts", "kongtext.ttf")
+COMPANION_FONT_SIZE = 20
+COMPANION_COLORS = {"MAIN_COLOR": (219, 153, 90),\
+                    "OUTLINE_COLOR": (101, 66, 54),\
+                    "GRADIENT": (130, 85, 70),\
+                    "FONT_COLOR": (0, 0, 0)}
+COMPANION_BUTTON = {"FONT": os.path.join("fonts", "kongtext.ttf"),\
+                    "FONT_SIZE": 40,\
+                    "FONT_COLOR": (8, 76, 97),\
+                    "MAIN_COLOR": (224, 251, 252),\
+                    "OUTLINE_COLOR": (152, 193, 217)}
