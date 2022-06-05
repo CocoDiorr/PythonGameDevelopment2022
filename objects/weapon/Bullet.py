@@ -3,6 +3,7 @@ import pygame.math
 import pygame.sprite
 from config.Config import *
 
+
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, level, groups, image_path, position, speed: pygame.math.Vector2, damage, ran, weapon):
         super().__init__(groups)
@@ -16,6 +17,9 @@ class Bullet(pygame.sprite.Sprite):
         self.range = ran
         self.weapon = weapon
 
+    def set_speed(self, new_speed: pygame.math.Vector2):
+        self.speed = new_speed
+
     def move(self):
         self.pos += self.speed
         self.rect.center = self.pos
@@ -25,4 +29,3 @@ class Bullet(pygame.sprite.Sprite):
         self.move()
         if self.range <= 0:
             self.kill()
-

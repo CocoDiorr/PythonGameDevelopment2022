@@ -5,6 +5,7 @@ import pygame.rect
 from config.Config import *
 from objects.weapon.Bullet import Bullet
 
+
 class Weapon:
     def __init__(self, level, owner, bullet_speed, bullet_damage, bullet_range, bullet_img_path, cooldown): # later <bullet_speed, ..., bullet_img_path> change to prepared Bullet examplar or to fabric
         self.level = level
@@ -15,7 +16,7 @@ class Weapon:
         self.bullet_img_path = bullet_img_path
         self.last_shoot = cooldown
         self.cooldown = cooldown
-    
+
     def update(self, dt):
         self.last_shoot += dt
 
@@ -28,5 +29,4 @@ class Weapon:
                 speed = angle * (self.bullet_speed + angle.dot(self.owner.speed))   # added speed from owner, but in direction of shoot
             else:
                 speed = angle * self.bullet_speed
-            self.level.bullets.add(Bullet(self.level, (self.level.bullets), self.bullet_img_path, self.owner.pos, speed, self.bullet_damage, self.bullet_range, self))
-
+            self.level.bullets.add(Bullet(self.level, (self.level.bullets,), self.bullet_img_path, self.owner.pos, speed, self.bullet_damage, self.bullet_range, self))
