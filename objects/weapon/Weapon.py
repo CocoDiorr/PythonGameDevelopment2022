@@ -16,7 +16,7 @@ class Weapon:
         self.bullet_img_path = bullet_img_path
         self.last_shoot = cooldown
         self.cooldown = cooldown
-    
+
     def update(self, dt):
         self.last_shoot += dt
 
@@ -30,4 +30,3 @@ class Weapon:
             else:
                 speed = angle * self.bullet_speed
             self.level.bullets.add(Bullet(self.level, (self.level.bullets,), self.bullet_img_path, self.owner.pos, speed, self.bullet_damage, self.bullet_range, self))
-

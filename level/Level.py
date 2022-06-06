@@ -1,3 +1,4 @@
+import os
 import pygame
 import pygame.sprite
 import pygame.math
@@ -9,18 +10,34 @@ from objects.enemy.Enemy import Enemy
 from objects.enemy.Turret import Turret
 from objects.enemy.FastShooter import FastShooter
 from objects.enemy.Swordsman import Swordsman
+from companion.Companion import Companion
+from ui.UI import UI
 from config.Config import *
 
 
 class Level:
     def __init__(self):
+
+        # settings
+        self.game_state = "active"
+
         self.display_surface = pygame.display.get_surface()
         self.visible = pygame.sprite.Group()
         self.obstacle = pygame.sprite.Group()
         self.entity = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
+
+
+        # Companion
+        self.companion = Companion(screen=self.display_surface, level=self)
+
+        # User Interface
+        self.ui = UI()
+
+        #self.events = []
         self.shield = pygame.sprite.Group()
         self.cold_steels = pygame.sprite.Group()
+
         self.create_map()
 
     def create_map(self):
@@ -61,10 +78,19 @@ class Level:
                     bullet.kill()
                     continue
 
+    def companion_call(self):
+        if self.game_state != "companion":
+            self.game_state = "companion"
+        else:
+            self.game_state = "active"
+
     def run(self, dt):
         self.visible.draw(self.display_surface)
         self.bullets.draw(self.display_surface)
-        self.visible.update(dt)
-        self.bullets_update()
-
-
+        if self.game_state == "active":
+            self.visible.update(dt)
+            self.bullets_update()
+        elif self.game_state == "companion":
+            self.companion.display()
+        self.ui.display(self.player)
+        # self.enemy.enemy_update(self.player)

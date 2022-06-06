@@ -5,7 +5,7 @@ from config.Config import *
 
 
 class Entity(pygame.sprite.Sprite):
-    def __init__(self, level, groups, image_path, position, abs_accel, max_speed, health, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
+    def __init__(self, level, groups, image_path, position, abs_accel, max_speed, health, energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
         super().__init__(groups)
         self.level = level
         self.image = pygame.image.load(image_path).convert_alpha()
@@ -18,6 +18,7 @@ class Entity(pygame.sprite.Sprite):
         self.abs_accel = abs_accel
         self.speed_fade = ENTITY_SPEED_FADE
         self.health = health
+        self.energy = energy
         if look_angle.length() == 0:
             look_angle = pygame.math.Vector2(1, 0)
         self.look_angle = look_angle.normalize()
@@ -41,7 +42,7 @@ class Entity(pygame.sprite.Sprite):
         self.pos.x += self.speed.x
         self.rect.center = self.pos
         self.collision('horizontal')
-        
+
         self.pos.y += self.speed.y
         self.rect.center = self.pos
         self.collision('vertical')
@@ -68,7 +69,6 @@ class Entity(pygame.sprite.Sprite):
                     self.pos = pygame.math.Vector2(self.rect.center)
 
     def get_hit(self, damage):
-        self.health -= damage
-        if self.health <= 0:
+        self.health = max(self.health - damage, 0)
+        if self.health == 0:
             self.kill()
-

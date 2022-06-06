@@ -29,4 +29,3 @@ class Bullet(pygame.sprite.Sprite):
         self.move()
         if self.range <= 0:
             self.kill()
-

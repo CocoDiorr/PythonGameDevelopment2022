@@ -1,19 +1,38 @@
 import os
 
-WINDOW_RESOLUTION = (800, 600)
-BACKGROUND_COLOR = (0, 0, 0)
+
+WINDOW_RESOLUTION = (1280, 720)
+BACKGROUND_COLOR = (255, 255, 255)
 FPS = 60
 
 ENTITY_SPEED_FADE = 0.8
 
-SOLID_PATH = os.path.join("pics", "red_square.jpg")
+# UI
+UI_SETTINGS = {"BAR_HEIGHT": 20,\
+               "HEALTH_BAR_WIDTH": 200,\
+               "ENERGY_BAR_WIDTH": 140,\
+               "UI_FONT": os.path.join("fonts", "kongtext.ttf"),\
+               "UI_FONT_SIZE": 18,\
+               "UI_COLORS": {
+                             "BG_COLOR": "#222222",\
+                             "BORDER_COLOR": "#111111",\
+                             "HEALTH": "red",\
+                             "ENERGY": "blue"
+                             }
+               }
 
 
-PLAYER_ABS_ACCEL = 1 
+# Player
+PLAYER_ABS_ACCEL = 1
 PLAYER_MAX_SPEED = 5
 PLAYER_SPRITE_PATH = os.path.join("pics", "red_square.jpg")
+PLAYER_MAX_HEALTH = 100
+PLAYER_MAX_ENERGY = 250
 PLAYER_HEALTH = 100
+PLAYER_ENERGY = 250
+SOLID_PATH = os.path.join("pics", "red_square.jpg")
 
+# Enemy
 BASE_ENEMY_ABS_ACCEL = 1
 BASE_ENEMY_MAX_SPEED = 3
 BASE_ENEMY_SPRITE_PATH = os.path.join("pics", "blue_rect.png")
@@ -45,6 +64,21 @@ BULLET_SPEED = 10
 BULLET_DAMAGE = 1
 BULLET_RANGE = 500
 BULLET_SPRITE_PATH = os.path.join("pics", "green_square.png")
+
+COMPANION_SIZE = (200, 200)
+COMPANION_IMAGE = os.path.join("pics", "cat", "companion.png")
+COMPANION_FONT = os.path.join("fonts", "kongtext.ttf")
+COMPANION_FONT_SIZE = 20
+COMPANION_COLORS = {"MAIN_COLOR": (219, 153, 90),\
+                    "OUTLINE_COLOR": (101, 66, 54),\
+                    "GRADIENT": (130, 85, 70),\
+                    "FONT_COLOR": (0, 0, 0)}
+COMPANION_BUTTON = {"FONT": os.path.join("fonts", "kongtext.ttf"),\
+                    "FONT_SIZE": 40,\
+                    "FONT_COLOR": (8, 76, 97),\
+                    "MAIN_COLOR": (224, 251, 252),\
+                    "OUTLINE_COLOR": (152, 193, 217)}
+
 
 SHIELD_SPRITE_PATH = os.path.join("pics", "white_rect.png")
 SHIELD_DISTANCE = 100
