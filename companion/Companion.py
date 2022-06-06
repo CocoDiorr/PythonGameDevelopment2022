@@ -40,7 +40,8 @@ class Companion(pygame.sprite.Sprite):
 
         # message textbox
         #self.msg_box = pygame.Rect(self.rect.left - 200, self.rect.top + 5, self.rect.w, self.rect.h / 2)
-        self.hi_msg = "Hi, haven't seen you in a while ! <3"
+        self.hi_msg_1 = "Hi, haven't seen you in a while ! <3"
+        self.hi_msg_2 = "Do you want a joke ?"
 
         # companion cooldown
         self.call = None
@@ -116,18 +117,20 @@ class Companion(pygame.sprite.Sprite):
 
     def greeting(self, screen):
         #self.show_msg(self.screen, self.hi_msg)
-        text_surface = self.font.render(self.hi_msg, 0, COMPANION_COLORS["FONT_COLOR"])
+        text_surface_1 = self.font.render(self.hi_msg_1, 0, COMPANION_COLORS["FONT_COLOR"])
+        text_surface_2 = self.font.render(self.hi_msg_2, 0, COMPANION_COLORS["FONT_COLOR"])
 
-        greet_rect = pygame.Rect(self.fill_box.left - text_surface.get_size()[0] - 20,\
+        greet_rect = pygame.Rect(self.fill_box.left - text_surface_1.get_size()[0] - 20,\
                                  self.fill_box.top,\
-                                 text_surface.get_size()[0] + 30,\
+                                 text_surface_1.get_size()[0] + 30,\
                                  self.fill_box.height)
         gradient_rect = pygame.Rect.inflate(greet_rect, -5, -5)
 
         pygame.draw.rect(screen, COMPANION_COLORS["MAIN_COLOR"], greet_rect, 0, 20)
         pygame.draw.rect(screen, COMPANION_COLORS["OUTLINE_COLOR"], greet_rect, 10, 20)
         pygame.draw.rect(self.screen, COMPANION_COLORS["GRADIENT"], gradient_rect, 3, 20)
-        screen.blit(text_surface, (greet_rect.left + 15, greet_rect.top + 20))
+        screen.blit(text_surface_1, (greet_rect.left + 15, greet_rect.top + 20))
+        screen.blit(text_surface_2, (greet_rect.left + 15, greet_rect.top + 30 + text_surface_1.get_size()[1]))
 
         yes = Button((greet_rect.left + greet_rect.w * 1 / 4, greet_rect.top + greet_rect.h * 9 / 16), "Yes", self.yes_button)
         no = Button((greet_rect.left + greet_rect.w * 3 / 5, greet_rect.top + greet_rect.h * 9 / 16), "No", self.no_button, (self.level,))
@@ -149,81 +152,3 @@ class Companion(pygame.sprite.Sprite):
             self.greeting(self.screen)
 
         self.screen.blit(self.image, self.rect)
-
-    #def show_msg(self, msg):
-
-
-    # def move(self):
-    #     """Makes the cat move."""
-    #     self.rect.x += 4 * self.to_move
-    #     if self.rect.x < 600 or self.rect.x > 850:
-    #         self.to_move = 0
-        #self.stop()
-
-    # def stop(self):
-    #     """Stop the cat."""
-    #     if self.rect.x < 680 or self.rect.x > 850:
-    #         self.to_move = 0
-
-    # def handle_event(self, event):
-    #     """
-    #     Handling the 'h' key pressing
-    #     If the 'h' key is pressed then:
-    #         - if to_show == 0 or 1 -> to_show = -1 and the cat shows up
-    #         - if to_show == -1 -> to_show = 1 and the cat hides
-    #     """
-    #     if event.type == pygame.KEYDOWN and event.key == pygame.K_h:
-    #         if self.to_show == 1 or self.to_show == 0:
-    #             self.to_show = -1
-    #             self.to_move = -1
-    #         elif self.to_show == -1:
-    #             self.to_show = 1
-    #             self.to_move = 1
-
-    # def draw(self, screen):
-    #     """Display cat on the screen."""
-    #     screen.blit(self.image, self.rect)
-
-
-
-
-# class PopUpMessage(pygame.sprite.Sprite):
-#     def __init__(self, text_generator, companion):
-#         """
-#         text_generator -> ipse dixit generator
-#         companion -> rect to catch up to
-#         """
-#         self.generator = text_generator
-#         self.dialogue_box = pygame.image.load('../pics/text_box/box.png').convert_alpha()
-#         self.rect = self.dialogue_box.get_rect(bottomright = (companion.rect.topleft))
-
-
-
-
-# pygame.init()
-# screen = pygame.display.set_mode((800, 400))
-# clock = pygame.time.Clock()
-
-# Companion
-#companion = Companion()
-
-
-# Bg
-# sky_surface = pygame.image.load('../pics/Sky.png').convert()
-#
-# while True:
-#     for event in pygame.event.get():
-#         if event.type == pygame.QUIT:
-#             pygame.quit()
-#             exit()
-#
-#         companion.handle_event(event)
-#
-#     screen.blit(sky_surface, (0, 0))
-#     companion.draw(screen)
-#     companion.move()
-#
-#
-#
-#     pygame.display.update()
-#     clock.tick(60)
