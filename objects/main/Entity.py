@@ -69,6 +69,6 @@ class Entity(pygame.sprite.Sprite):
                     self.pos = pygame.math.Vector2(self.rect.center)
 
     def get_hit(self, damage):
-        self.health -= damage
-        if self.health <= 0:
+        self.health = max(self.health - damage, 0)
+        if self.health == 0:
             self.kill()
