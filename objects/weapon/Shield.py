@@ -1,3 +1,4 @@
+import pygame
 from config.Config import *
 from objects.weapon.Bullet import Bullet
 from objects.weapon.Weapon import Weapon

@@ -26,7 +26,7 @@ class Weapon(pygame.sprite.Sprite):
         self.update_uses()
 
     def move(self):
-        self.image = pygame.transform.rotate(self.start_image, self.owner.look_angle.angle_to(pygame.math.Vector2(0, 1)))
+        self.image = pygame.transform.rotate(self.start_image, self.owner.look_angle.angle_to(pygame.math.Vector2(1, 0)))
         if not any(self.uses):
             self.image.set_alpha(SHIELD_ALPHA)  # later add animation
         self.rect = self.image.get_rect()
