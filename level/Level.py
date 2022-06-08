@@ -4,7 +4,7 @@ import pygame.sprite
 import pygame.math
 from objects.friendly.Player import Player
 from objects.main.Solid import Solid
-from objects.weapon.Weapon import Weapon
+from objects.weapon.ShootingWeapon import Weapon
 from objects.weapon.ColdSteel import ColdSteel
 from objects.enemy.Enemy import Enemy
 from objects.enemy.Turret import Turret

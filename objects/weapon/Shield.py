@@ -1,9 +1,9 @@
 from config.Config import *
 from objects.weapon.Bullet import Bullet
-from objects.weapon.MeleeWeapon import MeleeWeapon
+from objects.weapon.Weapon import Weapon
 
 
-class Shield(MeleeWeapon):
+class Shield(Weapon):
     def __init__(self, level, groups, image_path, owner, owner_distance, cooldown):
         # maybe change to const path, cooldown
         super().__init__(level, groups, image_path, owner, owner_distance, cooldown)

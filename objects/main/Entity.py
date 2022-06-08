@@ -72,3 +72,8 @@ class Entity(pygame.sprite.Sprite):
         self.health = max(self.health - damage, 0)
         if self.health == 0:
             self.kill()
+            if "weapon" in self.__dict__:
+                self.weapon.kill()
+            if "shield" in self.__dict__:
+                self.shield.kill()
+            # add for player weapons
