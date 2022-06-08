@@ -49,6 +49,7 @@ class Companion(pygame.sprite.Sprite):
 
 
     def input(self):
+        """ """
         keys = pygame.key.get_pressed()
 
 
@@ -61,12 +62,19 @@ class Companion(pygame.sprite.Sprite):
 
 
     def cooldown(self):
+        """ """
         if not self.available:
             curr_time = pygame.time.get_ticks()
             if curr_time - self.call >= 500:
                 self.available = True
 
     def show_msg(self, screen, msg):
+        """
+
+        :param screen: 
+        :param msg: 
+
+        """
 
         words = [word.split(' ') for word in msg.splitlines()]
         space = self.font.size(' ')[0]
@@ -108,14 +116,25 @@ class Companion(pygame.sprite.Sprite):
         screen.blits(surfaces)
 
     def yes_button(self):
+        """ """
         pass
 
     def no_button(self,level):
+        """
+
+        :param level: 
+
+        """
         level.game_state = "active"
         #print(level.game_state)
 
 
     def greeting(self, screen):
+        """
+
+        :param screen: 
+
+        """
         #self.show_msg(self.screen, self.hi_msg)
         text_surface_1 = self.font.render(self.hi_msg_1, 0, COMPANION_COLORS["FONT_COLOR"])
         text_surface_2 = self.font.render(self.hi_msg_2, 0, COMPANION_COLORS["FONT_COLOR"])
@@ -139,6 +158,7 @@ class Companion(pygame.sprite.Sprite):
         no.display(screen)
 
     def display(self):
+        """ """
         self.input()
         self.cooldown()
         #if self.to_show:

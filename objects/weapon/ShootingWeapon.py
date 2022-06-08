@@ -8,6 +8,7 @@ from objects.weapon.Weapon import Weapon
 
 
 class ShootingWeapon(Weapon):
+    """ """
     def __init__(self, level, image_path, owner, owner_distance, cooldown, bullet_speed, bullet_damage, bullet_range, bullet_img_path): # later <bullet_speed, ..., bullet_img_path> change to prepared Bullet examplar or to fabric
         super().__init__(level, (level.visible,), image_path, owner, owner_distance, cooldown)
         self.bullet_speed = bullet_speed
@@ -16,9 +17,19 @@ class ShootingWeapon(Weapon):
         self.bullet_img_path = bullet_img_path
 
     def update(self, dt):
+        """
+
+        :param dt: 
+
+        """
         super().update(dt)
 
     def spawn_bullet(self, angle: pygame.math.Vector2):
+        """
+
+        :param angle: pygame.math.Vector2: 
+
+        """
         if self.last_use >= self.cooldown:
             self.last_use = 0
             if angle.length() != 0:

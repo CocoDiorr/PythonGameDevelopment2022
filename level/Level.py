@@ -16,6 +16,7 @@ from config.Config import *
 
 
 class Level:
+    """ """
     def __init__(self):
 
         # settings
@@ -41,6 +42,7 @@ class Level:
         self.create_map()
 
     def create_map(self):
+        """ """
         self.player = Player(self, (self.visible, self.entity,), (50, 50))
         Solid(self, (self.visible, self.obstacle,), SOLID_PATH, (400, 400))
         turret = Turret(self, (400, 500))
@@ -48,6 +50,7 @@ class Level:
         fast_shooter = FastShooter(self, (400, 150))
 
     def bullets_update(self):
+        """ """
         self.bullets.update()
 
         entity_collide = pygame.sprite.groupcollide(self.bullets, self.entity, False, False)
@@ -79,12 +82,18 @@ class Level:
                     continue
 
     def companion_call(self):
+        """ """
         if self.game_state != "companion":
             self.game_state = "companion"
         else:
             self.game_state = "active"
 
     def run(self, dt):
+        """
+
+        :param dt: 
+
+        """
         self.visible.draw(self.display_surface)
         self.bullets.draw(self.display_surface)
         if self.game_state == "active":

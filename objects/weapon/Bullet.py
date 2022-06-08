@@ -5,6 +5,7 @@ from config.Config import *
 
 
 class Bullet(pygame.sprite.Sprite):
+    """ """
     def __init__(self, level, groups, image_path, position, speed: pygame.math.Vector2, damage, ran, weapon):
         super().__init__(groups)
         self.level = level
@@ -20,14 +21,21 @@ class Bullet(pygame.sprite.Sprite):
         self.range = ran
 
     def set_speed(self, new_speed: pygame.math.Vector2):
+        """
+
+        :param new_speed: pygame.math.Vector2: 
+
+        """
         self.speed = new_speed
 
     def move(self):
+        """ """
         self.pos += self.speed
         self.rect.center = self.pos
         self.range -= self.speed.length()
 
     def update(self):
+        """ """
         self.move()
         if self.range <= 0:
             self.kill()

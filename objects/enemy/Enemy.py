@@ -5,6 +5,7 @@ from config.Config import *
 
 
 class Enemy(Entity):
+    """ """
     def __init__(self, level, groups, image_path, position, abs_accel, max_speed, health, attack_radius, notice_radius):
         super().__init__(level, groups, image_path, position, abs_accel, max_speed, health)
         self.sprite_type = "enemy"
@@ -13,6 +14,7 @@ class Enemy(Entity):
         self.notice_radius = notice_radius
 
     def get_player_direction(self):
+        """ """
         enemy_vector = self.pos
         player_vector = self.level.player.pos
 
@@ -23,11 +25,13 @@ class Enemy(Entity):
         return direction
 
     def get_player_distance(self):
+        """ """
         enemy_vector = self.pos
         player_vector = self.level.player.pos
         return (player_vector - enemy_vector).magnitude()
 
     def get_status(self):
+        """ """
         distance = self.get_player_distance()
         if distance <= self.attack_radius:
             return "attack"
@@ -37,9 +41,19 @@ class Enemy(Entity):
             return "idle"
 
     def equip_weapon(self, weapon):
+        """
+
+        :param weapon: 
+
+        """
         self.weapon = weapon
 
     def update(self, dt):
+        """
+
+        :param dt: 
+
+        """
         self.status = self.get_status()
         if self.status in ("move", "attack"):
             self.accel = self.get_player_direction()

@@ -6,6 +6,7 @@ from config.Config import *
 
 
 class Weapon(pygame.sprite.Sprite):
+    """ """
     def __init__(self, level, groups, image_path, owner, owner_distance, cooldown):
         super().__init__(groups)
         self.level = level
@@ -21,11 +22,17 @@ class Weapon(pygame.sprite.Sprite):
         self.uses = [False, False]
 
     def update(self, dt):
+        """
+
+        :param dt: 
+
+        """
         self.last_use += dt
         self.move()
         self.update_uses()
 
     def move(self):
+        """ """
         self.image = pygame.transform.rotate(self.start_image, self.owner.look_angle.angle_to(pygame.math.Vector2(1, 0)))
         if not any(self.uses):
             self.image.set_alpha(SHIELD_ALPHA)  # later add animation
@@ -34,6 +41,7 @@ class Weapon(pygame.sprite.Sprite):
         self.rect.center = self.pos
 
     def update_uses(self):
+        """ """
         if all(self.uses):
             self.uses = [False for _ in self.uses]
         elif any(self.uses):
