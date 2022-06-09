@@ -3,6 +3,7 @@ from config.Config import COMPANION_BUTTON, COMPANION_COLORS
 
 
 class Button:
+    """ """
     def __init__(self, pos, text, action=None, args=None):
         #self.rect = pygame.Rect(l, t, w, h)
         self.x, self.y = pos
@@ -18,12 +19,14 @@ class Button:
 
 
     def hover(self):
+        """ """
         if self.rect.collidepoint(pygame.mouse.get_pos()):
             self.text_rect = pygame.Rect.inflate(self.rect, 20, 20)
         else:
             self.text_rect = self.rect
 
     def click(self):
+        """ """
         if self.rect.collidepoint(pygame.mouse.get_pos()):
             if pygame.mouse.get_pressed()[0] and not self.pressed:
                 if self.args:
@@ -35,6 +38,11 @@ class Button:
                 self.pressed = False
 
     def display(self, surface):
+        """
+
+        :param surface: 
+
+        """
         #self.input()
         self.hover()
         self.click()

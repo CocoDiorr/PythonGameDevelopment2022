@@ -2,6 +2,7 @@ import pygame
 from config.Config import UI_SETTINGS, PLAYER_MAX_ENERGY, PLAYER_MAX_HEALTH
 
 class UI:
+    """ """
     def __init__(self):
         # general
         self.display_surface = pygame.display.get_surface()
@@ -12,6 +13,14 @@ class UI:
         self.energy_bar_rect = pygame.Rect(10, 38, UI_SETTINGS["ENERGY_BAR_WIDTH"], UI_SETTINGS["BAR_HEIGHT"])
 
     def show_bar(self, current, max_amount, bg_rect, color):
+        """
+
+        :param current: 
+        :param max_amount: 
+        :param bg_rect: 
+        :param color: 
+
+        """
         back_rect = pygame.Rect.inflate(bg_rect, 6, 6)
         pygame.draw.rect(self.display_surface, UI_SETTINGS["UI_COLORS"]["BG_COLOR"], back_rect, 0, 10)
 
@@ -26,5 +35,10 @@ class UI:
         pygame.draw.rect(self.display_surface, UI_SETTINGS["UI_COLORS"]["BORDER_COLOR"], back_rect, 3, 10)
 
     def display(self, player):
+        """
+
+        :param player: 
+
+        """
         self.show_bar(player.health, PLAYER_MAX_HEALTH, self.health_bar_rect, UI_SETTINGS["UI_COLORS"]["HEALTH"])
         self.show_bar(player.energy, PLAYER_MAX_ENERGY, self.energy_bar_rect, UI_SETTINGS["UI_COLORS"]["ENERGY"])

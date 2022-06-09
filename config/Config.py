@@ -2,7 +2,7 @@ import os
 
 
 WINDOW_RESOLUTION = (1280, 720)
-BACKGROUND_COLOR = (255, 255, 255)
+BACKGROUND_COLOR = (50, 50, 50)
 FPS = 60
 
 ENTITY_SPEED_FADE = 0.8
@@ -80,21 +80,33 @@ COMPANION_BUTTON = {"FONT": os.path.join("fonts", "kongtext.ttf"),\
                     "OUTLINE_COLOR": (152, 193, 217)}
 
 
-SHIELD_SPRITE_PATH = os.path.join("pics", "white_rect.png")
+SHIELD_SPRITE_PATH = os.path.join("pics", "vertical_white_rect.png")
 SHIELD_DISTANCE = 100
 SHIELD_COOLDOWN = 0.5
 SHIELD_ALPHA = 90
 BULLET_REFLECTION_ACCELERATION = 2
 BULLET_REFLECTION_DAMAGE_UP = 2 # multiplier for damage of reflected bullet
 
-COLD_STEEL_SPRITE_PATH = os.path.join("pics", "white_rect.png")
+COLD_STEEL_SPRITE_PATH = os.path.join("pics", "orange_rect.png")
 COLD_STEEL_DISTANCE = 100
 COLD_STEEL_COOLDOWN = 0.5
 COLD_STEEL_ALPHA = 90
 COLD_STEEL_DAMAGE = 1
 
-SWORD_SPRITE_PATH = os.path.join("pics", "white_rect.png")
+SWORD_SPRITE_PATH = os.path.join("pics", "orange_rect.png")
 SWORD_DISTANCE = 30
 SWORD_COOLDOWN = 0.5
 SWORD_ALPHA = 90
 SWORD_DAMAGE = 1
+
+SHOOTING_WEAPON_SPRITE_PATH = os.path.join("pics", "orange_rect.png")
+SHOOTING_WEAPON_DISTANCE = 30
+
+BOW_IMAGE_PATH = os.path.join("pics", "Bow.png")
+BOW_DISTANCE = 30
+BOW_COOLDOWN = 0.1
+ARROW_SPEED = 10
+ARROW_DAMAGE = 1
+ARROW_RANGE = 500
+
+ARROW_IMAGE_PATH = os.path.join("pics", "Arrow.png")

@@ -1,8 +1,9 @@
 import pygame
-from objects.weapon.Weapon import Weapon
+from objects.weapon.ShootingWeapon import Weapon
 from config.Config import *
 
 class Solid(pygame.sprite.Sprite):
+    """ """
     def __init__(self, level, groups, image_path, position):
         super().__init__(groups)
         self.level = level
