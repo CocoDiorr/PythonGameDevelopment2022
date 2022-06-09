@@ -16,10 +16,11 @@ from config.Config import *
 
 
 class Level:
-    def __init__(self):
+    def __init__(self, locale):
 
         # settings
         self.game_state = "active"
+        self.locale = locale
 
         self.display_surface = pygame.display.get_surface()
         self.visible = pygame.sprite.Group()
@@ -34,7 +35,7 @@ class Level:
         # User Interface
         self.ui = UI()
 
-        #self.events = []
+        self.buttons_event = None
         self.shield = pygame.sprite.Group()
         self.cold_steels = pygame.sprite.Group()
 
@@ -42,6 +43,7 @@ class Level:
 
     def create_map(self):
         self.player = Player(self, (self.visible, self.entity,), (50, 50))
+        self.companion.player = self.player
         Solid(self, (self.visible, self.obstacle,), SOLID_PATH, (400, 400))
         turret = Turret(self, (400, 500))
         swordsman = Swordsman(self, (400, 50))
@@ -79,6 +81,7 @@ class Level:
                     continue
 
     def companion_call(self):
+        self.companion.companion_state = "greeting"
         if self.game_state != "companion":
             self.game_state = "companion"
         else:

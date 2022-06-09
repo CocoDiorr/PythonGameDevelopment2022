@@ -9,21 +9,23 @@ class Game:
         self.screen = pygame.display.set_mode(WINDOW_RESOLUTION)
         self.clock = pygame.time.Clock()
         self.running = True
-        self.level = Level()
+        self.locale = 'ru'
+        self.level = Level(self.locale)
 
     def run(self):
         while self.running:
             events = pygame.event.get()
-            #self.level.put_events(events)
-            #self.level.events = events
+
             for event in events:
                 if event.type == pygame.QUIT:
                     self.running = False
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_h:
                         self.level.companion_call()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        self.level.buttons_event = event
 
-                #if event.type == pygame.KEYDOWN and event.key == pygame.K_h:
 
 
             dt = self.clock.tick(FPS) / 1000

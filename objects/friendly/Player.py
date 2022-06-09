@@ -16,6 +16,7 @@ class Player(Entity):
         self.weapons = [Weapon(self.level, self, BULLET_SPEED, BULLET_DAMAGE, BULLET_RANGE, BULLET_SPRITE_PATH, WEAPON_COOLDOWN)]  # TODO: move to inventory later
         self.curr_weapon = 0    # index of self.weapons array
         self.shield = Shield(self.level, (self.level.shield, self.level.visible), SHIELD_SPRITE_PATH, self, SHIELD_DISTANCE, SHIELD_COOLDOWN)
+        self.dust = 1500
 
     def input(self):
         keys = pygame.key.get_pressed()
