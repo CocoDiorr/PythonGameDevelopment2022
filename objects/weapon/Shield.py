@@ -23,6 +23,10 @@ class Shield(Weapon):
 
         """
         new_speed = self.owner.look_angle * bullet.speed.length() * BULLET_REFLECTION_ACCELERATION
+        bullet.range += bullet.start_range
+        bullet.owner = self.owner
+        bullet.image = pygame.transform.rotate(bullet.sample_image,
+                                            self.owner.look_angle.angle_to(pygame.math.Vector2(1, 0)))
         bullet.set_speed(new_speed)
         bullet.damage *= BULLET_REFLECTION_DAMAGE_UP
 
