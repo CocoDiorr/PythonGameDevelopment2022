@@ -56,7 +56,7 @@ class Entity(pygame.sprite.Sprite):
             self.speed.scale_to_length(self.max_speed)
 
         curr_max_speed = self.max_speed
-        curr_speed = self.speed
+        curr_speed = pygame.math.Vector2(self.speed)
         if not (self.energy is None):
             if self.sprint[0] and self.sprint[1] and self.energy > 0 and self.accel.length() != 0:
                 self.energy = max(self.energy - ENERGY_SPEND, 0)
