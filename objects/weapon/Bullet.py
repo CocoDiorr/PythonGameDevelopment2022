@@ -11,7 +11,7 @@ class Bullet(pygame.sprite.Sprite):
         self.level = level
         image = pygame.image.load(image_path).convert_alpha()
         self.weapon = weapon
-        self.sample_image = image
+        self.start_image = image
         self.image = pygame.transform.rotate(image,
                                              self.weapon.owner.look_angle.angle_to(pygame.math.Vector2(1, 0)))
         self.rect = self.image.get_rect()
