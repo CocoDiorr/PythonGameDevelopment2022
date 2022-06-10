@@ -11,6 +11,7 @@ class Bullet(pygame.sprite.Sprite):
         self.level = level
         image = pygame.image.load(image_path).convert_alpha()
         self.weapon = weapon
+        self.start_image = image
         self.image = pygame.transform.rotate(image,
                                              self.weapon.owner.look_angle.angle_to(pygame.math.Vector2(1, 0)))
         self.rect = self.image.get_rect()
@@ -18,7 +19,9 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.center = self.pos
         self.speed = speed
         self.damage = damage
+        self.start_range = ran
         self.range = ran
+        self.owner = self.weapon.owner
 
     def set_speed(self, new_speed: pygame.math.Vector2):
         """
