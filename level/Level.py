@@ -1,30 +1,47 @@
+import os
 import pygame
 import pygame.sprite
 import pygame.math
 from objects.friendly.Player import Player
 from objects.main.Solid import Solid
-from objects.weapon.Weapon import Weapon
+from objects.weapon.ShootingWeapon import Weapon
 from objects.weapon.ColdSteel import ColdSteel
 from objects.enemy.Enemy import Enemy
 from objects.enemy.Turret import Turret
 from objects.enemy.FastShooter import FastShooter
 from objects.enemy.Swordsman import Swordsman
+from companion.Companion import Companion
+from ui.UI import UI
 from config.Config import *
 from level.Support import *
 from level.Camera import *
 
 
 class Level:
+    """ """
     def __init__(self):
+
+        # settings
+        self.game_state = "active"
+
         self.display_surface = pygame.display.get_surface()
         # sprite group setup
         self.visible = YSortCameraGroup() # pygame.sprite.Group()   
         self.obstacle = pygame.sprite.Group()
         self.entity = pygame.sprite.Group()
+
         self.bullets = YSortBulletsCameraGroup() # pygame.sprite.Group()
+
+        # Companion
+        self.companion = Companion(screen=self.display_surface, level=self)
+
+        # User Interface
+        self.ui = UI()
+
+        #self.events = []
         self.shield = pygame.sprite.Group()
         self.cold_steels = pygame.sprite.Group()
-        # map setup
+
         self.create_map()
 
     def create_map(self):
@@ -50,20 +67,16 @@ class Level:
                             pass
                         if style == 'player':
                             self.player = Player(self, (self.visible, self.entity,), (200, 200))
-        #         if col == 'x':
-        #             Solid(self, (self.visible, self.obstacle,), BORDER_PATH, (x, y))
-        #         if col == 'p':
-        #             self.player = Player(self, (self.visible, self.entity,), (x, y))
-        # self.player = Player(self, (self.visible, self.entity,), (200, 200))
 
 
     def bullets_update(self):
+        """ """
         self.bullets.update()
 
         entity_collide = pygame.sprite.groupcollide(self.bullets, self.entity, False, False)
         for bullet, entities in entity_collide.items():
             for entity in entities:
-                if entity != bullet.weapon.owner:  # mb later change on enemy group and player
+                if entity != bullet.owner:  # mb later change on enemy group and player
                     bullet.kill()
                     entity.get_hit(bullet.damage)
 
@@ -78,20 +91,39 @@ class Level:
         for shield, bullets in shield_collide.items():
             if any(shield.uses):
                 for bullet in bullets:
-                    if bullet.weapon.owner != shield.owner:
+                    if bullet.owner != shield.owner:
                         shield.redirect_bullet(bullet)
 
         obstacles_collide = pygame.sprite.groupcollide(self.bullets, self.obstacle, False, False)
         for bullet, obstacles in obstacles_collide.items():
             for obstacle in obstacles:
-                if bullet.weapon.owner != obstacle:
+                if bullet.owner != obstacle:
                     bullet.kill()
                     continue
 
+    def companion_call(self):
+        """ """
+        if self.game_state != "companion":
+            self.game_state = "companion"
+        else:
+            self.game_state = "active"
+
     def run(self, dt):
+
+        """
+
+        :param dt: 
+
+        """
         # self.visible.draw(self.display_surface)
         self.visible.custom_draw(self.player)
         # self.bullets.draw(self.display_surface)
         self.bullets.custom_draw(self.player)
-        self.visible.update(dt)
-        self.bullets_update()
+        if self.game_state == "active":
+            self.visible.update(dt)
+            self.bullets_update()
+        elif self.game_state == "companion":
+            self.companion.display()
+        self.ui.display(self.player)
+        # self.enemy.enemy_update(self.player)
+
