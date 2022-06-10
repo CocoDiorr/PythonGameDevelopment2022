@@ -6,10 +6,12 @@ from config.Config import *
 
 class Entity(pygame.sprite.Sprite):
     """ """
-    def __init__(self, level, groups, image_path, position, abs_accel, max_speed, health, max_health=None, energy=None, max_energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
+    def __init__(self, level, groups, image_path, size, position, abs_accel, max_speed, health, max_health=None, energy=None, max_energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
         super().__init__(groups)
         self.level = level
+        self.size = size
         self.image = pygame.image.load(image_path).convert_alpha()
+        self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
         self.pos = pygame.math.Vector2(position)
         self.rect.center = self.pos

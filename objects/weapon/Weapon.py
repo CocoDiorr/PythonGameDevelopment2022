@@ -7,11 +7,12 @@ from config.Config import *
 
 class Weapon(pygame.sprite.Sprite):
     """ """
-    def __init__(self, level, groups, image_path, owner, owner_distance, cooldown):
+    def __init__(self, level, groups, image_path, image_size, owner, owner_distance, cooldown):
         super().__init__(groups)
         self.level = level
         self.start_image = pygame.image.load(image_path).convert_alpha()
-        self.image = pygame.image.load(image_path).convert_alpha()
+        self.start_image = pygame.transform.scale(self.start_image, image_size)
+        self.image = self.start_image
         self.rect = self.image.get_rect()
         self.owner = owner
         self.owner_distance = owner_distance
@@ -33,7 +34,7 @@ class Weapon(pygame.sprite.Sprite):
 
     def move(self):
         """ """
-        self.image = pygame.transform.rotate(self.start_image, self.owner.look_angle.angle_to(pygame.math.Vector2(1, 0)))
+        self.image = pygame.transform.rotate(self.start_image, self.owner.look_angle.angle_to(pygame.math.Vector2(0, 1)))
         if not any(self.uses):
             self.image.set_alpha(SHIELD_ALPHA)  # later add animation
         self.rect = self.image.get_rect()
