@@ -9,11 +9,12 @@ from objects.weapon.Weapon import Weapon
 
 class ShootingWeapon(Weapon):
     """ """
-    def __init__(self, level, image_path, owner, owner_distance, cooldown, bullet_speed, bullet_damage, bullet_range, bullet_img_path): # later <bullet_speed, ..., bullet_img_path> change to prepared Bullet examplar or to fabric
-        super().__init__(level, (level.visible,), image_path, owner, owner_distance, cooldown)
+    def __init__(self, level, image_path, image_size, owner, owner_distance, cooldown, bullet_speed, bullet_damage, bullet_range, bullet_img_path, bullet_size): # later <bullet_speed, ..., bullet_img_path> change to prepared Bullet examplar or to fabric
+        super().__init__(level, (level.visible,), image_path, image_size, owner, owner_distance, cooldown)
         self.bullet_speed = bullet_speed
         self.bullet_damage = bullet_damage
         self.bullet_range = bullet_range
+        self.bullet_size = bullet_size
         self.bullet_img_path = bullet_img_path
 
     def update(self, dt):
@@ -38,4 +39,4 @@ class ShootingWeapon(Weapon):
                 speed = angle * (self.bullet_speed + angle.dot(self.owner.speed))   # added speed from owner, but in direction of shoot
             else:
                 speed = angle * self.bullet_speed
-            self.level.bullets.add(Bullet(self.level, (self.level.bullets,), self.bullet_img_path, self.rect.center, speed, self.bullet_damage, self.bullet_range, self))
+            self.level.bullets.add(Bullet(self.level, (self.level.bullets,), self.bullet_img_path, self.bullet_size, self.rect.center, speed, self.bullet_damage, self.bullet_range, self))

@@ -40,5 +40,5 @@ class UI:
         :param player: 
 
         """
-        self.show_bar(player.health, PLAYER_MAX_HEALTH, self.health_bar_rect, UI_SETTINGS["UI_COLORS"]["HEALTH"])
-        self.show_bar(player.energy, PLAYER_MAX_ENERGY, self.energy_bar_rect, UI_SETTINGS["UI_COLORS"]["ENERGY"])
+        self.show_bar(player.health, player.max_health, self.health_bar_rect, UI_SETTINGS["UI_COLORS"]["HEALTH"])
+        self.show_bar(player.energy, player.max_energy, self.energy_bar_rect, UI_SETTINGS["UI_COLORS"]["ENERGY"])
