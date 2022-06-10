@@ -10,25 +10,52 @@ from objects.enemy.Turret import Turret
 from objects.enemy.FastShooter import FastShooter
 from objects.enemy.Swordsman import Swordsman
 from config.Config import *
+from level.Support import *
+from level.Camera import *
 
 
 class Level:
     def __init__(self):
         self.display_surface = pygame.display.get_surface()
-        self.visible = pygame.sprite.Group()
+        # sprite group setup
+        self.visible = YSortCameraGroup() # pygame.sprite.Group()   
         self.obstacle = pygame.sprite.Group()
         self.entity = pygame.sprite.Group()
-        self.bullets = pygame.sprite.Group()
+        self.bullets = YSortBulletsCameraGroup() # pygame.sprite.Group()
         self.shield = pygame.sprite.Group()
         self.cold_steels = pygame.sprite.Group()
+        # map setup
         self.create_map()
 
     def create_map(self):
-        self.player = Player(self, (self.visible, self.entity,), (50, 50))
-        Solid(self, (self.visible, self.obstacle,), SOLID_PATH, (400, 400))
-        turret = Turret(self, (400, 500))
-        swordsman = Swordsman(self, (400, 50))
-        fast_shooter = FastShooter(self, (400, 150))
+        layouts = {
+            'boundary': import_csv_layout(LEVEL_0_FLOORBLOCKS),
+            'grass': import_csv_layout(LEVEL_0_GRASS),
+            'object': import_csv_layout(LEVEL_0_OBJECTS),
+            'player': import_csv_layout(LEVEL_0_PLAYER),
+        }
+        for style, layout in layouts.items():
+            for row_index, row in enumerate(layout):
+                for col_index, col in enumerate(row):
+                    if col != '-1':
+                        x = col_index * TILESIZE
+                        y = row_index * TILESIZE
+                        if style == 'boundary':
+                            Solid((x, y), [self.obstacle], 'invisible')
+                        if style == 'grass':
+                            # create a grass tile
+                            pass
+                        if style == 'object':
+                            # create an object tile
+                            pass
+                        if style == 'player':
+                            self.player = Player(self, (self.visible, self.entity,), (200, 200))
+        #         if col == 'x':
+        #             Solid(self, (self.visible, self.obstacle,), BORDER_PATH, (x, y))
+        #         if col == 'p':
+        #             self.player = Player(self, (self.visible, self.entity,), (x, y))
+        # self.player = Player(self, (self.visible, self.entity,), (200, 200))
+
 
     def bullets_update(self):
         self.bullets.update()
@@ -62,9 +89,9 @@ class Level:
                     continue
 
     def run(self, dt):
-        self.visible.draw(self.display_surface)
-        self.bullets.draw(self.display_surface)
+        # self.visible.draw(self.display_surface)
+        self.visible.custom_draw(self.player)
+        # self.bullets.draw(self.display_surface)
+        self.bullets.custom_draw(self.player)
         self.visible.update(dt)
         self.bullets_update()
-
-

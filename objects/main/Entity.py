@@ -22,6 +22,8 @@ class Entity(pygame.sprite.Sprite):
             look_angle = pygame.math.Vector2(1, 0)
         self.look_angle = look_angle.normalize()
 
+        self.hitbox = self.rect.inflate(0, -10)
+
     def move(self):
         if self.accel.length() != 0:
             self.accel.scale_to_length(self.abs_accel)
