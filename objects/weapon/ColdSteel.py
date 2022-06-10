@@ -3,8 +3,8 @@ from objects.weapon.Weapon import Weapon
 
 class ColdSteel(Weapon):
     """ """
-    def __init__(self, level, groups, image_path, owner, owner_distance, cooldown, damage):
-        super().__init__(level, groups, image_path, owner, owner_distance, cooldown)
+    def __init__(self, level, groups, image_path, image_size, owner, owner_distance, cooldown, damage):
+        super().__init__(level, groups, image_path, image_size, owner, owner_distance, cooldown)
         self.damage = damage
         self.uses = [False, False, False]
 

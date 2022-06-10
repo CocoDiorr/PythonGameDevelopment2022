@@ -8,7 +8,7 @@ class Shield(Weapon):
     """ """
     def __init__(self, level, groups, image_path, owner, owner_distance, cooldown):
         # maybe change to const path, cooldown
-        super().__init__(level, groups, image_path, owner, owner_distance, cooldown)
+        super().__init__(level, groups, image_path, SHIELD_SIZE, owner, owner_distance, cooldown)
 
     def reflect_bullets(self):
         """ """

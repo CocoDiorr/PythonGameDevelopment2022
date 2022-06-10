@@ -6,8 +6,8 @@ from config.Config import *
 
 class Enemy(Entity):
     """ """
-    def __init__(self, level, groups, image_path, position, abs_accel, max_speed, health, attack_radius, notice_radius):
-        super().__init__(level, groups, image_path, position, abs_accel, max_speed, health)
+    def __init__(self, level, groups, image_path, size, position, abs_accel, max_speed, health, attack_radius, notice_radius):
+        super().__init__(level, groups, image_path, size, position, abs_accel, max_speed, health)
         self.sprite_type = "enemy"
         self.status = "idle"
         self.attack_radius = attack_radius
