@@ -6,13 +6,14 @@ from config.Config import *
 
 class Bullet(pygame.sprite.Sprite):
     """ """
-    def __init__(self, level, groups, image_path, position, speed: pygame.math.Vector2, damage, ran, weapon):
+    def __init__(self, level, groups, image_path, size, position, speed: pygame.math.Vector2, damage, ran, weapon):
         super().__init__(groups)
         self.level = level
-        image = pygame.image.load(image_path).convert_alpha()
         self.weapon = weapon
-        self.start_image = image
-        self.image = pygame.transform.rotate(image,
+        self.size = size
+        image = pygame.image.load(image_path).convert_alpha()
+        self.start_image = pygame.transform.scale(image, size)
+        self.image = pygame.transform.rotate(self.start_image,
                                              self.weapon.owner.look_angle.angle_to(pygame.math.Vector2(1, 0)))
         self.rect = self.image.get_rect()
         self.pos = pygame.math.Vector2(position)
