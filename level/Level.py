@@ -50,6 +50,7 @@ class Level:
             'grass': import_csv_layout(LEVEL_0_GRASS),
             'object': import_csv_layout(LEVEL_0_OBJECTS),
             'player': import_csv_layout(LEVEL_0_PLAYER),
+            'entities': import_csv_layout(LEVEL_0_ENTITIES),
         }
         for style, layout in layouts.items():
             for row_index, row in enumerate(layout):
@@ -66,7 +67,14 @@ class Level:
                             # create an object tile
                             pass
                         if style == 'player':
-                            self.player = Player(self, (self.visible, self.entity,), (200, 200))
+                            self.player = Player(self, (self.visible, self.entity,), (x, y))
+                        if style == 'entities':
+                            if col == '2':
+                                FastShooter(self, (x, y))
+                            elif col == '1':
+                                Turret(self, (x, y))
+                            elif col == '0':
+                                Swordsman(self, (x, y))
 
 
     def bullets_update(self):

@@ -2,10 +2,11 @@ import pygame
 from objects.weapon.ShootingWeapon import Weapon
 from config.Config import *
 
+
 class Solid(pygame.sprite.Sprite):
 
     def __init__(self, pos, groups, sprite_type, surface = pygame.Surface((TILESIZE, TILESIZE))):
-    """ """
+        """ """
     # def __init__(self, level, groups, image_path, position):
 
         super().__init__(groups)
