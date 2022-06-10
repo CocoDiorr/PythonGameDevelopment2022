@@ -13,6 +13,8 @@ from objects.enemy.Swordsman import Swordsman
 from companion.Companion import Companion
 from ui.UI import UI
 from config.Config import *
+from level.Support import *
+from level.Camera import *
 
 
 class Level:
@@ -23,11 +25,12 @@ class Level:
         self.game_state = "active"
 
         self.display_surface = pygame.display.get_surface()
-        self.visible = pygame.sprite.Group()
+        # sprite group setup
+        self.visible = YSortCameraGroup() # pygame.sprite.Group()   
         self.obstacle = pygame.sprite.Group()
         self.entity = pygame.sprite.Group()
-        self.bullets = pygame.sprite.Group()
 
+        self.bullets = YSortBulletsCameraGroup() # pygame.sprite.Group()
 
         # Companion
         self.companion = Companion(screen=self.display_surface, level=self)
@@ -42,12 +45,37 @@ class Level:
         self.create_map()
 
     def create_map(self):
-        """ """
-        self.player = Player(self, (self.visible, self.entity,), (50, 50))
-        Solid(self, (self.visible, self.obstacle,), SOLID_PATH, (400, 400))
-        turret = Turret(self, (400, 500))
-        swordsman = Swordsman(self, (400, 50))
-        fast_shooter = FastShooter(self, (400, 150))
+        layouts = {
+            'boundary': import_csv_layout(LEVEL_0_FLOORBLOCKS),
+            'grass': import_csv_layout(LEVEL_0_GRASS),
+            'object': import_csv_layout(LEVEL_0_OBJECTS),
+            'player': import_csv_layout(LEVEL_0_PLAYER),
+            'entities': import_csv_layout(LEVEL_0_ENTITIES),
+        }
+        for style, layout in layouts.items():
+            for row_index, row in enumerate(layout):
+                for col_index, col in enumerate(row):
+                    if col != '-1':
+                        x = col_index * TILESIZE
+                        y = row_index * TILESIZE
+                        if style == 'boundary':
+                            Solid((x, y), [self.obstacle], 'invisible')
+                        if style == 'grass':
+                            # create a grass tile
+                            pass
+                        if style == 'object':
+                            # create an object tile
+                            pass
+                        if style == 'player':
+                            self.player = Player(self, (self.visible, self.entity,), (x, y))
+                        if style == 'entities':
+                            if col == '2':
+                                FastShooter(self, (x, y))
+                            elif col == '1':
+                                Turret(self, (x, y))
+                            elif col == '0':
+                                Swordsman(self, (x, y))
+
 
     def bullets_update(self):
         """ """
@@ -89,13 +117,16 @@ class Level:
             self.game_state = "active"
 
     def run(self, dt):
+
         """
 
         :param dt: 
 
         """
-        self.visible.draw(self.display_surface)
-        self.bullets.draw(self.display_surface)
+        # self.visible.draw(self.display_surface)
+        self.visible.custom_draw(self.player)
+        # self.bullets.draw(self.display_surface)
+        self.bullets.custom_draw(self.player)
         if self.game_state == "active":
             self.visible.update(dt)
             self.bullets_update()
@@ -103,3 +134,4 @@ class Level:
             self.companion.display()
         self.ui.display(self.player)
         # self.enemy.enemy_update(self.player)
+
