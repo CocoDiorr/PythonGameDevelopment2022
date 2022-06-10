@@ -38,7 +38,8 @@ class Player(Entity):
         else:
             self.accel.x = 0
 
-        self.look_angle = pygame.math.Vector2(pygame.mouse.get_pos()) - self.pos
+        # self.look_angle = pygame.math.Vector2(pygame.mouse.get_pos()) - self.pos
+        self.look_angle = pygame.math.Vector2(pygame.mouse.get_pos()) - pygame.math.Vector2(pygame.display.get_surface().get_size()[0]//2, pygame.display.get_surface().get_size()[1]//2)
         if self.look_angle.length() != 0:
             self.look_angle = self.look_angle.normalize()
 
