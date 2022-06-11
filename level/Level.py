@@ -12,13 +12,15 @@ from objects.enemy.FastShooter import FastShooter
 from objects.enemy.Swordsman import Swordsman
 from companion.Companion import Companion
 from ui.UI import UI
+from menu.EscMenu import EscMenu
 from config.Config import *
 
 
 class Level:
-    def __init__(self, locale):
+    def __init__(self, locale, game):
 
         # settings
+        self.game = game
         self.game_state = "active"
         self.locale = locale
 
@@ -34,6 +36,7 @@ class Level:
 
         # User Interface
         self.ui = UI()
+        self.esc_menu = EscMenu(self)
 
         self.buttons_event = None
         self.shield = pygame.sprite.Group()
@@ -87,13 +90,22 @@ class Level:
         else:
             self.game_state = "active"
 
+    def esc_menu_call(self):
+        if self.game_state != "esc":
+            self.game_state = "esc"
+        else:
+            self.game_state = "active"
+
     def run(self, dt):
         self.visible.draw(self.display_surface)
         self.bullets.draw(self.display_surface)
+        self.ui.display(self.player)
         if self.game_state == "active":
             self.visible.update(dt)
             self.bullets_update()
         elif self.game_state == "companion":
             self.companion.display()
-        self.ui.display(self.player)
+        elif self.game_state == "esc":
+            self.esc_menu.display()
+
         # self.enemy.enemy_update(self.player)

@@ -10,7 +10,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.running = True
         self.locale = 'ru'
-        self.level = Level(self.locale)
+        self.level = Level(self.locale, self)
         self.start_menu = StartMenu(self)
         self.game_state = "start" # "play"
 
@@ -26,12 +26,18 @@ class Game:
                     if event.key == pygame.K_h:
                         if self.game_state == "play":
                             self.level.companion_call()
+
+                    if event.key == pygame.K_ESCAPE:
+                        if self.game_state == "play":
+                            self.level.esc_menu_call()
+
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         if self.game_state == "start":
                             self.start_menu.buttons_event = event
                         if self.game_state == "play":
-                            self.level.buttons_event = event
+                            if self.level.game_state in ("companion", "esc"):
+                                self.level.buttons_event = event
 
                 #elif self.game_state == "start":
 

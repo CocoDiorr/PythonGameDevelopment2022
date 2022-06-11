@@ -12,7 +12,8 @@ UI_SETTINGS = {"BAR_HEIGHT": 20,\
                "HEALTH_BAR_WIDTH": 200,\
                "ENERGY_BAR_WIDTH": 140,\
                "UI_FONT": os.path.join("fonts", "pixelcyr_normal.ttf"),\
-               "UI_FONT_SIZE": 18,\
+               "UI_FONT_SIZE": 28,\
+               "UI_FONT_COLOR": (0, 0, 0),\
                "UI_COLORS": {
                              "BG_COLOR": "#222222",\
                              "BORDER_COLOR": "#111111",\

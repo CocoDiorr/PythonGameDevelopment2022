@@ -53,7 +53,7 @@ class Companion(pygame.sprite.Sprite):
         words = [word.split(' ') for word in msg.splitlines()]
         space = self.font.size(' ')[0]
 
-        max_width, max_height = 20, self.fill_box.h
+        max_width, max_height = 30, self.fill_box.h
         x, y = self.fill_box.left, self.fill_box.top + self.fill_box.height - 40
         box_width, box_height = 20, 20
         surfaces = []
@@ -68,7 +68,7 @@ class Companion(pygame.sprite.Sprite):
                     tmp_height = word_height
                 tmp_width += word_width + space
 
-                if x - word_width <= max_width:
+                if x - word_width < max_width:
                     x = self.fill_box.left
                     y -= word_height
                     box_height += word_height
