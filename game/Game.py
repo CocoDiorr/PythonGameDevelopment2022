@@ -2,7 +2,7 @@ import pygame
 import pygame.display
 from config.Config import *
 from level.Level import Level
-
+from menu.StartMenu import StartMenu
 
 class Game:
     """ """
@@ -10,25 +10,48 @@ class Game:
         self.screen = pygame.display.set_mode(WINDOW_RESOLUTION)
         self.clock = pygame.time.Clock()
         self.running = True
-        self.level = Level()
+        self.locale = 'ru'
+        self.level = Level(self.locale, self)
+        self.start_menu = StartMenu(self)
+        self.game_state = "start" # "play"
 
     def run(self):
         """ """
         while self.running:
             events = pygame.event.get()
-            #self.level.put_events(events)
-            #self.level.events = events
+
             for event in events:
                 if event.type == pygame.QUIT:
                     self.running = False
+
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_h:
-                        self.level.companion_call()
+                        if self.game_state == "play":
+                            self.level.companion_call()
 
-                #if event.type == pygame.KEYDOWN and event.key == pygame.K_h:
+                    if event.key == pygame.K_ESCAPE:
+                        if self.game_state == "play":
+                            if self.level.game_state in ("active", "esc"):
+                                self.level.esc_menu_call()
+                            elif self.level.game_state == "companion":
+                                self.level.companion_call()
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        if self.game_state == "start":
+                            self.start_menu.buttons_event = event
+                        if self.game_state == "play":
+                            if self.level.game_state in ("companion", "esc"):
+                                self.level.buttons_event = event
+
+                #elif self.game_state == "start":
+
 
 
             dt = self.clock.tick(FPS) / 1000
             self.screen.fill(BACKGROUND_COLOR)
-            self.level.run(dt)
+            if self.game_state == "start":
+                self.start_menu.display()
+            if self.game_state == "play":
+                self.level.run(dt)
             pygame.display.update()

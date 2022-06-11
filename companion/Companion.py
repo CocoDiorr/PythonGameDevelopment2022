@@ -28,58 +28,32 @@ class Companion(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(COMPANION_IMAGE).convert_alpha()
         self.image = pygame.transform.scale(self.image, COMPANION_SIZE)
-        self.rect = self.image.get_rect(midbottom=(WINDOW_RESOLUTION[0] - COMPANION_SIZE[0] / 2, WINDOW_RESOLUTION[1]))
+        self.rect = self.image.get_rect(midbottom=(WINDOW_RESOLUTION[0] - COMPANION_SIZE[0] // 2, WINDOW_RESOLUTION[1]))
         self.font = pygame.font.Font(COMPANION_FONT, COMPANION_FONT_SIZE)
         self.companion_state = "greeting"
         self.player = player
         self.screen = screen
         self.level = level
+        self.locale = self.level.locale
 
         # companion outline
         self.fill_box = pygame.Rect(self.rect.left - 5, self.rect.top - 5, self.rect.w + 5, self.rect.h + 5)
 
         # message textbox
-        #self.msg_box = pygame.Rect(self.rect.left - 200, self.rect.top + 5, self.rect.w, self.rect.h / 2)
         self.hi_msg_1 = "Hi, haven't seen you in a while ! <3"
-        self.hi_msg_2 = "Do you want a joke ?"
+        self.hi_msg_2 = "Do you want a story ?"
 
         # companion cooldown
         self.call = None
         self.available = True
 
 
-    def input(self):
-        """ """
-        keys = pygame.key.get_pressed()
-
-
-        #if self.companion_state == "greeting":
-
-        if keys[pygame.K_h]:
-            if self.available:
-                self.available = False
-                self.call = pygame.time.get_ticks()
-
-
-    def cooldown(self):
-        """ """
-        if not self.available:
-            curr_time = pygame.time.get_ticks()
-            if curr_time - self.call >= 500:
-                self.available = True
-
     def show_msg(self, screen, msg):
-        """
-
-        :param screen: 
-        :param msg: 
-
-        """
 
         words = [word.split(' ') for word in msg.splitlines()]
         space = self.font.size(' ')[0]
 
-        max_width, max_height = 20, self.fill_box.h
+        max_width, max_height = 30, self.fill_box.h
         x, y = self.fill_box.left, self.fill_box.top + self.fill_box.height - 40
         box_width, box_height = 20, 20
         surfaces = []
@@ -94,11 +68,13 @@ class Companion(pygame.sprite.Sprite):
                     tmp_height = word_height
                 tmp_width += word_width + space
 
-                if x - word_width <= max_width:
+                if x - word_width < max_width:
                     x = self.fill_box.left
                     y -= word_height
+                    box_height += word_height
                 x = x - word_width - space
                 surfaces.append((word_surface, (x,y)))
+            tmp_width -= space
 
 
 
@@ -115,27 +91,14 @@ class Companion(pygame.sprite.Sprite):
         pygame.draw.rect(screen, COMPANION_COLORS["OUTLINE_COLOR"], text_box, 10, 20)
         screen.blits(surfaces)
 
-    def yes_button(self):
-        """ """
-        pass
+    def yes_button(self, companion):
+        companion.companion_state = "trade"
 
-    def no_button(self,level):
-        """
-
-        :param level: 
-
-        """
+    def no_button(self, level):
         level.game_state = "active"
-        #print(level.game_state)
 
 
     def greeting(self, screen):
-        """
-
-        :param screen: 
-
-        """
-        #self.show_msg(self.screen, self.hi_msg)
         text_surface_1 = self.font.render(self.hi_msg_1, 0, COMPANION_COLORS["FONT_COLOR"])
         text_surface_2 = self.font.render(self.hi_msg_2, 0, COMPANION_COLORS["FONT_COLOR"])
 
@@ -147,28 +110,72 @@ class Companion(pygame.sprite.Sprite):
 
         pygame.draw.rect(screen, COMPANION_COLORS["MAIN_COLOR"], greet_rect, 0, 20)
         pygame.draw.rect(screen, COMPANION_COLORS["OUTLINE_COLOR"], greet_rect, 10, 20)
-        pygame.draw.rect(self.screen, COMPANION_COLORS["GRADIENT"], gradient_rect, 3, 20)
+        pygame.draw.rect(screen, COMPANION_COLORS["GRADIENT"], gradient_rect, 3, 20)
         screen.blit(text_surface_1, (greet_rect.left + 15, greet_rect.top + 20))
         screen.blit(text_surface_2, (greet_rect.left + 15, greet_rect.top + 30 + text_surface_1.get_size()[1]))
 
-        yes = Button((greet_rect.left + greet_rect.w * 1 / 4, greet_rect.top + greet_rect.h * 9 / 16), "Yes", self.yes_button)
-        no = Button((greet_rect.left + greet_rect.w * 3 / 5, greet_rect.top + greet_rect.h * 9 / 16), "No", self.no_button, (self.level,))
+        yes = Button(self.level, (greet_rect.left + greet_rect.w * 0.2, greet_rect.top + greet_rect.h * 9 / 16),\
+                     greet_rect.w * 0.25, greet_rect.h * 0.35, "Yes", self.yes_button, (self,), 1, 2)
+        no = Button(self.level, (greet_rect.left + greet_rect.w * 0.55, greet_rect.top + greet_rect.h * 9 / 16),\
+                    greet_rect.w * 0.25, greet_rect.h * 0.35, "No", self.no_button, (self.level,), 2, 2)
 
         yes.display(screen)
         no.display(screen)
 
+    def trade_button(self, companion, name):
+        if companion.player.dust >= int(name):
+            companion.companion_state = "story"
+            companion.player.dust -= int(name)
+            companion.txt = path.join("texts", companion.locale , f"{name}.txt")
+            with open(companion.txt, "r", encoding='utf-8') as f:
+                companion.generator = ipsedixit.Generator(f.read())
+            companion.tell = companion.generator.paragraphs(1)
+
+    def trade(self, screen):
+        text_surface = self.font.render("How much would you pay ?", 0, COMPANION_COLORS["FONT_COLOR"])
+
+        trade_rect = pygame.Rect(self.fill_box.left - text_surface.get_size()[0] * 2 + 4,\
+                                 self.fill_box.top,\
+                                 text_surface.get_size()[0] * 2,\
+                                 self.fill_box.height)
+        gradient_rect = pygame.Rect.inflate(trade_rect, -5, -5)
+
+        pygame.draw.rect(screen, COMPANION_COLORS["MAIN_COLOR"], trade_rect, 0, 20)
+        pygame.draw.rect(screen, COMPANION_COLORS["OUTLINE_COLOR"], trade_rect, 10, 20)
+        pygame.draw.rect(screen, COMPANION_COLORS["GRADIENT"], gradient_rect, 3, 20)
+
+        screen.blit(text_surface, (trade_rect.left + trade_rect.width // 4, trade_rect.top + 10))
+        buttons = []
+        buttons.append(Button(self.level, (trade_rect.left + trade_rect.w * 0.25,\
+                              trade_rect.top + trade_rect.h / 4 + 15),\
+                              trade_rect.w * 0.25, trade_rect.h * 0.25, "100", self.trade_button, (self, "100"), 1, 4))
+        buttons.append(Button(self.level, (trade_rect.left + trade_rect.w * 0.55,\
+                              trade_rect.top + trade_rect.h / 4 + 15), \
+                              trade_rect.w * 0.25, trade_rect.h * 0.25, "300", self.trade_button, (self, "300"), 2, 4))
+        buttons.append(Button(self.level, (trade_rect.left + trade_rect.w * 0.25,\
+                              trade_rect.top + trade_rect.h / 2 + 35),\
+                              trade_rect.w * 0.25, trade_rect.h * 0.25, "500", self.trade_button, (self, "500"), 3, 4))
+        buttons.append(Button(self.level, (trade_rect.left + trade_rect.w * 0.55,\
+                              trade_rect.top + trade_rect.h / 2 + 35),\
+                              trade_rect.w * 0.25, trade_rect.h * 0.25, "1000", self.trade_button, (self, "1000"), 4, 4))
+
+        for button in buttons:
+            button.display(screen)
+
+    def story(self):
+        self.show_msg(self.screen, *self.tell)
+
     def display(self):
-        """ """
-        self.input()
-        self.cooldown()
-        #if self.to_show:
         pygame.draw.rect(self.screen, COMPANION_COLORS["MAIN_COLOR"], self.fill_box, 0, 20)
         pygame.draw.rect(self.screen, COMPANION_COLORS["OUTLINE_COLOR"], self.fill_box, 10, 20)
         gradient_rect = pygame.Rect.inflate(self.fill_box, -5, -5)
         pygame.draw.rect(self.screen, COMPANION_COLORS["GRADIENT"], gradient_rect, 3, 20)
 
-        #self.show_msg(self.screen, self.hi_msg)
         if self.companion_state == "greeting":
             self.greeting(self.screen)
+        elif self.companion_state == "trade":
+            self.trade(self.screen)
+        elif self.companion_state == "story":
+            self.story()
 
         self.screen.blit(self.image, self.rect)

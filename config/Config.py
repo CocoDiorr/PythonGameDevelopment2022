@@ -28,8 +28,9 @@ BORDER_PATH = os.path.join("pics", "green_border.png")
 UI_SETTINGS = {"BAR_HEIGHT": 20,\
                "HEALTH_BAR_WIDTH": 200,\
                "ENERGY_BAR_WIDTH": 140,\
-               "UI_FONT": os.path.join("fonts", "kongtext.ttf"),\
-               "UI_FONT_SIZE": 18,\
+               "UI_FONT": os.path.join("fonts", "pixelcyr_normal.ttf"),\
+               "UI_FONT_SIZE": 28,\
+               "UI_FONT_COLOR": (0, 0, 0),\
                "UI_COLORS": {
                              "BG_COLOR": "#222222",\
                              "BORDER_COLOR": "#111111",\
@@ -107,13 +108,13 @@ BULLET_SIZE = (10, 10)
 
 COMPANION_SIZE = (200, 200)
 COMPANION_IMAGE = os.path.join("pics", "cat", "companion.png")
-COMPANION_FONT = os.path.join("fonts", "kongtext.ttf")
-COMPANION_FONT_SIZE = 20
+COMPANION_FONT = os.path.join("fonts", "pixelcyr_normal.ttf")
+COMPANION_FONT_SIZE = 24
 COMPANION_COLORS = {"MAIN_COLOR": (219, 153, 90),\
                     "OUTLINE_COLOR": (101, 66, 54),\
                     "GRADIENT": (130, 85, 70),\
                     "FONT_COLOR": (0, 0, 0)}
-COMPANION_BUTTON = {"FONT": os.path.join("fonts", "kongtext.ttf"),\
+COMPANION_BUTTON = {"FONT": os.path.join("fonts", "pixelcyr_normal.ttf"),\
                     "FONT_SIZE": 40,\
                     "FONT_COLOR": (8, 76, 97),\
                     "MAIN_COLOR": (224, 251, 252),\
