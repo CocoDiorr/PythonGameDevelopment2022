@@ -5,6 +5,7 @@ from level.Level import Level
 from menu.StartMenu import StartMenu
 
 class Game:
+    """ """
     def __init__(self):
         self.screen = pygame.display.set_mode(WINDOW_RESOLUTION)
         self.clock = pygame.time.Clock()
@@ -15,6 +16,7 @@ class Game:
         self.game_state = "start" # "play"
 
     def run(self):
+        """ """
         while self.running:
             events = pygame.event.get()
 
