@@ -65,3 +65,7 @@ class Enemy(Entity):
                 else:
                     self.weapon.hit()
             self.weapon.update(dt)
+
+    def kill(self):
+        self.level.player.get_dust(self)
+        super().kill()

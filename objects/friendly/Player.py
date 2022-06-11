@@ -6,10 +6,11 @@ import pygame.math
 from config.Config import *
 from objects.main.Entity import Entity
 from objects.weapon.Bullet import Bullet
+from objects.weapon.ColdSteel import ColdSteel
 from objects.weapon.ShootingWeapon import ShootingWeapon
 from objects.weapon.Bow import Bow
 from objects.weapon.Shield import Shield
-
+from objects.enemy.Enemy import Enemy
 
 class Player(Entity):
     """ """
@@ -84,3 +85,10 @@ class Player(Entity):
 
     # def get_hit(self, damage):  # overload later for invincible time
     #     return super().get_hit(damage)
+
+    def get_dust(self, enemy: Enemy):
+        if hasattr(enemy, "weapon") and not (enemy.weapon is None):
+            if isinstance(enemy.weapon, ShootingWeapon):
+                self.dust += int((GET_DUST_HEALTH_MULTIPLIER * enemy.max_health + GET_DUST_WEAPON_MULTIPLIER * enemy.weapon.bullet_damage / enemy.weapon.cooldown) * GET_DUST_MULTIPLIER)
+            elif isinstance(enemy.weapon, ColdSteel):
+                self.dust += int((GET_DUST_HEALTH_MULTIPLIER * enemy.max_health + GET_DUST_WEAPON_MULTIPLIER * enemy.weapon.damage / enemy.weapon.cooldown) * GET_DUST_MULTIPLIER)
