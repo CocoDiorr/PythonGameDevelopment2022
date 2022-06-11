@@ -5,6 +5,7 @@ from menu.StartMenu import Item
 
 
 class EscMenu:
+    """ """
     def __init__(self, level):
         self.level = level
         #self.buttons_event = None
@@ -33,15 +34,18 @@ class EscMenu:
         )
 
     def exit_button_call(self):
+        """ """
         self.level.game_state = "active"
         self.level.game.game_state = "start"
         self.level.game.__init__()
         #self.level.game.run()
 
     def play_button_call(self):
+        """ """
         self.level.game_state = "active"
 
     def display(self):
+        """ """
         self.surface.blit(self.transp_bg, (0, 0))
 
         pygame.draw.rect(self.surface, "#FFBC42", self.bg_rect, 0, 20)

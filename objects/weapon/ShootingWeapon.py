@@ -8,39 +8,78 @@ from objects.weapon.Weapon import Weapon
 
 
 class ShootingWeapon(Weapon):
-    """ """
-    def __init__(self, level, image_path, image_size, owner, owner_distance, cooldown, bullet_speed, bullet_damage, bullet_range, bullet_img_path, bullet_size): # later <bullet_speed, ..., bullet_img_path> change to prepared Bullet examplar or to fabric
-        super().__init__(level, (level.visible,), image_path, image_size, owner, owner_distance, cooldown)
+    """Shooting weapon class. Inherited from Weapon."""
+
+    def __init__(
+        self,
+        level,
+        image_path,
+        owner,
+        owner_distance,
+        cooldown,
+        bullet_speed,
+        bullet_damage,
+        bullet_range,
+        bullet_img_path,
+        extra_scale=1,
+        bullet_extra_scale=1
+    ):  # later <bullet_speed, ..., bullet_img_path> change to prepared Bullet examplar or to fabric
+        super().__init__(
+            level,
+            (level.visible,),
+            image_path,
+            owner,
+            owner_distance,
+            cooldown,
+            extra_scale
+        )
         self.bullet_speed = bullet_speed
         self.bullet_damage = bullet_damage
         self.bullet_range = bullet_range
-        self.bullet_size = bullet_size
         self.bullet_img_path = bullet_img_path
+        self.bullet_extra_scale = bullet_extra_scale
 
-    def update(self, dt):
-        """
+    def update(self, dt: int):
+        """Update shooting weapon position and using.
 
-        :param dt: 
-
+        :param dt: int: delta time for main loop updating
         """
         super().update(dt)
 
     def move(self):
-        self.image = pygame.transform.rotate(self.start_image, self.owner.look_angle.angle_to(pygame.math.Vector2(0, 1)))
+        """Change shooting weapon position."""
+        self.image = pygame.transform.rotate(
+            self.start_image, self.owner.look_angle.angle_to(pygame.math.Vector2(0, 1))
+        )
         super().move()
 
     def spawn_bullet(self, angle: pygame.math.Vector2):
-        """
+        """Make a shot.
 
-        :param angle: pygame.math.Vector2: 
+        Create bullet in shooting weapon center position.
 
+        :param angle: pygame.math.Vector2: direction of shot
         """
         if self.last_use >= self.cooldown:
             self.last_use = 0
             if angle.length() != 0:
                 angle = angle.normalize()
             if hasattr(self.owner, "speed"):
-                speed = angle * (self.bullet_speed + angle.dot(self.owner.speed))   # added speed from owner, but in direction of shoot
+                speed = angle * (
+                    self.bullet_speed + angle.dot(self.owner.speed)
+                )  # added speed from owner, but in direction of shoot
             else:
                 speed = angle * self.bullet_speed
-            self.level.bullets.add(Bullet(self.level, (self.level.bullets,), self.bullet_img_path, self.bullet_size, self.rect.center, speed, self.bullet_damage, self.bullet_range, self))
+            self.level.bullets.add(
+                Bullet(
+                    self.level,
+                    (self.level.bullets,),
+                    self.bullet_img_path,
+                    self.rect.center,
+                    speed,
+                    self.bullet_damage,
+                    self.bullet_range,
+                    self,
+                    self.bullet_extra_scale,
+                )
+            )

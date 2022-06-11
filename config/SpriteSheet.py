@@ -6,7 +6,7 @@ from config.Config import *
 
 
 class SpriteSheet(object):
-    """ Class used to grab images out of a sprite sheet. """
+    """Class used to grab images out of a sprite sheet."""
 
     def __init__(self, file_name):
         """ Constructor. Pass in the file name of the sprite sheet. """
@@ -15,6 +15,15 @@ class SpriteSheet(object):
         self.sprite_sheet = pygame.image.load(file_name).convert_alpha()
 
     def get_image(self, x, y, width, height, colour):
+        """
+
+        :param x: param y:
+        :param width: param height:
+        :param colour: 
+        :param y: 
+        :param height: 
+
+        """
         image = pygame.Surface((width, height)).convert_alpha()
         image.blit(self.sprite_sheet, (0, 0), (x, y, width, height))
         image = pygame.transform.scale(image, (SCALE * width, SCALE * height))
@@ -40,6 +49,7 @@ class SpriteSheet(object):
     #     return image
 
     def get_animations(self) -> dict[str, list]:
+        """ """
         animations = {'down': [], 'up': [], 'left': [], 'right': [],
                       'down_idle': [], 'up_idle': [], 'left_idle': [], 'right_idle': []}
         states = ('down', 'up', 'left', 'right')

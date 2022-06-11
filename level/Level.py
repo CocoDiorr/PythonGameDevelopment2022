@@ -4,12 +4,10 @@ import pygame.sprite
 import pygame.math
 from objects.friendly.Player import Player
 from objects.main.Solid import Solid
-from objects.weapon.ShootingWeapon import Weapon
-from objects.weapon.ColdSteel import ColdSteel
-from objects.enemy.Enemy import Enemy
 from objects.enemy.Turret import Turret
-from objects.enemy.FastShooter import FastShooter
+from objects.enemy.Ninja import Ninja
 from objects.enemy.Swordsman import Swordsman
+from objects.enemy.Skeleton import Skeleton
 from companion.Companion import Companion
 from ui.UI import UI
 from menu.EscMenu import EscMenu
@@ -19,7 +17,7 @@ from level.Camera import *
 
 
 class Level:
-    """"""
+    """ """
     def __init__(self, locale, game):
 
         # settings
@@ -48,6 +46,7 @@ class Level:
         #self.create_map()
 
     def create_map(self):
+        """ """
 
         layouts = {
             'boundary': import_csv_layout(LEVEL_0_FLOORBLOCKS),
@@ -73,8 +72,10 @@ class Level:
                         if style == 'player':
                             self.player = Player(self, (self.visible, self.entity,), (x, y))
                         if style == 'entities':
+
                             if col == '2':
-                                FastShooter(self, (x, y))
+                                Skeleton(self, (x, y))
+                                # Ninja(self, (x, y))
                             elif col == '1':
                                 Turret(self, (x, y))
                             elif col == '0':
@@ -130,6 +131,7 @@ class Level:
             self.game_state = "active"
 
     def death(self):
+        """ """
         if self.player.health <= 0:
             self.game.game_state = "start"
             self.game.__init__()
@@ -138,7 +140,7 @@ class Level:
 
         """
 
-        :param dt:
+        :param dt: 
 
         """
         # self.visible.draw(self.display_surface)

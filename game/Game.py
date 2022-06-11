@@ -4,6 +4,7 @@ from config.Config import *
 from level.Level import Level
 from menu.StartMenu import StartMenu
 
+
 class Game:
     """ """
     def __init__(self):

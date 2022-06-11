@@ -42,9 +42,11 @@ class Entity(pygame.sprite.Sprite):
 
 
     def sprint_on(self):
+        """ """
         self.sprint[0] = True
 
     def sprint_off(self):
+        """ """
         self.sprint[0] = False
 
     def set_animation_state(self):
@@ -63,6 +65,7 @@ class Entity(pygame.sprite.Sprite):
                 self.anim_state += '_idle'
 
     def animate(self):
+        """ """
         animation = self.animations[self.anim_state]
 
         # loop over the frame index
@@ -75,7 +78,11 @@ class Entity(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
     def move(self, sprint=False):
-        """ """
+        """
+
+        :param sprint: Default value = False)
+
+        """
 
         if self.accel.length() != 0:
             self.accel.scale_to_length(self.abs_accel)
