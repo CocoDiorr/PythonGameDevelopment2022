@@ -1,5 +1,5 @@
 from objects.weapon.Weapon import Weapon
-
+import pygame
 
 class ColdSteel(Weapon):
     """ """
@@ -13,6 +13,10 @@ class ColdSteel(Weapon):
         if self.last_use >= self.cooldown:
             self.last_use = 0
             self.uses[0] = True
+
+    def move(self):
+        self.image = pygame.transform.rotate(self.start_image, self.owner.look_angle.angle_to(pygame.math.Vector2(0, -1)))
+        super().move()
 
     def update(self, dt):
         """

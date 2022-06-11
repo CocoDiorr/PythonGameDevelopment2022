@@ -45,7 +45,6 @@ class Level:
         self.buttons_event = None
         self.shield = pygame.sprite.Group()
         self.cold_steels = pygame.sprite.Group()
-
         #self.create_map()
 
     def create_map(self):
@@ -82,7 +81,6 @@ class Level:
                                 Swordsman(self, (x, y))
 
         self.companion.player = self.player
-
 
     def bullets_update(self):
         """ """
