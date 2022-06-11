@@ -75,6 +75,8 @@ class Level:
                                 Turret(self, (x, y))
                             elif col == '0':
                                 Swordsman(self, (x, y))
+                            else:
+                                FastShooter(self, (x, y))
 
 
     def bullets_update(self):

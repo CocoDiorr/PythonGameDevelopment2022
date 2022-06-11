@@ -14,8 +14,9 @@ class YSortCameraGroup(pygame.sprite.Group):
 
         # creating the floor
         self.floor_surf = pygame.image.load(LEVEL_0_PIC_PATH).convert()
-        # self.floor_surf = pygame.transform.scale2x(self.floor_surf)
-        self.floor_rect = self.floor_surf.get_rect(topleft=(0,0))
+        self.floor_surf = pygame.transform.scale2x(self.floor_surf)
+        self.floor_surf = pygame.transform.scale2x(self.floor_surf)
+        self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))
 
     def custom_draw(self, player):
 
