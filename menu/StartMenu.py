@@ -55,6 +55,7 @@ class StartMenu:
 
 
     def play_button(self):
+        self.game.level.create_map()
         self.game.game_state = "play"
 
     def settings_button(self):

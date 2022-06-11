@@ -46,7 +46,7 @@ class Level:
         self.shield = pygame.sprite.Group()
         self.cold_steels = pygame.sprite.Group()
 
-        self.create_map()
+        #self.create_map()
 
     def create_map(self):
 
@@ -131,6 +131,11 @@ class Level:
         else:
             self.game_state = "active"
 
+    def death(self):
+        if self.player.health <= 0:
+            self.game.game_state = "start"
+            self.game.__init__()
+
     def run(self, dt):
 
         """
@@ -146,6 +151,7 @@ class Level:
         if self.game_state == "active":
             self.visible.update(dt)
             self.bullets_update()
+            self.death()
         elif self.game_state == "companion":
             self.companion.display()
         elif self.game_state == "esc":

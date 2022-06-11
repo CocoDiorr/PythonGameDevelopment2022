@@ -33,8 +33,10 @@ class EscMenu:
         )
 
     def exit_button_call(self):
-        #self.level.game_state = "active"
+        self.level.game_state = "active"
         self.level.game.game_state = "start"
+        self.level.game.__init__()
+        #self.level.game.run()
 
     def play_button_call(self):
         self.level.game_state = "active"
