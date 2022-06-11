@@ -39,7 +39,11 @@ UI_SETTINGS = {"BAR_HEIGHT": 20,\
                              }
                }
 
-
+GAME_MUSIC = {
+    "start_menu": os.path.join("audio", "music", "menu_loop.ogg"),
+    "level": os.path.join("audio", "music", "level_loop.ogg"),
+}
+VOLUME = 0.4
 
 # Player
 PLAYER_ABS_ACCEL = 1
@@ -57,6 +61,10 @@ PLAYER_MAX_ENERGY = 250
 PLAYER_HEALTH = 100
 PLAYER_ENERGY = 250
 SOLID_PATH = os.path.join("pics", "red_square.jpg")
+
+# PLAYER_SOUNDS = {
+#                     "get_hit": {os.path.join("audio", "sound_effects", "player")}
+#                 }
 
 # Enemy
 BASE_ENEMY_PATH = os.path.join("map_graphics/pics", "Faceset18.png")
