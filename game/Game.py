@@ -31,7 +31,10 @@ class Game:
 
                     if event.key == pygame.K_ESCAPE:
                         if self.game_state == "play":
-                            self.level.esc_menu_call()
+                            if self.level.game_state in ("active", "esc"):
+                                self.level.esc_menu_call()
+                            elif self.level.game_state == "companion":
+                                self.level.companion_call()
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:

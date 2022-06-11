@@ -29,18 +29,18 @@ class StartMenu:
         self.buttons = []
         self.buttons.append(
             Item(os.path.join(pics_path, "play.png"), os.path.join(pics_path, "play_hovered.png"),\
-                 0.3 * WINDOW_RESOLUTION[0], 0.2 * WINDOW_RESOLUTION[1],\
-                (WINDOW_RESOLUTION[0] / 2, WINDOW_RESOLUTION[1] / 2), self, self.play_button, None, 1, 3)
+                 int(0.3 * WINDOW_RESOLUTION[0]), int(0.2 * WINDOW_RESOLUTION[1]),\
+                (int(WINDOW_RESOLUTION[0] / 2), int(WINDOW_RESOLUTION[1] / 2)), self, self.play_button, None, 1, 3)
         )
         self.buttons.append(
             Item(os.path.join(pics_path, "settings.png"), os.path.join(pics_path, "settings_hovered.png"),\
-                 0.3 * WINDOW_RESOLUTION[0], 0.1 * WINDOW_RESOLUTION[1],\
-                (WINDOW_RESOLUTION[0] / 2, WINDOW_RESOLUTION[1] * 0.7  + 20), self, self.settings_button, None, 2, 3)
+                 int(0.3 * WINDOW_RESOLUTION[0]), int(0.1 * WINDOW_RESOLUTION[1]),\
+                (int(WINDOW_RESOLUTION[0] / 2), int(WINDOW_RESOLUTION[1] * 0.7  + 20)), self, self.settings_button, None, 2, 3)
         )
         self.buttons.append(
             Item(os.path.join(pics_path, "exit.png"), os.path.join(pics_path, "exit_hovered.png"),\
-                 0.2 * WINDOW_RESOLUTION[0], 0.1 * WINDOW_RESOLUTION[1],\
-                (WINDOW_RESOLUTION[0] / 2, WINDOW_RESOLUTION[1] * 0.8 + 40), self, self.exit_button, None, 3, 3)
+                 int(0.2 * WINDOW_RESOLUTION[0]), int(0.1 * WINDOW_RESOLUTION[1]),\
+                (int(WINDOW_RESOLUTION[0] / 2), int(WINDOW_RESOLUTION[1] * 0.8 + 40)), self, self.exit_button, None, 3, 3)
         )
 
     def display(self):

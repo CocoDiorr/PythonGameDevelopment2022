@@ -28,7 +28,7 @@ class Companion(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(COMPANION_IMAGE).convert_alpha()
         self.image = pygame.transform.scale(self.image, COMPANION_SIZE)
-        self.rect = self.image.get_rect(midbottom=(WINDOW_RESOLUTION[0] - COMPANION_SIZE[0] / 2, WINDOW_RESOLUTION[1]))
+        self.rect = self.image.get_rect(midbottom=(WINDOW_RESOLUTION[0] - COMPANION_SIZE[0] // 2, WINDOW_RESOLUTION[1]))
         self.font = pygame.font.Font(COMPANION_FONT, COMPANION_FONT_SIZE)
         self.companion_state = "greeting"
         self.player = player
@@ -49,12 +49,6 @@ class Companion(pygame.sprite.Sprite):
 
 
     def show_msg(self, screen, msg):
-        """
-
-        :param screen: 
-        :param msg: 
-
-        """
 
         words = [word.split(' ') for word in msg.splitlines()]
         space = self.font.size(' ')[0]
@@ -98,29 +92,13 @@ class Companion(pygame.sprite.Sprite):
         screen.blits(surfaces)
 
     def yes_button(self, companion):
-        """
-
-        :param companion:
-
-        """
         companion.companion_state = "trade"
 
-    def no_button(self,level):
-        """
-
-        :param level: 
-
-        """
+    def no_button(self, level):
         level.game_state = "active"
 
 
     def greeting(self, screen):
-        """
-
-        :param screen: 
-
-        """
-        #self.show_msg(self.screen, self.hi_msg)
         text_surface_1 = self.font.render(self.hi_msg_1, 0, COMPANION_COLORS["FONT_COLOR"])
         text_surface_2 = self.font.render(self.hi_msg_2, 0, COMPANION_COLORS["FONT_COLOR"])
 
@@ -145,26 +123,15 @@ class Companion(pygame.sprite.Sprite):
         no.display(screen)
 
     def trade_button(self, companion, name):
-        """
-		
-        :param companion:
-        :param name:
-		
-        """
         if companion.player.dust >= int(name):
             companion.companion_state = "story"
             companion.player.dust -= int(name)
             companion.txt = path.join("texts", companion.locale , f"{name}.txt")
-            with open(companion.txt, "r") as f:
+            with open(companion.txt, "r", encoding='utf-8') as f:
                 companion.generator = ipsedixit.Generator(f.read())
             companion.tell = companion.generator.paragraphs(1)
 
     def trade(self, screen):
-        """
-
-        :param screen:
-
-        """
         text_surface = self.font.render("How much would you pay ?", 0, COMPANION_COLORS["FONT_COLOR"])
 
         trade_rect = pygame.Rect(self.fill_box.left - text_surface.get_size()[0] * 2 + 4,\
@@ -177,7 +144,7 @@ class Companion(pygame.sprite.Sprite):
         pygame.draw.rect(screen, COMPANION_COLORS["OUTLINE_COLOR"], trade_rect, 10, 20)
         pygame.draw.rect(screen, COMPANION_COLORS["GRADIENT"], gradient_rect, 3, 20)
 
-        screen.blit(text_surface, (trade_rect.left + trade_rect.width / 4, trade_rect.top + 10))
+        screen.blit(text_surface, (trade_rect.left + trade_rect.width // 4, trade_rect.top + 10))
         buttons = []
         buttons.append(Button(self.level, (trade_rect.left + trade_rect.w * 0.25,\
                               trade_rect.top + trade_rect.h / 4 + 15),\
@@ -196,11 +163,9 @@ class Companion(pygame.sprite.Sprite):
             button.display(screen)
 
     def story(self):
-        """ """
         self.show_msg(self.screen, *self.tell)
 
     def display(self):
-        """ """
         pygame.draw.rect(self.screen, COMPANION_COLORS["MAIN_COLOR"], self.fill_box, 0, 20)
         pygame.draw.rect(self.screen, COMPANION_COLORS["OUTLINE_COLOR"], self.fill_box, 10, 20)
         gradient_rect = pygame.Rect.inflate(self.fill_box, -5, -5)
