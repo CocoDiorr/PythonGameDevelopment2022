@@ -41,7 +41,6 @@ class Level:
         #self.events = []
         self.shield = pygame.sprite.Group()
         self.cold_steels = pygame.sprite.Group()
-
         self.create_map()
 
     def create_map(self):
@@ -75,7 +74,6 @@ class Level:
                                 Turret(self, (x, y))
                             elif col == '0':
                                 Swordsman(self, (x, y))
-
 
     def bullets_update(self):
         """ """
