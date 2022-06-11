@@ -3,7 +3,6 @@ import os
 WINDOW_RESOLUTION = (1280, 720)
 BACKGROUND_COLOR = (100, 100, 100)
 BLACK = (0, 0, 0)
-# BLACK = (255, 255, 255)
 
 FPS = 60
 TILESIZE = 32
@@ -51,32 +50,27 @@ PLAYER_MAX_SPEED = 5
 PLAYER_SPRITE_PATH = os.path.join("map_graphics", "pics", "Special1.png")
 PLAYER_ANIMATION_PATH = os.path.join("pics", "BlueNinja", "SeparateAnim", "Walk.png")
 
-PLAYER_SIZE = (16, 16)
-
 PLAYER_MAX_HEALTH = 100
 PLAYER_MAX_ENERGY = 250
 
 PLAYER_HEALTH = 100
 PLAYER_ENERGY = 250
+
 SOLID_PATH = os.path.join("pics", "red_square.jpg")
 
 # Enemy
-BASE_ENEMY_PATH = os.path.join("map_graphics", "pics", "Faceset18.png")
 BASE_ENEMY_ABS_ACCEL = 1
 BASE_ENEMY_MAX_SPEED = 3
 BASE_ENEMY_SPRITE_PATH = os.path.join("pics", "blue_rect.png")
 BASE_ENEMY_HEALTH = 10
-BASE_ENEMY_ATTACK_RADIUS = 150
-BASE_ENEMY_NOTICE_RADIUS = 300
+BASE_ENEMY_ATTACK_RADIUS = 5 * TILESIZE
+BASE_ENEMY_NOTICE_RADIUS = 8 * TILESIZE
 
 TURRET_HEALTH = 20
 TURRET_ATTACK_RADIUS = 8 * TILESIZE
 TURRET_NOTICE_RADIUS = 8 * TILESIZE
-TURRET_PATH = os.path.join("map_graphics", "pics", "Faceset19.png")
 TURRET_ANIMATION = os.path.join("pics", "Skeleton", "SeparateAnim", "Walk.png")
 
-
-TURRET_SIZE = (16, 16)
 
 FAST_SHOOTER_ABS_ACCEL = 1
 FAST_SHOOTER_MAX_SPEED = 2
@@ -84,21 +78,15 @@ FAST_SHOOTER_HEALTH = 10
 
 FAST_SHOOTER_ATTACK_RADIUS = 5 * TILESIZE
 FAST_SHOOTER_NOTICE_RADIUS = 8 * TILESIZE
-FAST_SHOOTER_PATH = os.path.join("map_graphics", "pics", "Faceset18.png")
 FAST_SHOOTER_ANIMATION = os.path.join("pics", "Monk", "SeparateAnim", "Walk.png")
 
-# FAST_SHOOTER_PATH = os.path.join("pics", "blue_rect.png")
-FAST_SHOOTER_SIZE = (16, 16)
 
 SWORDSMAN_ABS_ACCEL = 1
 SWORDSMAN_MAX_SPEED = 2
 SWORDSMAN_HEALTH = 10
 SWORDSMAN_ATTACK_RADIUS = 1 * TILESIZE
 SWORDSMAN_NOTICE_RADIUS = 3 * TILESIZE
-SWORDSMAN_PATH = os.path.join("map_graphics", "pics", "Faceset22.png")
 SWORDSMAN_ANIMATION = os.path.join("pics", "GoldKnight", "SeparateAnim", "Walk.png")
-
-SWORDSMAN_SIZE = (16, 16)
 
 WEAPON_COOLDOWN = 0.1
 BULLET_SPEED = 10
@@ -123,35 +111,35 @@ COMPANION_BUTTON = {"FONT": os.path.join("fonts", "kongtext.ttf"),\
 
 
 SHIELD_SPRITE_PATH = os.path.join("pics", "white_rect.png")
-SHIELD_SIZE = (20, 5)
-SHIELD_DISTANCE = 30
+SHIELD_SIZE = (int(TILESIZE*1.5), int(TILESIZE / 3))
+SHIELD_DISTANCE = TILESIZE
 SHIELD_COOLDOWN = 0.5
 SHIELD_ALPHA = 90
 BULLET_REFLECTION_ACCELERATION = 2
 BULLET_REFLECTION_DAMAGE_UP = 2 # multiplier for damage of reflected bullet
 
 COLD_STEEL_SPRITE_PATH = os.path.join("pics", "orange_rect.png")
-COLD_STEEL_DISTANCE = 100
+COLD_STEEL_DISTANCE = int(TILESIZE / 2)
 COLD_STEEL_COOLDOWN = 0.5
 COLD_STEEL_ALPHA = 90
 COLD_STEEL_DAMAGE = 1
 
 SWORD_SPRITE_PATH = os.path.join("pics", "Sword2", "Sprite.png")
-SWORD_SIZE = (5, 20)
-SWORD_DISTANCE = 5
+SWORD_SIZE = (int(TILESIZE * 0.4), int(TILESIZE * 1.6))
+SWORD_DISTANCE = int(TILESIZE / 2)
 SWORD_COOLDOWN = 0.5
 SWORD_ALPHA = 90
 SWORD_DAMAGE = 1
 
 
 SHOOTING_WEAPON_SPRITE_PATH = os.path.join("pics", "orange_rect.png")
-SHOOTING_WEAPON_SIZE = (20, 5)
-SHOOTING_WEAPON_DISTANCE = 30
+SHOOTING_WEAPON_SIZE = (int(TILESIZE / 4), TILESIZE)
+SHOOTING_WEAPON_DISTANCE = int(TILESIZE / 2)
 
 BOW_IMAGE_PATH = os.path.join("pics", "Sprite.png")
-BOW_IMAGE_SIZE = (21, 7)
-BOW_DISTANCE = 15
-BOW_COOLDOWN = 0.1
+BOW_IMAGE_SIZE = (int(TILESIZE * 1.2), int(TILESIZE * 0.3))
+BOW_DISTANCE = int(TILESIZE / 2)
+BOW_COOLDOWN = 0.5
 
 ARROW_SPEED = 10
 ARROW_DAMAGE = 1

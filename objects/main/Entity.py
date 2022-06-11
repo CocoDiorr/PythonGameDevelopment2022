@@ -7,10 +7,9 @@ from config.SpriteSheet import SpriteSheet
 
 class Entity(pygame.sprite.Sprite):
     """ """
-    def __init__(self, level, groups, image_path, animations_path, size, position, abs_accel, max_speed, health, max_health=None, energy=None, max_energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
+    def __init__(self, level, groups, animations_path, position, abs_accel, max_speed, health, max_health=None, energy=None, max_energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
         super().__init__(groups)
         self.level = level
-        self.size = size
         self.anim_state = 'down_idle'
         self.animations = SpriteSheet(animations_path).get_animations()
         self._frame_index = 0
