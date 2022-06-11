@@ -12,21 +12,24 @@ from objects.enemy.FastShooter import FastShooter
 from objects.enemy.Swordsman import Swordsman
 from companion.Companion import Companion
 from ui.UI import UI
+from menu.EscMenu import EscMenu
 from config.Config import *
 from level.Support import *
 from level.Camera import *
 
 
 class Level:
-    """ """
-    def __init__(self):
+    """"""
+    def __init__(self, locale, game):
 
         # settings
+        self.game = game
         self.game_state = "active"
+        self.locale = locale
 
         self.display_surface = pygame.display.get_surface()
         # sprite group setup
-        self.visible = YSortCameraGroup() # pygame.sprite.Group()   
+        self.visible = YSortCameraGroup() # pygame.sprite.Group()
         self.obstacle = pygame.sprite.Group()
         self.entity = pygame.sprite.Group()
 
@@ -37,14 +40,15 @@ class Level:
 
         # User Interface
         self.ui = UI()
+        self.esc_menu = EscMenu(self)
 
-        #self.events = []
+        self.buttons_event = None
         self.shield = pygame.sprite.Group()
         self.cold_steels = pygame.sprite.Group()
-
-        self.create_map()
+        #self.create_map()
 
     def create_map(self):
+
         layouts = {
             'boundary': import_csv_layout(LEVEL_0_FLOORBLOCKS),
             'grass': import_csv_layout(LEVEL_0_GRASS),
@@ -78,6 +82,7 @@ class Level:
                             else:
                                 FastShooter(self, (x, y))
 
+        self.companion.player = self.player
 
     def bullets_update(self):
         """ """
@@ -113,27 +118,43 @@ class Level:
 
     def companion_call(self):
         """ """
+        self.companion.companion_state = "greeting"
         if self.game_state != "companion":
             self.game_state = "companion"
         else:
             self.game_state = "active"
 
+    def esc_menu_call(self):
+        """ """
+        if self.game_state != "esc":
+            self.game_state = "esc"
+        else:
+            self.game_state = "active"
+
+    def death(self):
+        if self.player.health <= 0:
+            self.game.game_state = "start"
+            self.game.__init__()
+
     def run(self, dt):
 
         """
 
-        :param dt: 
+        :param dt:
 
         """
         # self.visible.draw(self.display_surface)
         self.visible.custom_draw(self.player)
         # self.bullets.draw(self.display_surface)
         self.bullets.custom_draw(self.player)
+        self.ui.display(self.player)
         if self.game_state == "active":
             self.visible.update(dt)
             self.bullets_update()
+            self.death()
         elif self.game_state == "companion":
             self.companion.display()
-        self.ui.display(self.player)
-        # self.enemy.enemy_update(self.player)
+        elif self.game_state == "esc":
+            self.esc_menu.display()
 
+        # self.enemy.enemy_update(self.player)
