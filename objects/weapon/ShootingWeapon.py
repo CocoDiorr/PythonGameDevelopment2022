@@ -25,6 +25,10 @@ class ShootingWeapon(Weapon):
         """
         super().update(dt)
 
+    def move(self):
+        self.image = pygame.transform.rotate(self.start_image, self.owner.look_angle.angle_to(pygame.math.Vector2(0, 1)))
+        super().move()
+
     def spawn_bullet(self, angle: pygame.math.Vector2):
         """
 
