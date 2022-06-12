@@ -1,9 +1,9 @@
 import pygame
 import os
-from config.Config import WINDOW_RESOLUTION, UI_SETTINGS, AUDIO, DEFAULT_LOCALE
+from config.Config import WINDOW_RESOLUTION, UI_SETTINGS, AUDIO, DEFAULT_LOCALE, MENU
 
 import gettext
-translation = gettext.translation("StartMenu", "locale/start_menu", languages=[DEFAULT_LOCALE])
+translation = gettext.translation("StartMenu", os.path.join("locale", "start_menu"), languages=[DEFAULT_LOCALE])
 _ = translation.gettext
 
 
@@ -12,7 +12,7 @@ class StartMenu:
         self.game = game
         self.buttons_event = None
         self.settings_on = False
-        self.font = pygame.font.Font(UI_SETTINGS["UI_FONT"], UI_SETTINGS["UI_FONT_SIZE"] + 5)
+        self.font = pygame.font.Font(UI_SETTINGS["UI_FONT"], MENU["FONT_SIZE"])
 
         # settings
         self.locale = self.game.locale
@@ -25,9 +25,9 @@ class StartMenu:
 
         # Background
         self.bg_images = []
-        pics_path = os.path.join("pics", "menu")
-        for pic in os.listdir(os.path.join(pics_path, "bg")):
-            self.bg_images.append(pygame.transform.scale(pygame.image.load(os.path.join(pics_path, "bg", pic)).convert_alpha(), WINDOW_RESOLUTION))
+        #self.pics_path = os.path.join("pics", "menu")
+        for pic in os.listdir(os.path.join(MENU["PICS_PATH"], "bg")):
+            self.bg_images.append(pygame.transform.scale(pygame.image.load(os.path.join(MENU["PICS_PATH"], "bg", pic)).convert_alpha(), WINDOW_RESOLUTION))
 
         self.cur_frame = 0
         self.times = 20
@@ -40,36 +40,32 @@ class StartMenu:
 
         self.buttons = []
         self.buttons.append(
-            Item(os.path.join(pics_path, self.locale, "play.png"), os.path.join(pics_path, self.locale, "play_hovered.png"),\
+            Item("play.png", "play_hovered.png",\
                  int(0.3 * WINDOW_RESOLUTION[0]), int(0.2 * WINDOW_RESOLUTION[1]),\
                 (int(WINDOW_RESOLUTION[0] / 2), int(WINDOW_RESOLUTION[1] / 2)), self, self.play_button, None, 1, 3)
         )
         self.buttons.append(
-            Item(os.path.join(pics_path, self.locale, "settings.png"), os.path.join(pics_path, self.locale, "settings_hovered.png"),\
+            Item("settings.png", "settings_hovered.png",\
                  int(0.3 * WINDOW_RESOLUTION[0]), int(0.1 * WINDOW_RESOLUTION[1]),\
                 (int(WINDOW_RESOLUTION[0] / 2), int(WINDOW_RESOLUTION[1] * 0.7  + 20)), self, self.settings_button, None, 2, 3)
         )
         self.buttons.append(
-            Item(os.path.join(pics_path, self.locale, "exit.png"), os.path.join(pics_path, self.locale, "exit_hovered.png"),\
+            Item("exit.png", "exit_hovered.png",\
                  int(0.2 * WINDOW_RESOLUTION[0]), int(0.1 * WINDOW_RESOLUTION[1]),\
                 (int(WINDOW_RESOLUTION[0] / 2), int(WINDOW_RESOLUTION[1] * 0.8 + 40)), self, self.exit_button, None, 3, 3)
         )
         self.buttons.append(
-            LangButton(os.path.join(pics_path, "USA.png"), os.path.join(pics_path, "USA_hovered.png"),\
+            LangButton("USA.png", "USA_hovered.png",\
                  int(WINDOW_RESOLUTION[0] * 0.1), int(WINDOW_RESOLUTION[1] * 0.1),\
                 (int(WINDOW_RESOLUTION[0] * 0.40), int(WINDOW_RESOLUTION[1] * 0.7)), self, self.lang_button, ('en',), 2, 3, 'en')
 
         )
         self.buttons.append(
-            LangButton(os.path.join(pics_path, "Russia.png"), os.path.join(pics_path, "Russia_hovered.png"),\
+            LangButton("Russia.png", "Russia_hovered.png",\
                  int(WINDOW_RESOLUTION[0] * 0.1), int(WINDOW_RESOLUTION[1] * 0.1),\
                 (int(WINDOW_RESOLUTION[0] * 0.6), int(WINDOW_RESOLUTION[1] * 0.7)), self, self.lang_button, ('ru',), 2, 3, 'ru')
 
         )
-
-        self.langs = self.buttons[-2:]
-
-        #self.lang_msg =
 
     def display(self):
         self.surface.blit(self.bg_images[self.cur_frame], (0,0))
@@ -82,11 +78,11 @@ class StartMenu:
             for button in self.buttons[:3]:
                 button.display(self.surface)
         else:
-            text_surf_1 = self.font.render(_("Volume"), 0, "#FFFFFF")
+            text_surf_1 = self.font.render(_("Volume"), 0, MENU["FONT_COLOR"])
             text_rect_1 = text_surf_1.get_rect(midtop=(WINDOW_RESOLUTION[0] // 2, int(WINDOW_RESOLUTION[1] * 0.05)))
             self.surface.blit(text_surf_1, text_rect_1)
 
-            text_surf_2 = self.font.render(_("Choose language"), 0, "#FFFFFF")
+            text_surf_2 = self.font.render(_("Choose language"), 0, MENU["FONT_COLOR"])
             text_rect_2 = text_surf_2.get_rect(midtop=(WINDOW_RESOLUTION[0] // 2, int(WINDOW_RESOLUTION[1] * 0.6)))
             self.surface.blit(text_surf_2, text_rect_2)
             for button in self.buttons[3:]:
@@ -115,17 +111,23 @@ class StartMenu:
 
 class Item:
     def __init__(self, image, image_hovered, w, h, midtop, parent, action, args, numb, max_numb):
-        self.image_path = image
-        self.image_hovered_path = image_hovered
 
-        self.w = int(w)
-        self.h = int(h)
+        # Parent object to go to
+        self.parent = parent
+        self.locale = self.parent.locale
+
+        self.image_name = image
+        self.image_hovered_name = image_hovered
+
+        self.image_path = os.path.join(MENU["PICS_PATH"], self.locale, image)
+        self.image_hovered_path = os.path.join(MENU["PICS_PATH"], self.locale, image_hovered)
+
 
         self.image = pygame.image.load(self.image_path).convert_alpha()
-        self.image = pygame.transform.scale(self.image, (self.w, self.h))
+        self.image = pygame.transform.scale(self.image, (w, h))
         self.rect = self.image.get_rect(midtop=midtop)
         self.image_hovered = pygame.image.load(self.image_hovered_path).convert_alpha()
-        self.image_hovered = pygame.transform.scale(self.image_hovered, (self.w, self.h))
+        self.image_hovered = pygame.transform.scale(self.image_hovered, (w, h))
         self.rect_hovered = self.image_hovered.get_rect(midtop=midtop)
 
         # Button to display
@@ -143,9 +145,7 @@ class Item:
         self.numb = numb
         self.max_numb = max_numb
 
-        # Parent object to go to
-        self.parent = parent
-        self.locale = self.parent.locale
+
 
     def hover(self):
         if self.button_rect.collidepoint(pygame.mouse.get_pos()):
@@ -178,20 +178,20 @@ class Item:
         global translation
         global _
 
-        translation = gettext.translation("StartMenu", "locale/start_menu", languages=[lang])
+        translation = gettext.translation("StartMenu", os.path.join("locale", "start_menu"), languages=[lang])
         translation.install()
         _ = translation.gettext
 
-        self.image_path = self.image_path.replace("/" + self.locale + "/", "/" + lang + "/")
-        self.image_hovered_path = self.image_hovered_path.replace("/" + self.locale + "/", "/" + lang + "/")
+        self.image_path = os.path.join(MENU["PICS_PATH"], lang, self.image_name)
+        self.image_hovered_path = os.path.join(MENU["PICS_PATH"], lang, self.image_hovered_name)
 
         self.locale = lang
 
         self.image = pygame.image.load(self.image_path).convert_alpha()
-        self.image = pygame.transform.scale(self.image, (self.w, self.h))
+        self.image = pygame.transform.scale(self.image, (self.rect.w, self.rect.h))
 
         self.image_hovered = pygame.image.load(self.image_hovered_path).convert_alpha()
-        self.image_hovered = pygame.transform.scale(self.image_hovered, (self.w, self.h))
+        self.image_hovered = pygame.transform.scale(self.image_hovered, (self.rect.w, self.rect.h))
 
 
 class LangButton(Item):

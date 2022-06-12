@@ -8,7 +8,7 @@ from button.Button import Button
 import ipsedixit
 
 import gettext
-translation = gettext.translation("Companion", "locale/companion/", languages=[DEFAULT_LOCALE])
+translation = gettext.translation("Companion", path.join("locale", "companion"), languages=[DEFAULT_LOCALE])
 _ = translation.gettext
 
 
@@ -44,7 +44,7 @@ class Companion(pygame.sprite.Sprite):
         self.fill_box = pygame.Rect(self.rect.left - 5, self.rect.top - 5, self.rect.w + 5, self.rect.h + 5)
 
         # message textbox
-        # self.hi_msg_1 = 
+        # self.hi_msg_1 =
         # self.hi_msg_2 =
 
         # companion cooldown

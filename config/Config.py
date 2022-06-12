@@ -46,6 +46,13 @@ UI_SETTINGS = {"BAR_HEIGHT": 20,\
 AUDIO = {"START_MENU": os.path.join("audio", "main.ogg"),
 }
 
+# Menu
+MENU = {"FONT_SIZE": 33,\
+        "FONT_COLOR": "#FFFFFF",\
+        "PICS_PATH": os.path.join("pics", "menu")
+}
+
+
 
 # Player
 PLAYER_ABS_ACCEL = 1

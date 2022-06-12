@@ -1,6 +1,6 @@
 import pygame
 import os
-from config.Config import WINDOW_RESOLUTION
+from config.Config import WINDOW_RESOLUTION, MENU
 from menu.StartMenu import Item
 
 
@@ -10,7 +10,7 @@ class EscMenu:
         #self.buttons_event = None
 
         self.locale = self.level.locale
-        pics_path = os.path.join("pics", "menu")
+        #pics_path = os.path.join("pics", "menu")
         self.surface = pygame.display.get_surface()
 
         self.transp_bg = pygame.Surface(WINDOW_RESOLUTION, pygame.SRCALPHA)
@@ -20,15 +20,15 @@ class EscMenu:
 
         self.buttons = []
         self.buttons.append(
-            Item(os.path.join(pics_path, self.locale, "play.png"), os.path.join(pics_path, self.locale, "play_hovered.png"),\
-                 WINDOW_RESOLUTION[0] * 0.4, self.bg_rect.h * 0.4,\
-                 (WINDOW_RESOLUTION[0] / 2, WINDOW_RESOLUTION[1] * 0.26),\
+            Item("play.png", "play_hovered.png",\
+                 int(WINDOW_RESOLUTION[0] * 0.4), int(self.bg_rect.h * 0.4),\
+                 (int(WINDOW_RESOLUTION[0] / 2), int(WINDOW_RESOLUTION[1] * 0.26)),\
                  self.level, self.play_button_call, None, 1, 2)
         )
         self.buttons.append(
-            Item(os.path.join(pics_path, self.locale, "exit.png"), os.path.join(pics_path, self.locale, "exit_hovered.png"),\
-                 WINDOW_RESOLUTION[0] * 0.3, self.bg_rect.h * 0.3,\
-                 (WINDOW_RESOLUTION[0] / 2, WINDOW_RESOLUTION[1] * 0.56),\
+            Item("exit.png", "exit_hovered.png",\
+                 int(WINDOW_RESOLUTION[0] * 0.3), int(self.bg_rect.h * 0.3),\
+                 (int(WINDOW_RESOLUTION[0] / 2), int(WINDOW_RESOLUTION[1] * 0.56)),\
                  self.level, self.exit_button_call, None, 2, 2)
         )
 
