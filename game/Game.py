@@ -13,8 +13,9 @@ class Game:
         self.clock = pygame.time.Clock()
         self.running = True
         self.locale = 'ru'
-        self.volume = VOLUME
-        self.music = MusicPack(GAME_MUSIC, self.volume)
+        self.music_volume = MUSIC_VOLUME    # use self.music.update_volume when change music_volume
+        self.music = MusicPack(GAME_MUSIC, MUSIC_VOLUME)
+        self.sounds_volume = SOUNDS_VOLUME
         self.level = Level(self.locale, self)
         self.start_menu = StartMenu(self)
         self.game_state = "start" # "play"
@@ -22,6 +23,7 @@ class Game:
     def run(self):
         """ """
         pygame.mixer.init()
+        pygame.mixer.set_num_channels(32)
         while self.running:
             events = pygame.event.get()
 
@@ -38,7 +40,7 @@ class Game:
                         if self.game_state == "play":
                             if self.level.game_state in ("active", "esc"):
                                 self.level.esc_menu_call()
-                                pygame.mixer.music.pause()
+                                self.music.pause()
                             elif self.level.game_state == "companion":
                                 self.level.companion_call()
 
@@ -58,12 +60,12 @@ class Game:
             self.screen.fill(BACKGROUND_COLOR)
             if self.game_state == "start":
                 if self.level.game_state != "esc":
-                    pygame.mixer.music.unpause()
+                    self.music.unpause()
                     self.music.play("start_menu")
                 self.start_menu.display()
             if self.game_state == "play":
                 if self.level.game_state != "esc":
-                    pygame.mixer.music.unpause()
+                    self.music.unpause()
                     self.music.play("level")
                 self.level.run(dt)
             pygame.display.update()

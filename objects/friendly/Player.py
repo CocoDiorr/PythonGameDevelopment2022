@@ -15,11 +15,11 @@ from objects.enemy.Enemy import Enemy
 class Player(Entity):
     """ """
     def __init__(self, level, groups, position):
-        super().__init__(level, groups, PLAYER_SPRITE_PATH, PLAYER_SIZE, position, PLAYER_ABS_ACCEL, PLAYER_MAX_SPEED, PLAYER_HEALTH, max_health=PLAYER_MAX_HEALTH, energy=PLAYER_ENERGY, max_energy=PLAYER_MAX_ENERGY) # move constants from config to __init__ (to create player with certain health, weapon, etc, in new location)
+        super().__init__(level, groups, PLAYER_SPRITE_PATH, PLAYER_SIZE, PLAYER_SOUNDS, position, PLAYER_ABS_ACCEL, PLAYER_MAX_SPEED, PLAYER_HEALTH, max_health=PLAYER_MAX_HEALTH, energy=PLAYER_ENERGY, max_energy=PLAYER_MAX_ENERGY) # move constants from config to __init__ (to create player with certain health, weapon, etc, in new location)
         self.weapons = [Bow(self.level, self),]
         # self.weapons = [ShootingWeapon(self.level, SHOOTING_WEAPON_SPRITE_PATH, self, SHOOTING_WEAPON_DISTANCE, WEAPON_COOLDOWN, BULLET_SPEED, BULLET_DAMAGE, BULLET_RANGE, BULLET_SPRITE_PATH )]  # TODO: move to inventory later
         self.curr_weapon = 0    # index of self.weapons array
-        self.shield = Shield(self.level, (self.level.shield, self.level.visible), SHIELD_SPRITE_PATH, self, SHIELD_DISTANCE, SHIELD_COOLDOWN)
+        self.shield = Shield(self.level, (self.level.shield, self.level.visible), SHIELD_SPRITE_PATH, SHIELD_SOUNDS, self, SHIELD_DISTANCE, SHIELD_COOLDOWN)
         self.dust = 1500
 
     def input(self):
@@ -88,6 +88,7 @@ class Player(Entity):
 
     def get_dust(self, enemy: Enemy):
         if hasattr(enemy, "weapon") and not (enemy.weapon is None):
+            self.sounds.play("dust")
             if isinstance(enemy.weapon, ShootingWeapon):
                 self.dust += int((GET_DUST_HEALTH_MULTIPLIER * enemy.max_health + GET_DUST_WEAPON_MULTIPLIER * enemy.weapon.bullet_damage / enemy.weapon.cooldown) * GET_DUST_MULTIPLIER)
             elif isinstance(enemy.weapon, ColdSteel):

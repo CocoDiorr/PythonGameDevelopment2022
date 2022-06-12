@@ -2,18 +2,20 @@ import pygame
 import pygame.math
 import pygame.sprite
 import pygame.rect
+from audio.soundpack.SoundPack import SoundPack
 from config.Config import *
 
 
 class Weapon(pygame.sprite.Sprite):
     """ """
-    def __init__(self, level, groups, image_path, image_size, owner, owner_distance, cooldown):
+    def __init__(self, level, groups, image_path, image_size, sounds, owner, owner_distance, cooldown):
         super().__init__(groups)
         self.level = level
         self.start_image = pygame.image.load(image_path).convert_alpha()
         self.start_image = pygame.transform.scale(self.start_image, image_size)
         self.image = self.start_image
         self.rect = self.image.get_rect()
+        self.sounds = SoundPack(sounds, self.level.game.sounds_volume)
         self.owner = owner
         self.owner_distance = owner_distance
         self.last_use = cooldown

@@ -1,9 +1,10 @@
 import pygame
 from sys import exit
 from os import path
+from audio.soundpack.SoundPack import SoundPack
 from config.Config import COMPANION_FONT, COMPANION_FONT_SIZE, WINDOW_RESOLUTION,\
                           COMPANION_SIZE, COMPANION_IMAGE, COMPANION_COLORS,\
-                          COMPANION_BUTTON
+                          COMPANION_BUTTON, COMPANION_SOUNDS
 from button.Button import Button
 import ipsedixit
 
@@ -35,6 +36,7 @@ class Companion(pygame.sprite.Sprite):
         self.screen = screen
         self.level = level
         self.locale = self.level.locale
+        # self.sounds = SoundPack(COMPANION_SOUNDS, self.level.game.sounds_volume)
 
         # companion outline
         self.fill_box = pygame.Rect(self.rect.left - 5, self.rect.top - 5, self.rect.w + 5, self.rect.h + 5)

@@ -1,6 +1,7 @@
 import pygame
 import os
-from config.Config import WINDOW_RESOLUTION
+from audio.soundpack.SoundPack import SoundPack
+from config.Config import WINDOW_RESOLUTION, BUTTON_SOUNDS
 
 
 class StartMenu:
@@ -92,6 +93,9 @@ class Item:
         # Parent object to go to
         self.parent = parent
 
+        self.sounds = SoundPack(BUTTON_SOUNDS, self.parent.game.sounds_volume)
+
+
     def hover(self):
         if self.button_rect.collidepoint(pygame.mouse.get_pos()):
             self.button_rect = self.rect_hovered
@@ -104,8 +108,10 @@ class Item:
         if self.button_rect.collidepoint(pygame.mouse.get_pos()):
             if self.parent.buttons_event and not self.pressed:
                 if self.args:
+                    self.sounds.play("click")
                     self.action(*self.args)
                 else:
+                    self.sounds.play("click")
                     self.action()
                 self.pressed = True
                 self.parent.buttons_event = None
