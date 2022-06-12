@@ -13,6 +13,7 @@ from objects.enemy.Skeleton import Skeleton
 from companion.Companion import Companion
 from ui.UI import UI
 from menu.EscMenu import EscMenu
+from menu.DeathScreen import DeathScreen
 from config.Config import *
 from level.Support import *
 from level.Camera import *
@@ -41,8 +42,11 @@ class Level:
         # User Interface
         self.ui = UI()
         self.esc_menu = EscMenu(self)
+        self.death_screen = DeathScreen(self)
 
+        # Buttons events
         self.buttons_event = None
+
         self.shield = pygame.sprite.Group()
         self.cold_steels = pygame.sprite.Group()
         #self.create_map()
@@ -149,8 +153,22 @@ class Level:
     def death(self):
         """ """
         if self.player.health <= 0:
-            self.game.game_state = "start"
-            self.game.__init__()
+            self.game_state = "death"
+            # self.game.game_state = "start"
+            # self.game.__init__()
+
+    # def death_screen(self):
+    #     text_surf_1 = self.font.render("You died", 0, MENU["FONT_COLOR"])
+    #     text_rect_1 = text_surf_1.get_rect(midtop=(WINDOW_RESOLUTION[0] // 2, int(WINDOW_RESOLUTION[1] * 0.1)))
+    #
+    #     text_surf_2 = self.font.render("Press SPACE to exit", 0, MENU["FONT_COLOR"])
+    #     text_rect_2 = text_surf_2.get_rect(midtop=(WINDOW_RESOLUTION[0] // 2, int(WINDOW_RESOLUTION[1] * 0.5)))
+    #
+    #
+    #     transp_bg = pygame.Surface(WINDOW_RESOLUTION, pygame.SRCALPHA)
+    #     transp_bg.fill((255, 0, 0, 128))
+
+
 
     def run(self, dt):
 
@@ -172,5 +190,12 @@ class Level:
             self.companion.display()
         elif self.game_state == "esc":
             self.esc_menu.display()
+        elif self.game_state == "death":
+            self.death_screen.display()
 
         # self.enemy.enemy_update(self.player)
+
+    def update_locale(self, lang):
+        self.death_screen.update_locale(lang)
+        self.esc_menu.update_locale(lang)
+        self.companion.update_locale(lang)

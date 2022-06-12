@@ -4,6 +4,8 @@ WINDOW_RESOLUTION = (1280, 720)
 BACKGROUND_COLOR = (113,221,238)
 BLACK = (0, 0, 0)
 
+DEFAULT_LOCALE = 'en'
+
 FPS = 60
 
 TILESIZE = 64
@@ -65,6 +67,17 @@ GAME_MUSIC = {
 }
 SOUNDS_VOLUME = 0.2
 MUSIC_VOLUME = 0.5
+
+# Audio
+# AUDIO = {"START_MENU": os.path.join("audio", "main.ogg"),
+# }
+
+# Menu
+MENU = {"FONT_SIZE": 33,\
+        "FONT_COLOR": "#FFFFFF",\
+        "PICS_PATH": os.path.join("pics", "menu")
+}
+
 
 ANIMATION_SPEED = 0.15
 

@@ -4,9 +4,13 @@ from os import path
 from audio.soundpack.SoundPack import SoundPack
 from config.Config import COMPANION_FONT, COMPANION_FONT_SIZE, WINDOW_RESOLUTION,\
                           COMPANION_SIZE, COMPANION_IMAGE, COMPANION_COLORS,\
-                          COMPANION_BUTTON, COMPANION_SOUNDS
+                          COMPANION_BUTTON, DEFAULT_LOCALE, COMPANION_SOUNDS
 from button.Button import Button
 import ipsedixit
+
+import gettext
+translation = gettext.translation("Companion", path.join("locale", "companion"), languages=[DEFAULT_LOCALE])
+_ = translation.gettext
 
 
 class Companion(pygame.sprite.Sprite):
@@ -42,8 +46,8 @@ class Companion(pygame.sprite.Sprite):
         self.fill_box = pygame.Rect(self.rect.left - 5, self.rect.top - 5, self.rect.w + 5, self.rect.h + 5)
 
         # message textbox
-        self.hi_msg_1 = "Hi, haven't seen you in a while ! <3"
-        self.hi_msg_2 = "Do you want a story ?"
+        # self.hi_msg_1 =
+        # self.hi_msg_2 =
 
         # companion cooldown
         self.call = None
@@ -54,7 +58,7 @@ class Companion(pygame.sprite.Sprite):
         """
 
         :param screen: param msg:
-        :param msg: 
+        :param msg:
 
         """
 
@@ -102,7 +106,7 @@ class Companion(pygame.sprite.Sprite):
     def yes_button(self, companion):
         """
 
-        :param companion: 
+        :param companion:
 
         """
         companion.companion_state = "trade"
@@ -110,7 +114,7 @@ class Companion(pygame.sprite.Sprite):
     def no_button(self, level):
         """
 
-        :param level: 
+        :param level:
 
         """
         level.game_state = "active"
@@ -119,11 +123,11 @@ class Companion(pygame.sprite.Sprite):
     def greeting(self, screen):
         """
 
-        :param screen: 
+        :param screen:
 
         """
-        text_surface_1 = self.font.render(self.hi_msg_1, 0, COMPANION_COLORS["FONT_COLOR"])
-        text_surface_2 = self.font.render(self.hi_msg_2, 0, COMPANION_COLORS["FONT_COLOR"])
+        text_surface_1 = self.font.render(_("Hi, haven't seen you in a while ! <3"), 0, COMPANION_COLORS["FONT_COLOR"])
+        text_surface_2 = self.font.render(_("Do you want a story ?"), 0, COMPANION_COLORS["FONT_COLOR"])
 
         greet_rect = pygame.Rect(self.fill_box.left - text_surface_1.get_size()[0] - 20,\
                                  self.fill_box.top,\
@@ -138,9 +142,9 @@ class Companion(pygame.sprite.Sprite):
         screen.blit(text_surface_2, (greet_rect.left + 15, greet_rect.top + 30 + text_surface_1.get_size()[1]))
 
         yes = Button(self.level, (greet_rect.left + greet_rect.w * 0.2, greet_rect.top + greet_rect.h * 9 / 16),\
-                     greet_rect.w * 0.25, greet_rect.h * 0.35, "Yes", self.yes_button, (self,), 1, 2)
+                     greet_rect.w * 0.25, greet_rect.h * 0.35, _("Yes"), self.yes_button, (self,), 1, 2)
         no = Button(self.level, (greet_rect.left + greet_rect.w * 0.55, greet_rect.top + greet_rect.h * 9 / 16),\
-                    greet_rect.w * 0.25, greet_rect.h * 0.35, "No", self.no_button, (self.level,), 2, 2)
+                    greet_rect.w * 0.25, greet_rect.h * 0.35, _("No"), self.no_button, (self.level,), 2, 2)
 
         yes.display(screen)
         no.display(screen)
@@ -149,7 +153,7 @@ class Companion(pygame.sprite.Sprite):
         """
 
         :param companion: param name:
-        :param name: 
+        :param name:
 
         """
         if companion.player.dust >= int(name):
@@ -163,10 +167,10 @@ class Companion(pygame.sprite.Sprite):
     def trade(self, screen):
         """
 
-        :param screen: 
+        :param screen:
 
         """
-        text_surface = self.font.render("How much would you pay ?", 0, COMPANION_COLORS["FONT_COLOR"])
+        text_surface = self.font.render(_("How much would you pay ?"), 0, COMPANION_COLORS["FONT_COLOR"])
 
         trade_rect = pygame.Rect(self.fill_box.left - text_surface.get_size()[0] * 2 + 4,\
                                  self.fill_box.top,\
@@ -215,3 +219,12 @@ class Companion(pygame.sprite.Sprite):
             self.story()
 
         self.screen.blit(self.image, self.rect)
+
+    def update_locale(self, lang):
+        global translation
+        global _
+        self.locale = lang
+
+        translation = gettext.translation("Companion", path.join("locale", "companion"), languages=[lang])
+        translation.install()
+        _ = translation.gettext

@@ -9,17 +9,17 @@ from menu.StartMenu import StartMenu
 
 class Game:
     """ """
-    def __init__(self):
+    def __init__(self, locale='en', music_volume=MUSIC_VOLUME, sounds_volume=SOUNDS_VOLUME):
         self.screen = pygame.display.set_mode(WINDOW_RESOLUTION)
         self.clock = pygame.time.Clock()
         self.running = True
-        self.locale = 'ru'
-        self.music_volume = MUSIC_VOLUME    # use self.music.update_volume when change music_volume
-        self.music = MusicPack(GAME_MUSIC, MUSIC_VOLUME)
-        self.sounds_volume = SOUNDS_VOLUME
+        self.locale = locale
+        self.music_volume = music_volume    # use self.music.update_volume when change music_volume
+        self.music = MusicPack(GAME_MUSIC, music_volume)
+        self.sounds_volume = sounds_volume
         self.level = Level(self.locale, self)
-        self.start_menu = StartMenu(self)
         self.game_state = "start" # "play"
+        self.start_menu = StartMenu(self)
 
     def run(self):
         """ """
@@ -44,6 +44,9 @@ class Game:
                                 self.music.pause()
                             elif self.level.game_state == "companion":
                                 self.level.companion_call()
+                        else:
+                            if self.start_menu.settings_on:
+                                self.start_menu.settings_button()
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
@@ -69,3 +72,8 @@ class Game:
                 self.level.run(dt)
             pygame.display.update()
         pygame.mixer.quit()
+
+    def update_locale(self, lang):
+        self.locale = lang
+        self.level.update_locale(lang)
+        self.start_menu.update_locale(lang)
