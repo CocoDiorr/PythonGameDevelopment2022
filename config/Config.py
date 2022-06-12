@@ -18,9 +18,11 @@ TILESIZE = 64
 # LEVEL_0_OBJECTS = os.path.join("map_graphics/levels/0/", "level_0_Objects.csv")
 # LEVEL_0_PLAYER = os.path.join("map_graphics/levels/0/", "level_0_Player.csv")
 
-LEVEL_PATH = "1/"
+LEVEL_PATH = "1"
 
 LEVEL_0_PIC_PATH = os.path.join("map_graphics", "levels", LEVEL_PATH, "map.png")
+GRASS_PICS_FOLDER = os.path.join("map_graphics", "Grass")
+OBJECTS_PICS_FOLDER = os.path.join("map_graphics", "Objects")
 
 LEVEL_0_DETAILS = os.path.join("map_graphics", "levels", LEVEL_PATH, "map_Details.csv")
 LEVEL_0_ENTITIES = os.path.join("map_graphics", "levels", LEVEL_PATH, "map_Entities.csv")

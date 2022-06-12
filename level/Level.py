@@ -1,5 +1,6 @@
 import os
 import pygame
+from random import choice
 import pygame.sprite
 import pygame.math
 from objects.friendly.Player import Player
@@ -56,6 +57,11 @@ class Level:
             'player': import_csv_layout(LEVEL_0_PLAYER),
             'entities': import_csv_layout(LEVEL_0_ENTITIES),
         }
+        graphics = {
+            'grass': import_folder(GRASS_PICS_FOLDER),
+            'objects': import_folder(OBJECTS_PICS_FOLDER),
+        }
+        print(graphics)
         for style, layout in layouts.items():
             for row_index, row in enumerate(layout):
                 for col_index, col in enumerate(row):
@@ -66,9 +72,16 @@ class Level:
                             Solid((x, y), [self.obstacle], 'invisible')
                         if style == 'grass':
                             # create a grass tile
-                            pass
+                            # print(col, f'{col}.png')
+                            random_grass_image = graphics['grass'][f'{col}.png']
+                            random_grass_image = pygame.transform.scale(random_grass_image, (TILESIZE, TILESIZE))
+                            Solid((x, y), [self.visible, self.obstacle], 'grass', random_grass_image)
                         if style == 'object':
                             # create an object tile
+                            # print(col, f'{col}.png')
+                            surf = graphics['objects'][f'{col}.png']
+                            surf = pygame.transform.scale(surf, (2 * TILESIZE, 2 * TILESIZE))
+                            Solid((x, y), [self.visible, self.obstacle], 'object', surf)
                             pass
                         if style == 'player':
                             self.player = Player(self, (self.visible, self.entity,), (x, y))

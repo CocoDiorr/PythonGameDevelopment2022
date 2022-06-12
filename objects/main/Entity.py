@@ -44,7 +44,7 @@ class Entity(pygame.sprite.Sprite):
             look_angle = pygame.math.Vector2(1, 0)
         self.look_angle = look_angle.normalize()
 
-        # self.hitbox = self.rect.inflate(0, -10)
+        self.hitbox = self.rect.inflate(0, -26)
 
 
     def sprint_on(self):
@@ -78,7 +78,8 @@ class Entity(pygame.sprite.Sprite):
 
         # set the image
         self.image = animation[int(self._frame_index)]
-        self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect(center = self.hitbox.center)
+        # self.hitbox = self.rect.inflate(0, -26)
 
     def move(self, sprint=False):
         """ """
@@ -116,11 +117,17 @@ class Entity(pygame.sprite.Sprite):
 
         self.pos.x += curr_speed.x
         self.rect.center = self.pos
+        self.hitbox.center = self.pos
+        # self.hitbox.x = self.pos.x
         self.collision('horizontal')
 
         self.pos.y += curr_speed.y
         self.rect.center = self.pos
+        self.hitbox.center = self.pos
+        # self.hitbox.y = self.pos.y
         self.collision('vertical')
+
+        self.rect.center = self.hitbox.center
 
     def collision(self, direction):
         """
@@ -128,25 +135,44 @@ class Entity(pygame.sprite.Sprite):
         :param direction: 
 
         """
+        # if direction == 'horizontal':
+        #     collided_sprite = pygame.sprite.spritecollideany(self, self.level.obstacle)
+        #     if collided_sprite:
+        #         if self.speed.x > 0:  # moving right
+        #             self.rect.right = collided_sprite.rect.left
+        #             self.pos = pygame.math.Vector2(self.rect.center)
+        #         if self.speed.x < 0:  # moving left
+        #             self.rect.left = collided_sprite.rect.right
+        #             self.pos = pygame.math.Vector2(self.rect.center)
+        #
+        # if direction == 'vertical':
+        #     collided_sprite = pygame.sprite.spritecollideany(self, self.level.obstacle)
+        #     if collided_sprite:
+        #         if self.speed.y > 0:  # moving down
+        #             self.rect.bottom = collided_sprite.rect.top
+        #             self.pos = pygame.math.Vector2(self.rect.center)
+        #         if self.speed.y < 0:  # moving up
+        #             self.rect.top = collided_sprite.rect.bottom
+        #             self.pos = pygame.math.Vector2(self.rect.center)
         if direction == 'horizontal':
-            collided_sprite = pygame.sprite.spritecollideany(self, self.level.obstacle)
-            if collided_sprite:
-                if self.speed.x > 0:  # moving right
-                    self.rect.right = collided_sprite.rect.left
-                    self.pos = pygame.math.Vector2(self.rect.center)
-                if self.speed.x < 0:  # moving left
-                    self.rect.left = collided_sprite.rect.right
-                    self.pos = pygame.math.Vector2(self.rect.center)
-
+            for sprite in self.level.obstacle:
+                if sprite.hitbox.colliderect(self.hitbox):
+                    if self.speed.x > 0:
+                        self.hitbox.right = sprite.hitbox.left
+                        self.pos = pygame.math.Vector2(self.hitbox.center)
+                    if self.speed.x < 0:
+                        self.hitbox.left = sprite.hitbox.right
+                        self.pos = pygame.math.Vector2(self.hitbox.center)
         if direction == 'vertical':
-            collided_sprite = pygame.sprite.spritecollideany(self, self.level.obstacle)
-            if collided_sprite:
-                if self.speed.y > 0:  # moving down
-                    self.rect.bottom = collided_sprite.rect.top
-                    self.pos = pygame.math.Vector2(self.rect.center)
-                if self.speed.y < 0:  # moving up
-                    self.rect.top = collided_sprite.rect.bottom
-                    self.pos = pygame.math.Vector2(self.rect.center)
+            for sprite in self.level.obstacle:
+                if sprite.hitbox.colliderect(self.hitbox):
+                    if self.speed.y > 0:
+                        self.hitbox.bottom = sprite.hitbox.top
+                        self.pos = pygame.math.Vector2(self.hitbox.center)
+                    if self.speed.y < 0:
+                        self.hitbox.top = sprite.hitbox.bottom
+                        self.pos = pygame.math.Vector2(self.hitbox.center)
+
 
     def get_hit(self, damage):
         """
