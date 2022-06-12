@@ -1,9 +1,11 @@
 import pygame
 import os
-from config.Config import WINDOW_RESOLUTION
+from audio.soundpack.SoundPack import SoundPack
+from config.Config import WINDOW_RESOLUTION, BUTTON_SOUNDS
 
 
 class StartMenu:
+    """ """
     def __init__(self, game):
         self.game = game
         self.buttons_event = None
@@ -44,6 +46,7 @@ class StartMenu:
         )
 
     def display(self):
+        """ """
         self.surface.blit(self.bg_images[self.cur_frame], (0,0))
         self.times -= 1
         if self.times == 0:
@@ -55,20 +58,24 @@ class StartMenu:
 
 
     def play_button(self):
+        """ """
         self.game.level.create_map()
         self.game.game_state = "play"
 
     def settings_button(self):
+        """ """
         pass
 
     def exit_button(self):
+        """ """
         self.game.running = False
 
 
 class Item:
-    def __init__(self, image, image_hovered, w, h, midtop, parent, action, args, numb, max_numb):
+    """ """
+    def __init__(self, image, image_hovered, w: int, h: int, midtop, parent, action, args, numb, max_numb):
         self.image = pygame.image.load(image).convert_alpha()
-        self.image = pygame.transform.scale(self.image, (int(w), int(h)))
+        self.image = pygame.transform.scale(self.image, (w, h))
         self.rect = self.image.get_rect(midtop=midtop)
         self.image_hovered = pygame.image.load(image_hovered).convert_alpha()
         self.image_hovered = pygame.transform.scale(self.image_hovered, (int(w), int(h)))
@@ -92,7 +99,11 @@ class Item:
         # Parent object to go to
         self.parent = parent
 
+        self.sounds = SoundPack(BUTTON_SOUNDS, self.parent.game.sounds_volume)
+
+
     def hover(self):
+        """ """
         if self.button_rect.collidepoint(pygame.mouse.get_pos()):
             self.button_rect = self.rect_hovered
             self.button = self.image_hovered
@@ -101,11 +112,14 @@ class Item:
             self.button = self.image
 
     def click(self):
+        """ """
         if self.button_rect.collidepoint(pygame.mouse.get_pos()):
             if self.parent.buttons_event and not self.pressed:
                 if self.args:
+                    self.sounds.play("click")
                     self.action(*self.args)
                 else:
+                    self.sounds.play("click")
                     self.action()
                 self.pressed = True
                 self.parent.buttons_event = None
@@ -115,6 +129,11 @@ class Item:
             self.parent.buttons_event = None
 
     def display(self, surface):
+        """
+
+        :param surface: 
+
+        """
         self.hover()
         self.click()
         surface.blit(self.button, self.button_rect)
