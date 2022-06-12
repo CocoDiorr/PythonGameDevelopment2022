@@ -1,13 +1,14 @@
 import pygame
 import pygame.math
 import pygame.sprite
+from audio.soundpack.SoundPack import SoundPack
 from config.Config import *
 from config.SpriteSheet import SpriteSheet
 
 
 class Entity(pygame.sprite.Sprite):
     """ """
-    def __init__(self, level, groups, animations_path, position, abs_accel, max_speed, health, max_health=None, energy=None, max_energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
+    def __init__(self, level, groups, animations_path, sounds, position, abs_accel, max_speed, health, max_health=None, energy=None, max_energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
         super().__init__(groups)
         self.level = level
         self.anim_state = 'down_idle'
@@ -16,6 +17,7 @@ class Entity(pygame.sprite.Sprite):
         self._animation_speed = ANIMATION_SPEED
         self.image = self.animations[self.anim_state][0]
         self.rect = self.image.get_rect()
+        self.sounds = SoundPack(sounds, self.level.game.sounds_volume)
         self.pos = pygame.math.Vector2(position)
         self.rect.center = self.pos
         self.accel = pygame.math.Vector2()
@@ -149,10 +151,10 @@ class Entity(pygame.sprite.Sprite):
 
         """
         self.health = max(self.health - damage, 0)
+        self.sounds.play("hurt")
         if self.health == 0:
             self.kill()
             if "weapon" in self.__dict__:
                 self.weapon.kill()
             if "shield" in self.__dict__:
                 self.shield.kill()
-            # add for player weapons

@@ -6,8 +6,8 @@ from config.Config import *
 
 class Enemy(Entity):
     """ """
-    def __init__(self, level, groups, animations_path, position, abs_accel, max_speed, health, attack_radius, notice_radius):
-        super().__init__(level, groups, animations_path, position, abs_accel, max_speed, health)
+    def __init__(self, level, groups, animations_path, sounds, position, abs_accel, max_speed, health, attack_radius, notice_radius):
+        super().__init__(level, groups, animations_path, sounds, position, abs_accel, max_speed, health)
         self.sprite_type = "enemy"
         self.status = "idle"
         self.attack_radius = attack_radius
@@ -70,3 +70,7 @@ class Enemy(Entity):
                 else:
                     self.weapon.hit()
             self.weapon.update(dt)
+
+    def kill(self):
+        self.level.player.get_dust(self)
+        super().kill()

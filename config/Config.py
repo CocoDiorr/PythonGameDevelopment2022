@@ -39,7 +39,16 @@ UI_SETTINGS = {"BAR_HEIGHT": 20,\
                              "ENERGY": "blue"
                              }
                }
+BUTTON_SOUNDS = {
+    "click": {os.path.join("audio", "sound_effects", "click", "click.mp3")}
+}
 
+GAME_MUSIC = {
+    "start_menu": os.path.join("audio", "music", "menu_loop.ogg"),
+    "level": os.path.join("audio", "music", "level_loop.ogg"),
+}
+SOUNDS_VOLUME = 0.2
+MUSIC_VOLUME = 0.5
 
 ANIMATION_SPEED = 0.15
 
@@ -58,6 +67,18 @@ PLAYER_HEALTH = 100
 PLAYER_ENERGY = 250
 
 SOLID_PATH = os.path.join("pics", "red_square.jpg")
+PLAYER_SOUNDS = {
+    "hurt": {
+        os.path.join("audio", "sound_effects", "hurt", "hurt1.mp3"),
+        os.path.join("audio", "sound_effects", "hurt", "hurt2.mp3"),
+        os.path.join("audio", "sound_effects", "hurt", "hurt3.mp3"),
+    },
+    "dust": {
+        os.path.join("audio", "sound_effects", "dust", "dust1.mp3"),
+        os.path.join("audio", "sound_effects", "dust", "dust2.mp3"),
+        os.path.join("audio", "sound_effects", "dust", "dust3.mp3"),
+    },
+}
 
 # Enemy
 BASE_ENEMY_ABS_ACCEL = 1
@@ -71,7 +92,12 @@ TURRET_HEALTH = 20
 TURRET_ATTACK_RADIUS = 8 * TILESIZE
 TURRET_NOTICE_RADIUS = 8 * TILESIZE
 TURRET_ANIMATION = os.path.join("pics", "Skeleton", "SeparateAnim", "Walk.png")
-
+TURRET_SOUNDS = {
+    "hurt": {
+        os.path.join("audio", "sound_effects", "wood", "wood1.mp3"),
+        os.path.join("audio", "sound_effects", "wood", "wood2.mp3"),
+    },
+}
 
 FAST_SHOOTER_ABS_ACCEL = 1
 FAST_SHOOTER_MAX_SPEED = 2
@@ -80,7 +106,13 @@ FAST_SHOOTER_HEALTH = 10
 FAST_SHOOTER_ATTACK_RADIUS = 5 * TILESIZE
 FAST_SHOOTER_NOTICE_RADIUS = 8 * TILESIZE
 FAST_SHOOTER_ANIMATION = os.path.join("pics", "Monk", "SeparateAnim", "Walk.png")
-
+FAST_SHOOTER_SOUNDS = {
+    "hurt": {
+        os.path.join("audio", "sound_effects", "hurt", "hurt1.mp3"),
+        os.path.join("audio", "sound_effects", "hurt", "hurt2.mp3"),
+        os.path.join("audio", "sound_effects", "hurt", "hurt3.mp3"),
+    },
+}
 
 SWORDSMAN_ABS_ACCEL = 1
 SWORDSMAN_MAX_SPEED = 2
@@ -88,6 +120,13 @@ SWORDSMAN_HEALTH = 10
 SWORDSMAN_ATTACK_RADIUS = 1 * TILESIZE
 SWORDSMAN_NOTICE_RADIUS = 3 * TILESIZE
 SWORDSMAN_ANIMATION = os.path.join("pics", "GoldKnight", "SeparateAnim", "Walk.png")
+SWORDSMAN_SOUNDS = {
+    "hurt": {
+        os.path.join("audio", "sound_effects", "hurt", "hurt1.mp3"),
+        os.path.join("audio", "sound_effects", "hurt", "hurt2.mp3"),
+        os.path.join("audio", "sound_effects", "hurt", "hurt3.mp3"),
+    },
+}
 
 WEAPON_COOLDOWN = 0.1
 BULLET_SPEED = 10
@@ -109,13 +148,19 @@ COMPANION_BUTTON = {"FONT": os.path.join("fonts", "pixelcyr_normal.ttf"),\
                     "FONT_COLOR": (8, 76, 97),\
                     "MAIN_COLOR": (224, 251, 252),\
                     "OUTLINE_COLOR": (152, 193, 217)}
-
+COMPANION_SOUNDS = dict()
 
 SHIELD_SPRITE_PATH = os.path.join("pics", "white_rect.png")
 SHIELD_SIZE = (int(TILESIZE*1.5), int(TILESIZE / 3))
 SHIELD_DISTANCE = TILESIZE
 SHIELD_COOLDOWN = 0.5
 SHIELD_ALPHA = 90
+SHIELD_SOUNDS = {
+    "reflect": {
+        os.path.join("audio", "sound_effects", "shield", "reflect1.mp3"),
+    },
+}
+
 BULLET_REFLECTION_ACCELERATION = 2
 BULLET_REFLECTION_DAMAGE_UP = 2 # multiplier for damage of reflected bullet
 
@@ -131,16 +176,29 @@ SWORD_DISTANCE = int(TILESIZE / 2)
 SWORD_COOLDOWN = 0.5
 SWORD_ALPHA = 90
 SWORD_DAMAGE = 1
-
+SWORD_SOUNDS = {
+    "hit": {
+        os.path.join("audio", "sound_effects", "sword", "hit1.mp3"),
+        os.path.join("audio", "sound_effects", "sword", "hit2.mp3"),
+        os.path.join("audio", "sound_effects", "sword", "hit3.mp3"),
+    },
+}
 
 SHOOTING_WEAPON_SPRITE_PATH = os.path.join("pics", "orange_rect.png")
 SHOOTING_WEAPON_SIZE = (int(TILESIZE / 4), TILESIZE)
 SHOOTING_WEAPON_DISTANCE = int(TILESIZE / 2)
+SHOOTING_WEAPON_SOUNDS = dict()
 
 BOW_IMAGE_PATH = os.path.join("pics", "Sprite.png")
 BOW_IMAGE_SIZE = (int(TILESIZE * 1.2), int(TILESIZE * 0.3))
 BOW_DISTANCE = int(TILESIZE / 2)
 BOW_COOLDOWN = 0.5
+BOW_SOUNDS = {
+    "shoot": {
+        os.path.join("audio", "sound_effects", "bow", "shoot1.mp3"),
+        os.path.join("audio", "sound_effects", "bow", "shoot2.mp3"),
+    },
+}
 
 ARROW_SPEED = 10
 ARROW_DAMAGE = 1
@@ -153,3 +211,6 @@ SPRINT_MULTIPLIER = 1.5
 ENERGY_SPEND = 2
 ENERGY_RECOVER = 0.3
 
+GET_DUST_MULTIPLIER = 0.5
+GET_DUST_WEAPON_MULTIPLIER = 10
+GET_DUST_HEALTH_MULTIPLIER = 1
