@@ -33,6 +33,10 @@ class StartMenu:
         self.times = 20
         self.frames = len(self.bg_images)
 
+        # Name above
+        # self.vmik = pygame.image.load(os.path.join(MENU["PICS_PATH"], "VMIK_name.png"))
+        # self.vmik_
+
         # state
         self.start_menu_state = "options"
 
@@ -67,6 +71,8 @@ class StartMenu:
 
         )
 
+        #self.volume_rect = pygame.Rect(int(WINDOW_RESOLUTION[0] * 0.4), int(WINDOW_RESOLUTION[1] * 0.1), int(WINDOW_RESOLUTION[0] * 0.3), int(WINDOW_RESOLUTION[1] * 0.15))
+
     def display(self):
         self.surface.blit(self.bg_images[self.cur_frame], (0,0))
         self.times -= 1
@@ -75,6 +81,7 @@ class StartMenu:
             self.times = 20
 
         if not self.settings_on:
+            #pygame.draw.rect(self.surface, )
             for button in self.buttons[:3]:
                 button.display(self.surface)
         else:
