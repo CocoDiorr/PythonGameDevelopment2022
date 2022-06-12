@@ -67,9 +67,9 @@ class StartMenu:
 
 
 class Item:
-    def __init__(self, image, image_hovered, w, h, midtop, parent, action, args, numb, max_numb):
+    def __init__(self, image, image_hovered, w: int, h: int, midtop, parent, action, args, numb, max_numb):
         self.image = pygame.image.load(image).convert_alpha()
-        self.image = pygame.transform.scale(self.image, (int(w), int(h)))
+        self.image = pygame.transform.scale(self.image, (w, h))
         self.rect = self.image.get_rect(midtop=midtop)
         self.image_hovered = pygame.image.load(image_hovered).convert_alpha()
         self.image_hovered = pygame.transform.scale(self.image_hovered, (int(w), int(h)))

@@ -21,14 +21,14 @@ class EscMenu:
         self.buttons = []
         self.buttons.append(
             Item(os.path.join(pics_path, "play.png"), os.path.join(pics_path, "play_hovered.png"),\
-                 WINDOW_RESOLUTION[0] * 0.4, self.bg_rect.h * 0.4,\
-                 (WINDOW_RESOLUTION[0] / 2, WINDOW_RESOLUTION[1] * 0.26),\
+                 int(WINDOW_RESOLUTION[0] * 0.4), int(self.bg_rect.h * 0.4),\
+                 (int(WINDOW_RESOLUTION[0] / 2), int(WINDOW_RESOLUTION[1] * 0.26)),\
                  self.level, self.play_button_call, None, 1, 2)
         )
         self.buttons.append(
             Item(os.path.join(pics_path, "exit.png"), os.path.join(pics_path, "exit_hovered.png"),\
-                 WINDOW_RESOLUTION[0] * 0.3, self.bg_rect.h * 0.3,\
-                 (WINDOW_RESOLUTION[0] / 2, WINDOW_RESOLUTION[1] * 0.56),\
+                 int(WINDOW_RESOLUTION[0] * 0.3), int(self.bg_rect.h * 0.3),\
+                 (int(WINDOW_RESOLUTION[0] / 2), int(WINDOW_RESOLUTION[1] * 0.56)),\
                  self.level, self.exit_button_call, None, 2, 2)
         )
 
