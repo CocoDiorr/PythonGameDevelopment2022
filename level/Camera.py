@@ -27,12 +27,15 @@ class YSortCameraGroup(pygame.sprite.Group):
         """
 
         # getting the offset
-        self.offset.x = player.rect.centerx - self.half_width
-        self.offset.y = player.rect.centery - self.half_height
+        self.offset.x = player.rect.centerx - self.half_width + int(TILESIZE/2)
+        self.offset.y = player.rect.centery - self.half_height + int(TILESIZE/2)
 
         # drawing the floor
         floor_offset_pos = self.floor_rect.topleft - self.offset
         self.display_surface.blit(self.floor_surf, floor_offset_pos)
+
+        self.offset.x -= int(TILESIZE/2)
+        self.offset.y -= int(TILESIZE / 2)
 
         # for sprite in self.sprites():
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
