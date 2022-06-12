@@ -17,5 +17,5 @@ class Solid(pygame.sprite.Sprite):
         else:
             self.rect = self.image.get_rect(center=pos)
 
-        self.hitbox = self.rect.inflate(0, -10)
+        self.hitbox = self.rect.inflate(-10, -10)
     

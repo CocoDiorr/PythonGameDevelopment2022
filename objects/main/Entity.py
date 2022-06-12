@@ -46,7 +46,7 @@ class Entity(pygame.sprite.Sprite):
             look_angle = pygame.math.Vector2(1, 0)
         self.look_angle = look_angle.normalize()
 
-        self.hitbox = self.rect.inflate(0, -26)
+        self.hitbox = self.rect.inflate(-26, -26)
 
     def sprint_on(self):
         """ """
