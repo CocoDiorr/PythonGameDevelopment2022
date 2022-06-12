@@ -3,9 +3,6 @@ import pygame.math
 import pygame.sprite
 from config.Config import *
 
-# from level.Level import Level
-# from objects.weapon.ShootingWeapon import ShootingWeapon
-
 
 class Bullet(pygame.sprite.Sprite):
     """Bullet class."""
@@ -25,15 +22,14 @@ class Bullet(pygame.sprite.Sprite):
         """
         Init bullet.
 
-        :param level:
-        :param groups:
-        :param image_path:
-        :param size:
-        :param position:
-        :param speed:
-        :param damage:
-        :param ran:
-        :param weapon:
+        :param level: Level
+        :param groups: tuple
+        :param image_path: str: bullet image path
+        :param position: tuple: bullet position in Level
+        :param speed: pygame.math.Vector2: bullet speed
+        :param damage: int: bullet damage
+        :param ran: int: shot range
+        :param weapon: ShootingWeapon: shot source weapon
         """
         super().__init__(groups)
         self.level = level
@@ -57,31 +53,18 @@ class Bullet(pygame.sprite.Sprite):
     def set_speed(self, new_speed: pygame.math.Vector2):
         """Set bullet speed.
 
-        :param new_speed: speed to set with.
-        :param new_speed: pygame.math.Vector2:
-        :param new_speed: pygame.math.Vector2:
-
+        :param new_speed: pygame.math.Vector2: speed to set with
         """
         self.speed = new_speed
 
     def move(self):
-        """Change bullet position.
-
-        :return:
-
-
-        """
+        """Change bullet position."""
         self.pos += self.speed
         self.rect.center = self.pos
         self.range -= self.speed.length()
 
     def update(self):
-        """Update bullet position.
-
-        :return:
-
-
-        """
+        """Update bullet position."""
         self.move()
         if self.range <= 0:
             self.kill()

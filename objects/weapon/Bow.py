@@ -9,6 +9,12 @@ class Bow(ShootingWeapon):
     """Bow Class. Inherited from ShootingWeapon."""
 
     def __init__(self, level, owner):
+        """
+        Init bow weapon.
+
+        :param level: Level
+        :param owner: Entity
+        """
         super().__init__(
             level,
             BOW_IMAGE_PATH,

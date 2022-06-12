@@ -21,11 +21,11 @@ class ColdSteel(Weapon):
 
         :param level: Level
         :param groups: tuple
-        :param image_path: str
-        :param owner: Player
-        :param owner_distance: int
-        :param cooldown: int
-        :param damage: int
+        :param image_path: str: path to cold steel image
+        :param owner: Entity
+        :param owner_distance: int: distance from weapon to owner
+        :param cooldown: int: rate of attack
+        :param damage: int: attack damage
         """
         super().__init__(
             level, groups, image_path, owner, owner_distance, cooldown

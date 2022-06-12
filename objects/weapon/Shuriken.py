@@ -3,7 +3,14 @@ from config.Config import *
 
 
 class Shuriken(ShootingWeapon):
+    """Shuriken weapon class."""
     def __init__(self, level, owner):
+        """
+        Init shuriken weapon.
+
+        :param level: Level
+        :param owner: Entity
+        """
         super().__init__(
             level,
             SHURIKEN_IMAGE_PATH,
@@ -14,6 +21,6 @@ class Shuriken(ShootingWeapon):
             SHURIKEN_DAMAGE,
             SHURIKEN_RANGE,
             SHURIKEN_IMAGE_PATH,
-            0.7,
-            0.7
+            SHURIKEN_EXTRA_SCALE,
+            SHURIKEN_EXTRA_SCALE
         )

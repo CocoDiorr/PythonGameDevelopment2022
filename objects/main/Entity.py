@@ -40,7 +40,6 @@ class Entity(pygame.sprite.Sprite):
 
         # self.hitbox = self.rect.inflate(0, -10)
 
-
     def sprint_on(self):
         """ """
         self.sprint[0] = True
@@ -50,7 +49,7 @@ class Entity(pygame.sprite.Sprite):
         self.sprint[0] = False
 
     def set_animation_state(self):
-        """ """
+        """Animation state: down, up, left or right."""
         if self.look_angle.y > abs(self.look_angle.x):
             self.anim_state = 'down'
         elif self.look_angle.y < -abs(self.look_angle.x):
@@ -65,7 +64,7 @@ class Entity(pygame.sprite.Sprite):
                 self.anim_state += '_idle'
 
     def animate(self):
-        """ """
+        """Animate entity walk."""
         animation = self.animations[self.anim_state]
 
         # loop over the frame index
@@ -79,9 +78,9 @@ class Entity(pygame.sprite.Sprite):
 
     def move(self, sprint=False):
         """
+        Change entity position.
 
-        :param sprint: Default value = False)
-
+        :param sprint: Default value = False: move faster flag
         """
 
         if self.accel.length() != 0:

@@ -10,15 +10,17 @@ class Shield(Weapon):
     def __init__(
         self,
         level,
-        groups: tuple,
-        image_path: str,
         owner,
-        owner_distance: int,
-        cooldown: int,
     ):
+        """
+        Init shield.
+
+        :param level: Level
+        :param owner: Entity
+        """
         # maybe change to const path, cooldown
         super().__init__(
-            level, groups, image_path, owner, owner_distance, cooldown
+            level, (level.shield, level.visible), SHIELD_SPRITE_PATH, owner, SHIELD_DISTANCE, SHIELD_COOLDOWN
         )
 
     def move(self):

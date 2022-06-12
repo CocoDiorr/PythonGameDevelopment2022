@@ -4,7 +4,13 @@ from config.Config import *
 
 
 class Ninja(Enemy):
-    """ """
-    def __init__(self, level, position):
+    """ Enemy ninja class. """
+    def __init__(self, level, position: tuple):
+        """
+        Create ninja.
+
+        :param level: Level
+        :param position: tuple: position where ninja is created
+        """
         super().__init__(level, (level.visible, level.entity), NINJA_ANIMATION, position, NINJA_ABS_ACCEL, NINJA_MAX_SPEED, NINJA_HEALTH, NINJA_ATTACK_RADIUS, NINJA_NOTICE_RADIUS)
         self.equip_weapon(Shuriken(level, self))

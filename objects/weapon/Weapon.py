@@ -6,11 +6,22 @@ from config.Config import *
 
 
 class Weapon(pygame.sprite.Sprite):
-    """Basic weapon class."""
+    """Base weapon class."""
 
     def __init__(
-        self, level, groups, image_path, owner, owner_distance, cooldown, extra_scale=1
+        self, level, groups: tuple, image_path: str, owner, owner_distance: int, cooldown: int, extra_scale=1.
     ):
+        """
+        Init base weapon.
+
+        :param level: Level
+        :param groups: tuple
+        :param image_path: str: path to weapon image
+        :param owner: Entity
+        :param owner_distance: int: distance from weapon to owner
+        :param cooldown: int: rate of attack
+        :param extra_scale: Default value = 1.: scale for special images
+        """
         super().__init__(groups)
         self.level = level
         self.start_image = pygame.image.load(image_path).convert_alpha()
@@ -26,35 +37,25 @@ class Weapon(pygame.sprite.Sprite):
         # check order of Level.bullets_update and Level.visible.update - self.uses is necessary because of this order
         self.uses = [False, False]
 
-    def update(self, dt):
+    def update(self, dt: float):
         """Update weapon position and using.
 
-        :param dt: delta time for main loop updating
-
+        :param dt: float: delta time for main loop updating
         """
         self.last_use += dt
         self.move()
         self.update_uses()
 
     def move(self):
-        """Change weapon position.
-
-        :return:
-
-
-        """
+        """Change weapon position."""
 
         self.rect = self.image.get_rect()
         self.pos = self.owner.pos + self.owner.look_angle * self.owner_distance
         self.rect.center = self.pos
 
     def update_uses(self):
-        """Update weapon using.
+        """Update weapon using."""
 
-        :return:
-
-
-        """
         if all(self.uses):
             self.uses = [False for _ in self.uses]
         elif any(self.uses):
