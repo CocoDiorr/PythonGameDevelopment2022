@@ -7,9 +7,6 @@ BLACK = (0, 0, 0)
 FPS = 60
 
 TILESIZE = 64
-
-# LEVEL_0_PIC_PATH = os.path.join("map_graphics/levels/0", "map_0.png")
-
 # LEVEL_0_DETAILS = os.path.join("map_graphics/levels/0/", "level_0_Details.csv")
 # LEVEL_0_ENTITIES = os.path.join("map_graphics/levels/0/", "level_0_Entities.csv")
 # LEVEL_0_FLOOR = os.path.join("map_graphics/levels/0/", "level_0_Floor.csv")
