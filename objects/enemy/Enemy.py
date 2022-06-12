@@ -6,8 +6,8 @@ from config.Config import *
 
 class Enemy(Entity):
     """ """
-    def __init__(self, level, groups, image_path, size, sounds, position, abs_accel, max_speed, health, attack_radius, notice_radius):
-        super().__init__(level, groups, image_path, size, sounds, position, abs_accel, max_speed, health)
+    def __init__(self, level, groups, animations_path, sounds, position, abs_accel, max_speed, health, attack_radius, notice_radius):
+        super().__init__(level, groups, animations_path, sounds, position, abs_accel, max_speed, health)
         self.sprite_type = "enemy"
         self.status = "idle"
         self.attack_radius = attack_radius
@@ -54,11 +54,16 @@ class Enemy(Entity):
         :param dt: 
 
         """
+
+
         self.status = self.get_status()
         if self.status in ("move", "attack"):
+            self.set_animation_state()
+            self.animate()
             self.accel = self.get_player_direction()
             self.look_angle = self.get_player_direction()
             self.move()
+
             if self.status == "attack":
                 if isinstance(self.weapon, ShootingWeapon):
                     self.weapon.spawn_bullet(self.look_angle)
