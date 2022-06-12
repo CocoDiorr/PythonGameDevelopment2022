@@ -87,15 +87,15 @@ class Level:
                             self.player = Player(self, (self.visible, self.entity,), (x, y))
                         if style == 'entities':
 
-                            if col == '2':
+                            if col == '45':
                                 Skeleton(self, (x, y))
                                 # Ninja(self, (x, y))
-                            elif col == '1':
+                            elif col == '46':
                                 Turret(self, (x, y))
-                            elif col == '0':
+                            elif col == '47':
                                 Swordsman(self, (x, y))
-                            else:
-                                Skeleton(self, (x, y))
+                            # else:
+                            #     Skeleton(self, (x, y))
 
         self.companion.player = self.player
 
