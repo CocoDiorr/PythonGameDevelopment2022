@@ -7,6 +7,7 @@ from objects.main.Solid import Solid
 from objects.enemy.Turret import Turret
 from objects.enemy.Ninja import Ninja
 from objects.enemy.Swordsman import Swordsman
+from objects.enemy.StrongSwordsman import StrongSwordsman
 from objects.enemy.Skeleton import Skeleton
 from companion.Companion import Companion
 from ui.UI import UI

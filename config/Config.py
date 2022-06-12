@@ -93,7 +93,9 @@ SWORDSMAN_MAX_SPEED = 2
 SWORDSMAN_HEALTH = 10
 SWORDSMAN_ATTACK_RADIUS = 2 * TILESIZE
 SWORDSMAN_NOTICE_RADIUS = 4 * TILESIZE
-SWORDSMAN_ANIMATION = os.path.join("pics", "GoldKnight", "SeparateAnim", "Walk.png")
+SWORDSMAN_ANIMATION = os.path.join("pics", "Knight", "SeparateAnim", "Walk.png")
+
+STRONG_SWORDSMAN_ANIMATION = os.path.join("pics", "GoldKnight", "SeparateAnim", "Walk.png")
 
 WEAPON_COOLDOWN = 0.1
 BULLET_SPEED = 10
@@ -136,6 +138,9 @@ SWORD_DISTANCE = int(TILESIZE / 2)
 SWORD_COOLDOWN = 0.5
 SWORD_ALPHA = 90
 SWORD_DAMAGE = 1
+
+STRONG_SWORD_SPRITE_PATH = os.path.join("pics", "Sword", "Sprite.png")
+STRONG_SWORD_DAMAGE = 3
 
 
 SHOOTING_WEAPON_SPRITE_PATH = os.path.join("pics", "orange_rect.png")
