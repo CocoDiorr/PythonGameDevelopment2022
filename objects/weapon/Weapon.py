@@ -33,7 +33,7 @@ class Weapon(pygame.sprite.Sprite):
         self.sounds = SoundPack(sounds, self.level.game.sounds_volume)
         self.owner = owner
         self.owner_distance = owner_distance
-        self.last_use = cooldown
+        self.last_use = 0 # cooldown
         self.cooldown = cooldown
 
         # check order of Level.bullets_update and Level.visible.update - self.uses is necessary because of this order
