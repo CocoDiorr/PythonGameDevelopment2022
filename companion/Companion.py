@@ -225,6 +225,6 @@ class Companion(pygame.sprite.Sprite):
         global _
         self.locale = lang
 
-        translation = gettext.translation("Companion", "locale/companion/", languages=[lang])
+        translation = gettext.translation("Companion", path.join("locale", "companion"), languages=[lang])
         translation.install()
         _ = translation.gettext

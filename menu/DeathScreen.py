@@ -35,7 +35,7 @@ class DeathScreen:
 
         if keys[pygame.K_SPACE]:
             self.level.game.game_state = "start"
-            self.level.game.__init__(self.level.game.locale, self.level.game.volume)
+            self.level.game.__init__(self.level.game.locale, self.level.game.music_volume, self.level.game.sounds_volume)
 
     def update_locale(self, lang):
         global translation
