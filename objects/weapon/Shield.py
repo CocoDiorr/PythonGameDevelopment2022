@@ -10,6 +10,10 @@ class Shield(Weapon):
         # maybe change to const path, cooldown
         super().__init__(level, groups, image_path, SHIELD_SIZE, sounds, owner, owner_distance, cooldown)
 
+    def move(self):
+        self.image = pygame.transform.rotate(self.start_image, self.owner.look_angle.angle_to(pygame.math.Vector2(0, 1)))
+        super().move()
+
     def reflect_bullets(self):
         """ """
         if self.last_use >= self.cooldown:
@@ -22,7 +26,7 @@ class Shield(Weapon):
         :param bullet: Bullet: 
 
         """
-        self.sounds.play("reflect_bullet")
+        self.sounds.play("reflect")
         new_speed = self.owner.look_angle * bullet.speed.length() * BULLET_REFLECTION_ACCELERATION
         bullet.range += bullet.start_range
         bullet.owner = self.owner

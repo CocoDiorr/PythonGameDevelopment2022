@@ -3,16 +3,19 @@ import pygame.math
 import pygame.sprite
 from audio.soundpack.SoundPack import SoundPack
 from config.Config import *
+from config.SpriteSheet import SpriteSheet
 
 
 class Entity(pygame.sprite.Sprite):
     """ """
-    def __init__(self, level, groups, image_path, size, sounds, position, abs_accel, max_speed, health, max_health=None, energy=None, max_energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
+    def __init__(self, level, groups, animations_path, sounds, position, abs_accel, max_speed, health, max_health=None, energy=None, max_energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
         super().__init__(groups)
         self.level = level
-        self.size = size
-        self.image = pygame.image.load(image_path).convert_alpha()
-        self.image = pygame.transform.scale(self.image, size)
+        self.anim_state = 'down_idle'
+        self.animations = SpriteSheet(animations_path).get_animations()
+        self._frame_index = 0
+        self._animation_speed = ANIMATION_SPEED
+        self.image = self.animations[self.anim_state][0]
         self.rect = self.image.get_rect()
         self.sounds = SoundPack(sounds, self.level.game.sounds_volume)
         self.pos = pygame.math.Vector2(position)
@@ -37,15 +40,41 @@ class Entity(pygame.sprite.Sprite):
             look_angle = pygame.math.Vector2(1, 0)
         self.look_angle = look_angle.normalize()
 
-
         # self.hitbox = self.rect.inflate(0, -10)
-
 
 
     def sprint_on(self):
         self.sprint[0] = True
+
     def sprint_off(self):
         self.sprint[0] = False
+
+    def set_animation_state(self):
+        """ """
+        if self.look_angle.y > abs(self.look_angle.x):
+            self.anim_state = 'down'
+        elif self.look_angle.y < -abs(self.look_angle.x):
+            self.anim_state = 'up'
+        elif self.look_angle.x > abs(self.look_angle.y):
+            self.anim_state = 'right'
+        elif self.look_angle.x < -abs(self.look_angle.y):
+            self.anim_state = 'left'
+
+        if abs(self.speed.x) <= ENTITY_SPEED_ZERO and abs(self.speed.y) <= ENTITY_SPEED_ZERO:
+            if 'idle' not in self.anim_state:
+                self.anim_state += '_idle'
+
+    def animate(self):
+        animation = self.animations[self.anim_state]
+
+        # loop over the frame index
+        self._frame_index += self._animation_speed
+        if self._frame_index >= len(animation):
+            self._frame_index = 0
+
+        # set the image
+        self.image = animation[int(self._frame_index)]
+        self.rect = self.image.get_rect()
 
     def move(self, sprint=False):
         """ """
@@ -88,7 +117,6 @@ class Entity(pygame.sprite.Sprite):
         self.pos.y += curr_speed.y
         self.rect.center = self.pos
         self.collision('vertical')
-
 
     def collision(self, direction):
         """
