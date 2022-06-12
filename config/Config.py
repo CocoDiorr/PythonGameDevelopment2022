@@ -1,22 +1,38 @@
 import os
 
 WINDOW_RESOLUTION = (1280, 720)
-BACKGROUND_COLOR = (100, 100, 100)
+BACKGROUND_COLOR = (113,221,238)
 BLACK = (0, 0, 0)
 
 FPS = 60
-TILESIZE = 32
+
+TILESIZE = 64
+# LEVEL_0_DETAILS = os.path.join("map_graphics/levels/0/", "level_0_Details.csv")
+# LEVEL_0_ENTITIES = os.path.join("map_graphics/levels/0/", "level_0_Entities.csv")
+# LEVEL_0_FLOOR = os.path.join("map_graphics/levels/0/", "level_0_Floor.csv")
+# LEVEL_0_FLOORBLOCKS = os.path.join("map_graphics/levels/0/", "level_0_Floorblocks.csv")
+# LEVEL_0_GRASS = os.path.join("map_graphics/levels/0/", "level_0_Grass.csv")
+# LEVEL_0_OBJECTS = os.path.join("map_graphics/levels/0/", "level_0_Objects.csv")
+# LEVEL_0_PLAYER = os.path.join("map_graphics/levels/0/", "level_0_Player.csv")
+
+LEVEL_PATH = "1"
+
+LEVEL_0_PIC_PATH = os.path.join("map_graphics", "levels", LEVEL_PATH, "map.png")
+GRASS_PICS_FOLDER = os.path.join("map_graphics", "Grass")
+OBJECTS_PICS_FOLDER = os.path.join("map_graphics", "Objects")
+
+LEVEL_0_DETAILS = os.path.join("map_graphics", "levels", LEVEL_PATH, "map_Details.csv")
+LEVEL_0_ENTITIES = os.path.join("map_graphics", "levels", LEVEL_PATH, "map_Entities.csv")
+LEVEL_0_FLOOR = os.path.join("map_graphics", "levels", LEVEL_PATH, "map_Floor.csv")
+LEVEL_0_FLOORBLOCKS = os.path.join("map_graphics", "levels", LEVEL_PATH, "map_Floorblocks.csv")
+LEVEL_0_GRASS = os.path.join("map_graphics", "levels", LEVEL_PATH, "map_Grass.csv")
+LEVEL_0_OBJECTS = os.path.join("map_graphics", "levels", LEVEL_PATH, "map_Objects.csv")
+LEVEL_0_PLAYER = os.path.join("map_graphics", "levels", LEVEL_PATH, "map_Player.csv")
+
 
 SCALE = int(TILESIZE / 16)
 
-LEVEL_0_PIC_PATH = os.path.join("map_graphics", "levels", "0", "map_0.png")
-LEVEL_0_DETAILS = os.path.join("map_graphics", "levels", "0", "level_0_Details.csv")
-LEVEL_0_ENTITIES = os.path.join("map_graphics", "levels", "0", "level_0_Entities.csv")
-LEVEL_0_FLOOR = os.path.join("map_graphics", "levels", "0", "level_0_Floor.csv")
-LEVEL_0_FLOORBLOCKS = os.path.join("map_graphics", "levels", "0", "level_0_Floorblocks.csv")
-LEVEL_0_GRASS = os.path.join("map_graphics", "levels", "0", "level_0_Grass.csv")
-LEVEL_0_OBJECTS = os.path.join("map_graphics", "levels", "0", "level_0_Objects.csv")
-LEVEL_0_PLAYER = os.path.join("map_graphics", "levels", "0", "level_0_Player.csv")
+
 
 ENTITY_SPEED_FADE = 0.8
 ENTITY_SPEED_ZERO = 1e-1
