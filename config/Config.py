@@ -94,10 +94,17 @@ TURRET_NOTICE_RADIUS = 8 * TILESIZE
 TURRET_ANIMATION = os.path.join("pics", "OldMan3", "SeparateAnim", "Walk.png")
 TURRET_SOUNDS = {
     "hurt": {
-        os.path.join("audio", "sound_effects", "wood", "wood1.mp3"),
-        os.path.join("audio", "sound_effects", "wood", "wood2.mp3"),
+        os.path.join("audio", "sound_effects", "hurt", "hurt1.mp3"),
+        os.path.join("audio", "sound_effects", "hurt", "hurt2.mp3"),
+        os.path.join("audio", "sound_effects", "hurt", "hurt3.mp3"),
     },
 }
+# TURRET_SOUNDS = {
+#     "hurt": {
+#         os.path.join("audio", "sound_effects", "wood", "wood1.mp3"),
+#         os.path.join("audio", "sound_effects", "wood", "wood2.mp3"),
+#     },
+# }
 
 SKELETON_MAX_SPEED = 3
 SKELETON_HEALTH = 10
@@ -119,6 +126,7 @@ NINJA_HEALTH = 10
 NINJA_ATTACK_RADIUS = 5 * TILESIZE
 NINJA_NOTICE_RADIUS = 8 * TILESIZE
 NINJA_ANIMATION = os.path.join("pics", "DarkNinja", "SeparateAnim", "Walk.png")
+
 FAST_SHOOTER_SOUNDS = {
     "hurt": {
         os.path.join("audio", "sound_effects", "hurt", "hurt1.mp3"),
@@ -142,6 +150,7 @@ SWORDSMAN_SOUNDS = {
         os.path.join("audio", "sound_effects", "hurt", "hurt3.mp3"),
     },
 }
+
 
 WEAPON_COOLDOWN = 0.1
 BULLET_SPEED = 10
@@ -190,6 +199,7 @@ SWORD_DISTANCE = int(TILESIZE / 2)
 SWORD_COOLDOWN = 0.5
 SWORD_ALPHA = 90
 SWORD_DAMAGE = 1
+
 STRONG_SWORD_SPRITE_PATH = os.path.join("pics", "Sword", "Sprite.png")
 STRONG_SWORD_DAMAGE = 3
 SWORD_SOUNDS = {
@@ -221,6 +231,14 @@ SHURIKEN_SPEED = 10
 SHURIKEN_DAMAGE = 1
 SHURIKEN_RANGE = 500
 SHURIKEN_EXTRA_SCALE = 0.7
+SHURIKEN_SOUNDS = {
+    "shoot": {
+        os.path.join("audio", "sound_effects", "bow", "shoot1.mp3"),
+        os.path.join("audio", "sound_effects", "bow", "shoot2.mp3"),
+    },
+}
+
+
 
 ARROW_SPEED = 10
 ARROW_DAMAGE = 1

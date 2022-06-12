@@ -14,6 +14,7 @@ class Shuriken(ShootingWeapon):
         super().__init__(
             level,
             SHURIKEN_IMAGE_PATH,
+            SHURIKEN_SOUNDS,
             owner,
             SHURIKEN_DISTANCE,
             SHIELD_COOLDOWN,

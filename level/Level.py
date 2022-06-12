@@ -81,6 +81,7 @@ class Level:
                                 Turret(self, (x, y))
                             elif col == '0':
                                 Swordsman(self, (x, y))
+                                # StrongSwordsman(self, (x, y))
 
         self.companion.player = self.player
 
