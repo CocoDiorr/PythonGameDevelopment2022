@@ -1,13 +1,14 @@
 import pygame
 import pygame.math
 import pygame.sprite
+from audio.soundpack.SoundPack import SoundPack
 from config.Config import *
 from config.SpriteSheet import SpriteSheet
 
 
 class Entity(pygame.sprite.Sprite):
     """ """
-    def __init__(self, level, groups, animations_path, position, abs_accel, max_speed, health, max_health=None, energy=None, max_energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
+    def __init__(self, level, groups, animations_path, sounds, position, abs_accel, max_speed, health, max_health=None, energy=None, max_energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
         super().__init__(groups)
         self.level = level
 # <<<<<<< HEAD
@@ -22,6 +23,7 @@ class Entity(pygame.sprite.Sprite):
         self.image = self.animations[self.anim_state][0]
 # >>>>>>> 0159bc375d81a9ca68ac4c16a4c22337961d4882
         self.rect = self.image.get_rect()
+        self.sounds = SoundPack(sounds, self.level.game.sounds_volume)
         self.pos = pygame.math.Vector2(position)
         self.rect.center = self.pos
         self.accel = pygame.math.Vector2()
@@ -46,15 +48,16 @@ class Entity(pygame.sprite.Sprite):
 
         self.hitbox = self.rect.inflate(0, -26)
 
-
     def sprint_on(self):
+        """ """
         self.sprint[0] = True
 
     def sprint_off(self):
+        """ """
         self.sprint[0] = False
 
     def set_animation_state(self):
-        """ """
+        """Animation state: down, up, left or right."""
         if self.look_angle.y > abs(self.look_angle.x):
             self.anim_state = 'down'
         elif self.look_angle.y < -abs(self.look_angle.x):
@@ -69,6 +72,7 @@ class Entity(pygame.sprite.Sprite):
                 self.anim_state += '_idle'
 
     def animate(self):
+        """Animate entity walk."""
         animation = self.animations[self.anim_state]
 
         # loop over the frame index
@@ -82,7 +86,11 @@ class Entity(pygame.sprite.Sprite):
         # self.hitbox = self.rect.inflate(0, -26)
 
     def move(self, sprint=False):
-        """ """
+        """
+        Change entity position.
+
+        :param sprint: Default value = False: move faster flag
+        """
 
         if self.accel.length() != 0:
             self.accel.scale_to_length(self.abs_accel)
@@ -181,10 +189,10 @@ class Entity(pygame.sprite.Sprite):
 
         """
         self.health = max(self.health - damage, 0)
+        self.sounds.play("hurt")
         if self.health == 0:
             self.kill()
             if "weapon" in self.__dict__:
                 self.weapon.kill()
             if "shield" in self.__dict__:
                 self.shield.kill()
-            # add for player weapons

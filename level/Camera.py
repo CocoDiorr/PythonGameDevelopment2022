@@ -3,6 +3,7 @@ from config.Config import *
 
 
 class YSortCameraGroup(pygame.sprite.Group):
+    """ """
     def __init__(self):
 
         # general setup
@@ -19,6 +20,11 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))
 
     def custom_draw(self, player):
+        """
+
+        :param player: 
+
+        """
 
         # getting the offset
         self.offset.x = player.rect.centerx - self.half_width
@@ -35,6 +41,7 @@ class YSortCameraGroup(pygame.sprite.Group):
 
 
 class YSortBulletsCameraGroup(pygame.sprite.Group):
+    """ """
 
     def __init__(self):
 
@@ -46,6 +53,11 @@ class YSortBulletsCameraGroup(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
 
     def custom_draw(self, player):
+        """
+
+        :param player: 
+
+        """
 
         # getting the offset
         self.offset.x = player.rect.centerx - self.half_width
