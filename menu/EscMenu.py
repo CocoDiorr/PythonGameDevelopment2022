@@ -35,7 +35,7 @@ class EscMenu:
     def exit_button_call(self):
         self.level.game_state = "active"
         #self.level.game.game_state = "start"
-        self.level.game.__init__(self.level.game.locale, self.level.game.volume)
+        self.level.game.__init__(self.level.game.locale, self.level.game.music_volume, self.level.game.sounds_volume)
         #self.level.game.run()
 
     def play_button_call(self):

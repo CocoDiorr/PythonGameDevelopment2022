@@ -1,6 +1,7 @@
 import pygame
 import os
-from config.Config import WINDOW_RESOLUTION, UI_SETTINGS, AUDIO, DEFAULT_LOCALE, MENU
+from audio.soundpack.SoundPack import SoundPack
+from config.Config import WINDOW_RESOLUTION, UI_SETTINGS, DEFAULT_LOCALE, MENU, BUTTON_SOUNDS
 
 import gettext
 translation = gettext.translation("StartMenu", os.path.join("locale", "start_menu"), languages=[DEFAULT_LOCALE])
@@ -8,6 +9,7 @@ _ = translation.gettext
 
 
 class StartMenu:
+    """ """
     def __init__(self, game):
         self.game = game
         self.buttons_event = None
@@ -19,8 +21,8 @@ class StartMenu:
         self.surface = pygame.display.get_surface()
 
         # Audio
-        self.bg_music = pygame.mixer.Sound(AUDIO["START_MENU"])
-        self.bg_music.set_volume(self.game.volume)
+        # self.bg_music = pygame.mixer.Sound(AUDIO["START_MENU"])
+        # self.bg_music.set_volume(self.game.volume)
 
 
         # Background
@@ -74,6 +76,7 @@ class StartMenu:
         #self.volume_rect = pygame.Rect(int(WINDOW_RESOLUTION[0] * 0.4), int(WINDOW_RESOLUTION[1] * 0.1), int(WINDOW_RESOLUTION[0] * 0.3), int(WINDOW_RESOLUTION[1] * 0.15))
 
     def display(self):
+        """ """
         self.surface.blit(self.bg_images[self.cur_frame], (0,0))
         self.times -= 1
         if self.times == 0:
@@ -94,17 +97,20 @@ class StartMenu:
             self.surface.blit(text_surf_2, text_rect_2)
             for button in self.buttons[3:]:
                 button.display(self.surface)
-        self.bg_music.play(loops = -1)
+        #self.bg_music.play(loops = -1)
 
     def play_button(self):
+        """ """
         self.game.level.create_map()
         self.game.game_state = "play"
         #self.bg_music.pause()
 
     def settings_button(self):
+        """ """
         self.settings_on = not self.settings_on
 
     def exit_button(self):
+        """ """
         self.game.running = False
 
     def lang_button(self, lang):
@@ -117,7 +123,8 @@ class StartMenu:
 
 
 class Item:
-    def __init__(self, image, image_hovered, w, h, midtop, parent, action, args, numb, max_numb):
+    """ """
+    def __init__(self, image, image_hovered, w:int, h:int, midtop, parent, action, args, numb, max_numb):
 
         # Parent object to go to
         self.parent = parent
@@ -154,7 +161,11 @@ class Item:
 
 
 
+        self.sounds = SoundPack(BUTTON_SOUNDS, self.parent.game.sounds_volume)
+
+
     def hover(self):
+        """ """
         if self.button_rect.collidepoint(pygame.mouse.get_pos()):
             self.button_rect = self.rect_hovered
             self.button = self.image_hovered
@@ -163,11 +174,14 @@ class Item:
             self.button = self.image
 
     def click(self):
+        """ """
         if self.button_rect.collidepoint(pygame.mouse.get_pos()):
             if self.parent.buttons_event and not self.pressed:
                 if self.args:
+                    self.sounds.play("click")
                     self.action(*self.args)
                 else:
+                    self.sounds.play("click")
                     self.action()
                 self.pressed = True
                 self.parent.buttons_event = None
@@ -177,6 +191,11 @@ class Item:
             self.parent.buttons_event = None
 
     def display(self, surface):
+        """
+
+        :param surface:
+
+        """
         self.hover()
         self.click()
         surface.blit(self.button, self.button_rect)

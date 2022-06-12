@@ -1,15 +1,15 @@
 import os
 import pygame
+from random import choice
 import pygame.sprite
 import pygame.math
 from objects.friendly.Player import Player
 from objects.main.Solid import Solid
-from objects.weapon.ShootingWeapon import Weapon
-from objects.weapon.ColdSteel import ColdSteel
-from objects.enemy.Enemy import Enemy
 from objects.enemy.Turret import Turret
-from objects.enemy.FastShooter import FastShooter
+from objects.enemy.Ninja import Ninja
 from objects.enemy.Swordsman import Swordsman
+from objects.enemy.StrongSwordsman import StrongSwordsman
+from objects.enemy.Skeleton import Skeleton
 from companion.Companion import Companion
 from ui.UI import UI
 from menu.EscMenu import EscMenu
@@ -20,7 +20,7 @@ from level.Camera import *
 
 
 class Level:
-    """"""
+    """ """
     def __init__(self, locale, game):
 
         # settings
@@ -49,10 +49,10 @@ class Level:
 
         self.shield = pygame.sprite.Group()
         self.cold_steels = pygame.sprite.Group()
-
         #self.create_map()
 
     def create_map(self):
+        """ """
 
         layouts = {
             'boundary': import_csv_layout(LEVEL_0_FLOORBLOCKS),
@@ -61,6 +61,11 @@ class Level:
             'player': import_csv_layout(LEVEL_0_PLAYER),
             'entities': import_csv_layout(LEVEL_0_ENTITIES),
         }
+        graphics = {
+            'grass': import_folder(GRASS_PICS_FOLDER),
+            'objects': import_folder(OBJECTS_PICS_FOLDER),
+        }
+        print(graphics)
         for style, layout in layouts.items():
             for row_index, row in enumerate(layout):
                 for col_index, col in enumerate(row):
@@ -71,22 +76,32 @@ class Level:
                             Solid((x, y), [self.obstacle], 'invisible')
                         if style == 'grass':
                             # create a grass tile
-                            pass
+                            # print(col, f'{col}.png')
+                            random_grass_image = graphics['grass'][f'{col}.png']
+                            random_grass_image = pygame.transform.scale(random_grass_image, (TILESIZE, TILESIZE))
+                            Solid((x, y), [self.visible, self.obstacle], 'grass', random_grass_image)
                         if style == 'object':
                             # create an object tile
+                            # print(col, f'{col}.png')
+                            surf = graphics['objects'][f'{col}.png']
+                            surf = pygame.transform.scale(surf, (2 * TILESIZE, 2 * TILESIZE))
+                            Solid((x, y), [self.visible, self.obstacle], 'object', surf)
                             pass
                         if style == 'player':
                             self.player = Player(self, (self.visible, self.entity,), (x, y))
                         if style == 'entities':
-                            if col == '2':
-                                FastShooter(self, (x, y))
-                            elif col == '1':
+
+                            if col == '45':
+                                Skeleton(self, (x, y))
+                                # Ninja(self, (x, y))
+                            elif col == '46':
                                 Turret(self, (x, y))
-                            elif col == '0':
+                            elif col == '47':
                                 Swordsman(self, (x, y))
+                            # else:
+                            #     Skeleton(self, (x, y))
 
         self.companion.player = self.player
-
 
     def bullets_update(self):
         """ """
@@ -136,6 +151,7 @@ class Level:
             self.game_state = "active"
 
     def death(self):
+        """ """
         if self.player.health <= 0:
             self.game_state = "death"
             # self.game.game_state = "start"
@@ -158,7 +174,7 @@ class Level:
 
         """
 
-        :param dt:
+        :param dt: 
 
         """
         # self.visible.draw(self.display_surface)
