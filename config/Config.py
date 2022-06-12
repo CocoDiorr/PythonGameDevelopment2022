@@ -5,6 +5,8 @@ import os
 WINDOW_RESOLUTION = (1280, 720)
 BACKGROUND_COLOR = (50, 50, 50)
 
+DEFAULT_LOCALE = 'en'
+
 FPS = 60
 TILESIZE = 16
 
@@ -39,6 +41,10 @@ UI_SETTINGS = {"BAR_HEIGHT": 20,\
                              }
                }
 
+
+# Audio
+AUDIO = {"START_MENU": os.path.join("audio", "main.ogg"),
+}
 
 
 # Player
@@ -162,4 +168,3 @@ MIN_SPRINT_ENERGY = 20
 SPRINT_MULTIPLIER = 1.5
 ENERGY_SPEND = 2
 ENERGY_RECOVER = 0.3
-

@@ -6,14 +6,15 @@ from menu.StartMenu import StartMenu
 
 class Game:
     """ """
-    def __init__(self):
+    def __init__(self, locale='en', volume=0.2):
         self.screen = pygame.display.set_mode(WINDOW_RESOLUTION)
         self.clock = pygame.time.Clock()
         self.running = True
-        self.locale = 'ru'
+        self.locale = locale
         self.level = Level(self.locale, self)
-        self.start_menu = StartMenu(self)
+        self.volume = volume
         self.game_state = "start" # "play"
+        self.start_menu = StartMenu(self)
 
     def run(self):
         """ """
@@ -35,6 +36,9 @@ class Game:
                                 self.level.esc_menu_call()
                             elif self.level.game_state == "companion":
                                 self.level.companion_call()
+                        else:
+                            if self.start_menu.settings_on:
+                                self.start_menu.settings_button()
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
@@ -55,3 +59,8 @@ class Game:
             if self.game_state == "play":
                 self.level.run(dt)
             pygame.display.update()
+
+    def update_locale(self, lang):
+        self.locale = lang
+        self.level.update_locale(lang)
+        self.start_menu.update_locale(lang)

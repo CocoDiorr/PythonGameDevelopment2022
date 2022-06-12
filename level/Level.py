@@ -158,3 +158,10 @@ class Level:
             self.esc_menu.display()
 
         # self.enemy.enemy_update(self.player)
+
+    def update_locale(self, lang):
+        self.esc_menu.update_locale(lang)
+        self.companion.update_locale(lang)
+
+    def add_dust(self, amount):
+        self.player.dust += amount
