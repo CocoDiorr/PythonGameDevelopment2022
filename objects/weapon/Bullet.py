@@ -36,7 +36,7 @@ class Bullet(pygame.sprite.Sprite):
         self.weapon = weapon
         image = pygame.image.load(image_path).convert_alpha()
         width, height = image.get_width(), image.get_height()
-        self.start_image = pygame.transform.scale(image, (width * SCALE * extra_scale, height * SCALE * extra_scale))
+        self.start_image = pygame.transform.scale(image, (int(width * SCALE * extra_scale), int(height * SCALE * extra_scale)))
         self.image = pygame.transform.rotate(
             self.start_image,
             self.weapon.owner.look_angle.angle_to(pygame.math.Vector2(1, 0)),

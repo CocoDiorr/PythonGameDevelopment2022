@@ -27,7 +27,7 @@ class Weapon(pygame.sprite.Sprite):
         self.level = level
         self.start_image = pygame.image.load(image_path).convert_alpha()
         width, height = self.start_image.get_width(), self.start_image.get_height()
-        self.start_image = pygame.transform.scale(self.start_image, (width * SCALE * extra_scale, height * SCALE * extra_scale))
+        self.start_image = pygame.transform.scale(self.start_image, (int(width * SCALE * extra_scale), int(height * SCALE * extra_scale)))
         self.image = self.start_image
         self.rect = self.image.get_rect()
         self.sounds = SoundPack(sounds, self.level.game.sounds_volume)
