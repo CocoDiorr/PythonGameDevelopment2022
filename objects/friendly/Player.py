@@ -19,7 +19,7 @@ class Player(Entity):
         self.weapons = [Bow(self.level, self),]
         # self.weapons = [ShootingWeapon(self.level, SHOOTING_WEAPON_SPRITE_PATH, self, SHOOTING_WEAPON_DISTANCE, WEAPON_COOLDOWN, BULLET_SPEED, BULLET_DAMAGE, BULLET_RANGE, BULLET_SPRITE_PATH )]  # TODO: move to inventory later
         self.curr_weapon = 0    # index of self.weapons array
-        self.shield = Shield(self.level, (self.level.shield, self.level.visible), SHIELD_SPRITE_PATH, SHIELD_SOUNDS, self, SHIELD_DISTANCE, SHIELD_COOLDOWN)
+        self.shield = Shield(self.level, self)
         self.dust = 1500
 
     def input(self):

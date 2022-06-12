@@ -91,21 +91,42 @@ BASE_ENEMY_NOTICE_RADIUS = 8 * TILESIZE
 TURRET_HEALTH = 20
 TURRET_ATTACK_RADIUS = 8 * TILESIZE
 TURRET_NOTICE_RADIUS = 8 * TILESIZE
-TURRET_ANIMATION = os.path.join("pics", "Skeleton", "SeparateAnim", "Walk.png")
+TURRET_ANIMATION = os.path.join("pics", "OldMan3", "SeparateAnim", "Walk.png")
 TURRET_SOUNDS = {
+    "hurt": {
+        os.path.join("audio", "sound_effects", "hurt", "hurt1.mp3"),
+        os.path.join("audio", "sound_effects", "hurt", "hurt2.mp3"),
+        os.path.join("audio", "sound_effects", "hurt", "hurt3.mp3"),
+    },
+}
+# TURRET_SOUNDS = {
+#     "hurt": {
+#         os.path.join("audio", "sound_effects", "wood", "wood1.mp3"),
+#         os.path.join("audio", "sound_effects", "wood", "wood2.mp3"),
+#     },
+# }
+
+SKELETON_MAX_SPEED = 3
+SKELETON_HEALTH = 10
+SKELETON_ATTACK_RADIUS = 4 * TILESIZE
+SKELETON_NOTICE_RADIUS = 6 * TILESIZE
+SKELETON_ANIMATION = os.path.join("pics", "Skeleton", "SeparateAnim", "Walk.png")
+SKELETON_ABS_ACCEL = 1
+SKELETON_SOUNDS = {
     "hurt": {
         os.path.join("audio", "sound_effects", "wood", "wood1.mp3"),
         os.path.join("audio", "sound_effects", "wood", "wood2.mp3"),
     },
 }
 
-FAST_SHOOTER_ABS_ACCEL = 1
-FAST_SHOOTER_MAX_SPEED = 2
-FAST_SHOOTER_HEALTH = 10
+NINJA_ABS_ACCEL = 1
+NINJA_MAX_SPEED = 2
+NINJA_HEALTH = 10
 
-FAST_SHOOTER_ATTACK_RADIUS = 5 * TILESIZE
-FAST_SHOOTER_NOTICE_RADIUS = 8 * TILESIZE
-FAST_SHOOTER_ANIMATION = os.path.join("pics", "Monk", "SeparateAnim", "Walk.png")
+NINJA_ATTACK_RADIUS = 5 * TILESIZE
+NINJA_NOTICE_RADIUS = 8 * TILESIZE
+NINJA_ANIMATION = os.path.join("pics", "DarkNinja", "SeparateAnim", "Walk.png")
+
 FAST_SHOOTER_SOUNDS = {
     "hurt": {
         os.path.join("audio", "sound_effects", "hurt", "hurt1.mp3"),
@@ -117,9 +138,11 @@ FAST_SHOOTER_SOUNDS = {
 SWORDSMAN_ABS_ACCEL = 1
 SWORDSMAN_MAX_SPEED = 2
 SWORDSMAN_HEALTH = 10
-SWORDSMAN_ATTACK_RADIUS = 1 * TILESIZE
-SWORDSMAN_NOTICE_RADIUS = 3 * TILESIZE
-SWORDSMAN_ANIMATION = os.path.join("pics", "GoldKnight", "SeparateAnim", "Walk.png")
+SWORDSMAN_ATTACK_RADIUS = 2 * TILESIZE
+SWORDSMAN_NOTICE_RADIUS = 4 * TILESIZE
+SWORDSMAN_ANIMATION = os.path.join("pics", "Knight", "SeparateAnim", "Walk.png")
+
+STRONG_SWORDSMAN_ANIMATION = os.path.join("pics", "GoldKnight", "SeparateAnim", "Walk.png")
 SWORDSMAN_SOUNDS = {
     "hurt": {
         os.path.join("audio", "sound_effects", "hurt", "hurt1.mp3"),
@@ -128,12 +151,12 @@ SWORDSMAN_SOUNDS = {
     },
 }
 
+
 WEAPON_COOLDOWN = 0.1
 BULLET_SPEED = 10
 BULLET_DAMAGE = 1
 BULLET_RANGE = 500
 BULLET_SPRITE_PATH = os.path.join("pics", "green_square.png")
-BULLET_SIZE = (10, 10)
 
 COMPANION_SIZE = (200, 200)
 COMPANION_IMAGE = os.path.join("pics", "cat", "companion.png")
@@ -176,6 +199,9 @@ SWORD_DISTANCE = int(TILESIZE / 2)
 SWORD_COOLDOWN = 0.5
 SWORD_ALPHA = 90
 SWORD_DAMAGE = 1
+
+STRONG_SWORD_SPRITE_PATH = os.path.join("pics", "Sword", "Sprite.png")
+STRONG_SWORD_DAMAGE = 3
 SWORD_SOUNDS = {
     "hit": {
         os.path.join("audio", "sound_effects", "sword", "hit1.mp3"),
@@ -183,14 +209,12 @@ SWORD_SOUNDS = {
         os.path.join("audio", "sound_effects", "sword", "hit3.mp3"),
     },
 }
-
 SHOOTING_WEAPON_SPRITE_PATH = os.path.join("pics", "orange_rect.png")
 SHOOTING_WEAPON_SIZE = (int(TILESIZE / 4), TILESIZE)
 SHOOTING_WEAPON_DISTANCE = int(TILESIZE / 2)
 SHOOTING_WEAPON_SOUNDS = dict()
 
 BOW_IMAGE_PATH = os.path.join("pics", "Sprite.png")
-BOW_IMAGE_SIZE = (int(TILESIZE * 1.2), int(TILESIZE * 0.3))
 BOW_DISTANCE = int(TILESIZE / 2)
 BOW_COOLDOWN = 0.5
 BOW_SOUNDS = {
@@ -200,11 +224,26 @@ BOW_SOUNDS = {
     },
 }
 
+SHURIKEN_IMAGE_PATH = os.path.join("pics", "Shuriken.png")
+SHURIKEN_DISTANCE = int(TILESIZE / 2)
+SHURIKEN_COOLDOWN = 0.5
+SHURIKEN_SPEED = 10
+SHURIKEN_DAMAGE = 1
+SHURIKEN_RANGE = 500
+SHURIKEN_EXTRA_SCALE = 0.7
+SHURIKEN_SOUNDS = {
+    "shoot": {
+        os.path.join("audio", "sound_effects", "bow", "shoot1.mp3"),
+        os.path.join("audio", "sound_effects", "bow", "shoot2.mp3"),
+    },
+}
+
+
+
 ARROW_SPEED = 10
 ARROW_DAMAGE = 1
 ARROW_RANGE = 500
 ARROW_IMAGE_PATH = os.path.join("pics", "Arrow.png")
-ARROW_SIZE = (20, 5)
 
 MIN_SPRINT_ENERGY = 20
 SPRINT_MULTIPLIER = 1.5

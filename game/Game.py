@@ -6,6 +6,7 @@ from config.Config import *
 from level.Level import Level
 from menu.StartMenu import StartMenu
 
+
 class Game:
     """ """
     def __init__(self):
@@ -53,8 +54,6 @@ class Game:
                                 self.level.buttons_event = event
 
                 #elif self.game_state == "start":
-
-
 
             dt = self.clock.tick(FPS) / 1000
             self.screen.fill(BACKGROUND_COLOR)

@@ -20,9 +20,9 @@ class UI:
     def show_bar(self, current, max_amount, bg_rect, color):
         """
 
-        :param current: 
-        :param max_amount: 
-        :param bg_rect: 
+        :param current: param max_amount:
+        :param bg_rect: param color:
+        :param max_amount: param color:
         :param color: 
 
         """
@@ -40,6 +40,11 @@ class UI:
         pygame.draw.rect(self.display_surface, UI_SETTINGS["UI_COLORS"]["BORDER_COLOR"], back_rect, 3, 10)
 
     def show_dust(self, dust):
+        """
+
+        :param dust: 
+
+        """
 
         text_surf = self.font.render(str(int(dust)), False, UI_SETTINGS["UI_FONT_COLOR"])
         text_rect = text_surf.get_rect(midright=self.dust_rect.midleft)
@@ -50,7 +55,7 @@ class UI:
     def display(self, player):
         """
 
-        :param player:
+        :param player: 
 
         """
         self.show_bar(player.health, PLAYER_MAX_HEALTH, self.health_bar_rect, UI_SETTINGS["UI_COLORS"]["HEALTH"])
