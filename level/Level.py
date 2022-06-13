@@ -98,15 +98,6 @@ class Level:
                                 Swordsman(self, (x, y))
                             else:
                                 StrongSwordsman(self, (x, y))
-                            # if col == '45':
-                            #     Skeleton(self, (x, y))
-                            #     # Ninja(self, (x, y))
-                            # elif col == '46':
-                            #     Turret(self, (x, y))
-                            # elif col == '47':
-                            #     Swordsman(self, (x, y))
-                            # else:
-                            #     Skeleton(self, (x, y))
 
         self.companion.player = self.player
 
@@ -138,7 +129,6 @@ class Level:
         obstacles_collide = pygame.sprite.groupcollide(self.bullets, self.obstacle, False, False)
         for bullet, obstacles in obstacles_collide.items():
             for obstacle in obstacles:
-                print(obstacle)
                 if bullet.owner != obstacle:
                     if obstacle.sprite_type != 'invisible':
                         bullet.kill()
