@@ -7,6 +7,7 @@ from Zelda.menu.StartMenu import Item
 
 class EscMenu:
     """Escape Menu class."""
+
     def __init__(self, level: "Level"):
         """
         Init the EscMenu class.
@@ -44,7 +45,7 @@ class EscMenu:
         self.level.game.__init__(self.level.game.locale, self.level.game.music_volume, self.level.game.sounds_volume)
 
     def play_button_call(self):
-        """Call the play button"""
+        """Call the play button."""
         self.level.game_state = "active"
 
     def display(self):

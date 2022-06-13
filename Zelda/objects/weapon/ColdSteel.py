@@ -8,7 +8,6 @@ class ColdSteel(Weapon):
     """Class for melee weapons and cold steel."""
 
     def __init__(self, level: "Level", groups: tuple, image_path: str, sounds: dict[str, set[str]], owner: "Entity", owner_distance: int, cooldown: int, damage: int):
-
         """
         Init coldsteel.
 

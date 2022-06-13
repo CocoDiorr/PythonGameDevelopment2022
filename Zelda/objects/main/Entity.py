@@ -104,7 +104,6 @@ class Entity(pygame.sprite.Sprite):
 
         :param sprint: move faster flag
         """
-
         if self.accel.length() != 0:
             self.accel.scale_to_length(self.abs_accel)
         if self.accel.x == 0:

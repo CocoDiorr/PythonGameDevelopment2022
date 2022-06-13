@@ -10,6 +10,7 @@ from Zelda.menu.StartMenu import StartMenu
 
 class Game:
     """Game class."""
+
     def __init__(self, locale: str = 'en', music_volume: float = MUSIC_VOLUME, sounds_volume: float = SOUNDS_VOLUME):
         """
         Init base weapon.

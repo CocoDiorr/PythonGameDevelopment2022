@@ -24,7 +24,8 @@ class Level:
     """Level class."""
 
     def __init__(self, locale: str, game: "Game"):
-        """ Init Level class.
+        """
+        Init Level class.
 
         :param locale: name of locale ('en' or 'ru')
         :param game: Game
@@ -58,7 +59,7 @@ class Level:
         self.cold_steels = pygame.sprite.Group()
 
     def create_map(self):
-        """ Create a map."""
+        """Create a map."""
         layouts = {
             'boundary': import_csv_layout(LEVEL_0_FLOORBLOCKS),
             'grass': import_csv_layout(LEVEL_0_GRASS),

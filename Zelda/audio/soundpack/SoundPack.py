@@ -53,7 +53,8 @@ class SoundPack:
 
 
 class MusicPack:
-    """ MusicPack class. """
+    """MusicPack class."""
+
     def __init__(self, music: dict[str, str], volume):
         """
         Init MusicPack class.
@@ -92,7 +93,7 @@ class MusicPack:
             self.is_paused = False
 
     def stop(self):
-        """Stop the music"""
+        """Stop the music."""
         pygame.mixer.music.unload()
 
     def update_volume(self, volume: float):

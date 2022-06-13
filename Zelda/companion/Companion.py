@@ -51,7 +51,6 @@ class Companion(pygame.sprite.Sprite):
         :param msg: message
 
         """
-
         words = [word.split(' ') for word in msg.splitlines()]
         space = self.font.size(' ')[0]
 
@@ -142,7 +141,7 @@ class Companion(pygame.sprite.Sprite):
 
     def trade_button(self, companion: "Companion", name: str):
         """
-        Tell the story for the amount of dust on the pressed button with the name name
+        Tell the story for the amount of dust on the pressed button with the name name.
 
         :param companion: companion
         :param name: string on the button

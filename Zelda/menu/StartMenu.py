@@ -12,6 +12,7 @@ _ = translation.gettext
 
 class StartMenu:
     """StartMenu class."""
+
     def __init__(self, game: "Game"):
         """
         Init the Start menu.
@@ -234,7 +235,7 @@ class Item:
 
     def display(self, surface: "pygame.display"):
         """
-        Draw the button on the screen
+        Draw the button on the screen.
 
         :param surface:
 
@@ -351,7 +352,6 @@ class Toggle:
         :param max_value: maximum volume in the game
 
         """
-
         color = "#3D0814"
 
         pygame.draw.line(surface, color, self.top, self.bottom, 5)

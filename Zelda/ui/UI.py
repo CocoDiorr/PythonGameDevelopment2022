@@ -5,10 +5,10 @@ from Zelda.config.Config import UI_SETTINGS, PLAYER_MAX_ENERGY, PLAYER_MAX_HEALT
 
 
 class UI:
-    """UI class"""
+    """UI class."""
 
     def __init__(self):
-        """Init the UI class"""
+        """Init the UI class."""
         # general
         self.display_surface = pygame.display.get_surface()
         self.font = pygame.font.Font(UI_SETTINGS["UI_FONT"], UI_SETTINGS["UI_FONT_SIZE"])
