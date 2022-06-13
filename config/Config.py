@@ -68,9 +68,6 @@ GAME_MUSIC = {
 SOUNDS_VOLUME = 0.2
 MUSIC_VOLUME = 0.5
 
-# Audio
-# AUDIO = {"START_MENU": os.path.join("audio", "main.ogg"),
-# }
 
 # Menu
 MENU = {"FONT_SIZE": 33,\
@@ -195,11 +192,13 @@ COMPANION_COLORS = {"MAIN_COLOR": (219, 153, 90),\
                     "OUTLINE_COLOR": (101, 66, 54),\
                     "GRADIENT": (130, 85, 70),\
                     "FONT_COLOR": (0, 0, 0)}
+
 COMPANION_BUTTON = {"FONT": os.path.join("fonts", "pixelcyr_normal.ttf"),\
                     "FONT_SIZE": 40,\
                     "FONT_COLOR": (8, 76, 97),\
                     "MAIN_COLOR": (224, 251, 252),\
                     "OUTLINE_COLOR": (152, 193, 217)}
+                    
 COMPANION_SOUNDS = dict()
 
 SHIELD_SPRITE_PATH = os.path.join("pics", "white_rect.png")

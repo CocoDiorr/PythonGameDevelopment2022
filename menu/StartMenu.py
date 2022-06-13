@@ -287,16 +287,17 @@ class Toggle:
         pygame.draw.rect(surface, color, self.slider)
 
     def hover(self):
+        """ """
         if self.value_rect.collidepoint(pygame.mouse.get_pos()):
             self.slider = pygame.Rect.inflate(self.value_rect, 10, 10)
         else:
             self.slider = self.value_rect
 
     def slide(self):
+        """ """
         mouse_pos = pygame.mouse.get_pos()
         if self.slider.left - 10 <= mouse_pos[0] <= self.slider.right + 10 and \
             self.slider.top - 10 <= mouse_pos[1] <= self.slider.bottom + 10:
-        #if self.slider.collidepoint(pygame.mouse.get_pos()):
             if pygame.mouse.get_pressed()[0]:
                 if self.bottom[0] <= pygame.mouse.get_pos()[0] <= self.top[0] :
                     self.value_rect.center = (pygame.mouse.get_pos()[0], self.value_rect.center[1])
@@ -304,11 +305,13 @@ class Toggle:
                     self.update_volume()
 
     def update_volume(self):
+        """ """
         setattr(self.parent.game, self.name + "_volume", self.value)
         if self.update_func:
             getattr(self.parent.game, self.name).update_volume(self.value)
 
     def display(self, surface, name):
+        """ """
         self.hover()
         self.slide()
         pygame.draw.rect(surface, "#FFBC42", self.rect, 0, 10)

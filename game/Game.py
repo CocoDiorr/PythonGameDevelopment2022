@@ -19,7 +19,7 @@ class Game:
         self.music = MusicPack(GAME_MUSIC, music_volume)
         self.sounds_volume = sounds_volume
         self.level = Level(self.locale, self)
-        self.game_state = "start" # "play"
+        self.game_state = "start"
         self.start_menu = StartMenu(self)
 
     def run(self):
@@ -56,8 +56,6 @@ class Game:
                         if self.game_state == "play":
                             if self.level.game_state in ("companion", "esc"):
                                 self.level.buttons_event = event
-
-                #elif self.game_state == "start":
 
             dt = self.clock.tick(FPS) / 1000
             self.screen.fill(BACKGROUND_COLOR)
