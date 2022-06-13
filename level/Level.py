@@ -150,27 +150,12 @@ class Level:
         """ """
         if self.player.health <= 0:
             self.game_state = "death"
-            # self.game.game_state = "start"
-            # self.game.__init__()
-
-    # def death_screen(self):
-    #     text_surf_1 = self.font.render("You died", 0, MENU["FONT_COLOR"])
-    #     text_rect_1 = text_surf_1.get_rect(midtop=(WINDOW_RESOLUTION[0] // 2, int(WINDOW_RESOLUTION[1] * 0.1)))
-    #
-    #     text_surf_2 = self.font.render("Press SPACE to exit", 0, MENU["FONT_COLOR"])
-    #     text_rect_2 = text_surf_2.get_rect(midtop=(WINDOW_RESOLUTION[0] // 2, int(WINDOW_RESOLUTION[1] * 0.5)))
-    #
-    #
-    #     transp_bg = pygame.Surface(WINDOW_RESOLUTION, pygame.SRCALPHA)
-    #     transp_bg.fill((255, 0, 0, 128))
-
-
 
     def run(self, dt):
 
         """
 
-        :param dt: 
+        :param dt:
 
         """
         # self.visible.draw(self.display_surface)
