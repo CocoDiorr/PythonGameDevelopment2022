@@ -43,6 +43,7 @@ class ColdSteel(Weapon):
 
         :param dt: float: delta time for main loop updating
         """
+        self.sounds.update_volume(self.level.game.sounds_volume)
         self.last_use += dt
         self.move()
         if self.last_use >= self.cooldown / 2:

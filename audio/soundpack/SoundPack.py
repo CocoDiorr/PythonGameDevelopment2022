@@ -21,6 +21,12 @@ class SoundPack:
         if not (self.sounds.get(name) is None) and self.sounds[name]:
             choice(self.sounds[name]).play()
 
+    def update_volume(self, new_volume):
+        if self.volume != new_volume:
+            self.volume = new_volume
+            for _, sound_list in self.sounds.items():
+                for sound in sound_list:
+                    sound.set_volume(self.volume)
 
 
 class MusicPack:
