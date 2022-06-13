@@ -3,7 +3,7 @@ import os
 from config.Config import MENU, UI_SETTINGS, WINDOW_RESOLUTION, DEFAULT_LOCALE
 
 import gettext
-translation = gettext.translation("DeathScreen", os.path.join("locale", "death_screen"), languages=[DEFAULT_LOCALE])
+translation = gettext.translation("DeathScreen", os.path.join(os.path.dirname(__file__), "..", "locale", "death_screen"), languages=[DEFAULT_LOCALE])
 _ = translation.gettext
 
 
@@ -42,6 +42,6 @@ class DeathScreen:
         global _
         self.locale = lang
 
-        translation = gettext.translation("DeathScreen", os.path.join("locale", "death_screen"), languages=[lang])
+        translation = gettext.translation("DeathScreen", os.path.join(os.path.dirname(__file__), "..", "locale", "death_screen"), languages=[lang])
         translation.install()
         _ = translation.gettext

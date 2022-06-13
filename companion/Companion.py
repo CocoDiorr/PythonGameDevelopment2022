@@ -1,6 +1,6 @@
 import pygame
 from sys import exit
-from os import path
+import os
 from audio.soundpack.SoundPack import SoundPack
 from config.Config import COMPANION_FONT, COMPANION_FONT_SIZE, WINDOW_RESOLUTION,\
                           COMPANION_SIZE, COMPANION_IMAGE, COMPANION_COLORS,\
@@ -9,7 +9,7 @@ from button.Button import Button
 import ipsedixit
 
 import gettext
-translation = gettext.translation("Companion", path.join("locale", "companion"), languages=[DEFAULT_LOCALE])
+translation = gettext.translation("Companion", os.path.join(os.path.dirname(__file__), "..", "locale", "companion"), languages=[DEFAULT_LOCALE])
 _ = translation.gettext
 
 
@@ -225,6 +225,6 @@ class Companion(pygame.sprite.Sprite):
         global _
         self.locale = lang
 
-        translation = gettext.translation("Companion", path.join("locale", "companion"), languages=[lang])
+        translation = gettext.translation("Companion", os.path.join(os.path.dirname(__file__), "..", "locale", "companion"), languages=[lang])
         translation.install()
         _ = translation.gettext
