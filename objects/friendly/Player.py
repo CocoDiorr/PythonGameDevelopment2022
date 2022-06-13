@@ -86,6 +86,7 @@ class Player(Entity):
         :param dt: delta time for main loop updating
 
         """
+        self.sounds.update_volume(self.level.game.sounds_volume)
         self.set_animation_state()
         self.animate()
         self.input()

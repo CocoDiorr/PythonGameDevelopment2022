@@ -48,6 +48,7 @@ class Weapon(pygame.sprite.Sprite):
         self.last_use += dt
         self.move()
         self.update_uses()
+        self.sounds.update_volume(self.level.game.sounds_volume)
 
     def move(self):
         """Change weapon position."""

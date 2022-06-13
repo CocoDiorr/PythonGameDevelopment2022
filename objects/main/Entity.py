@@ -183,6 +183,7 @@ class Entity(pygame.sprite.Sprite):
 
         """
         self.health = max(self.health - damage, 0)
+        self.sounds.update_volume(self.level.game.sounds_volume)
         self.sounds.play("hurt")
         if self.health == 0:
             self.kill()
