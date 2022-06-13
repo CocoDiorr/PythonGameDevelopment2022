@@ -1,7 +1,7 @@
 import pygame
 import pygame.math
 import pygame.sprite
-from config.Config import *
+from Zelda.config.Config import *
 
 
 class Bullet(pygame.sprite.Sprite):

@@ -1,23 +1,23 @@
-import os
+
 import pygame
 from random import choice
 import pygame.sprite
 import pygame.math
 from random import randint
-from objects.friendly.Player import Player
-from objects.main.Solid import Solid
-from objects.enemy.Turret import Turret
-from objects.enemy.Ninja import Ninja
-from objects.enemy.Swordsman import Swordsman
-from objects.enemy.StrongSwordsman import StrongSwordsman
-from objects.enemy.Skeleton import Skeleton
-from companion.Companion import Companion
-from ui.UI import UI
-from menu.EscMenu import EscMenu
-from menu.DeathScreen import DeathScreen
-from config.Config import *
-from level.Support import *
-from level.Camera import *
+from Zelda.objects.friendly.Player import Player
+from Zelda.objects.main.Solid import Solid
+from Zelda.objects.enemy.Turret import Turret
+from Zelda.objects.enemy.Ninja import Ninja
+from Zelda.objects.enemy.Swordsman import Swordsman
+from Zelda.objects.enemy.StrongSwordsman import StrongSwordsman
+from Zelda.objects.enemy.Skeleton import Skeleton
+from Zelda.companion.Companion import Companion
+from Zelda.ui.UI import UI
+from Zelda.menu.EscMenu import EscMenu
+from Zelda.menu.DeathScreen import DeathScreen
+from Zelda.config.Config import *
+from Zelda.level.Support import *
+from Zelda.level.Camera import *
 
 
 class Level:

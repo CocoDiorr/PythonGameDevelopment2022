@@ -1,7 +1,7 @@
 import pygame
 import os
-from config.Config import WINDOW_RESOLUTION, MENU
-from menu.StartMenu import Item
+from Zelda.config.Config import WINDOW_RESOLUTION, MENU
+from Zelda.menu.StartMenu import Item
 
 
 class EscMenu:

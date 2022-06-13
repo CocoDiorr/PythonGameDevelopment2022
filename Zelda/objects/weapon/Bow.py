@@ -1,5 +1,5 @@
-from objects.weapon.ShootingWeapon import ShootingWeapon
-from config.Config import *
+from Zelda.objects.weapon.ShootingWeapon import ShootingWeapon
+from Zelda.config.Config import *
 
 # from level.Level import Level
 # from objects.friendly.Player import Player
@@ -17,4 +17,3 @@ class Bow(ShootingWeapon):
         :param owner: Entity
         """
         super().__init__(level, BOW_IMAGE_PATH, BOW_SOUNDS, owner, BOW_DISTANCE, BOW_COOLDOWN, ARROW_SPEED, ARROW_DAMAGE, ARROW_RANGE, ARROW_IMAGE_PATH)
-        

@@ -1,9 +1,9 @@
 import pygame
 import pygame.math
 import pygame.sprite
-from audio.soundpack.SoundPack import SoundPack
-from config.Config import *
-from config.SpriteSheet import SpriteSheet
+from Zelda.audio.soundpack.SoundPack import SoundPack
+from Zelda.config.Config import *
+from Zelda.config.SpriteSheet import SpriteSheet
 
 
 class Entity(pygame.sprite.Sprite):

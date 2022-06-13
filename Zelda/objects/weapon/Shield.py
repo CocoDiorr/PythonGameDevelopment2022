@@ -1,7 +1,7 @@
 import pygame
-from config.Config import *
-from objects.weapon.Bullet import Bullet
-from objects.weapon.Weapon import Weapon
+from Zelda.config.Config import *
+from Zelda.objects.weapon.Bullet import Bullet
+from Zelda.objects.weapon.Weapon import Weapon
 
 
 class Shield(Weapon):

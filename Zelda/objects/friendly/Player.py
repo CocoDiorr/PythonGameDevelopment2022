@@ -3,14 +3,14 @@ import pygame.sprite
 import pygame.key
 import pygame.mouse
 import pygame.math
-from config.Config import *
-from objects.main.Entity import Entity
-from objects.weapon.Bullet import Bullet
-from objects.weapon.ColdSteel import ColdSteel
-from objects.weapon.ShootingWeapon import ShootingWeapon
-from objects.weapon.Bow import Bow
-from objects.weapon.Shield import Shield
-from objects.enemy.Enemy import Enemy
+from Zelda.config.Config import *
+from Zelda.objects.main.Entity import Entity
+from Zelda.objects.weapon.Bullet import Bullet
+from Zelda.objects.weapon.ColdSteel import ColdSteel
+from Zelda.objects.weapon.ShootingWeapon import ShootingWeapon
+from Zelda.objects.weapon.Bow import Bow
+from Zelda.objects.weapon.Shield import Shield
+from Zelda.objects.enemy.Enemy import Enemy
 
 
 class Player(Entity):
@@ -69,7 +69,7 @@ class Player(Entity):
     def update_weapons(self, dt: float):
         """
         Update position and using of player weapons.
-        
+
         :param dt: delta time for main loop updating
         """
         for weapon in self.weapons:

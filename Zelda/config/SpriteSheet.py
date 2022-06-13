@@ -1,5 +1,5 @@
 import pygame
-from config.Config import *
+from Zelda.config.Config import *
 
 
 class SpriteSheet(object):
@@ -50,4 +50,3 @@ class SpriteSheet(object):
             for vert in separating:
                 animations[state].append(self.get_image(hor, vert, 16, 16, BLACK))
         return animations
-

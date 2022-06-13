@@ -1,8 +1,8 @@
 import pygame.math
 
-from objects.weapon.Shuriken import Shuriken
-from objects.enemy.Enemy import Enemy
-from config.Config import *
+from Zelda.objects.weapon.Shuriken import Shuriken
+from Zelda.objects.enemy.Enemy import Enemy
+from Zelda.config.Config import *
 
 
 class Ninja(Enemy):

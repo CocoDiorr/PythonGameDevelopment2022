@@ -1,6 +1,6 @@
 import pygame
 import os
-from config.Config import MENU, UI_SETTINGS, WINDOW_RESOLUTION, DEFAULT_LOCALE
+from Zelda.config.Config import MENU, UI_SETTINGS, WINDOW_RESOLUTION, DEFAULT_LOCALE
 
 import gettext
 translation = gettext.translation("DeathScreen", os.path.join(os.path.dirname(__file__), "..", "locale", "death_screen"), languages=[DEFAULT_LOCALE])

@@ -1,6 +1,6 @@
 import pygame
-from objects.weapon.ShootingWeapon import Weapon
-from config.Config import *
+from Zelda.objects.weapon.ShootingWeapon import Weapon
+from Zelda.config.Config import *
 
 
 class Solid(pygame.sprite.Sprite):
@@ -24,4 +24,3 @@ class Solid(pygame.sprite.Sprite):
             self.rect = self.image.get_rect(center=pos)
 
         self.hitbox = self.rect.inflate(-10, -10)
-    

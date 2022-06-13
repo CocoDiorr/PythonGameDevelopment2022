@@ -2,16 +2,16 @@ import pygame
 import pygame.math
 import pygame.sprite
 import pygame.rect
-from config.Config import *
-from objects.weapon.Bullet import Bullet
-from objects.weapon.Weapon import Weapon
+from Zelda.config.Config import *
+from Zelda.objects.weapon.Bullet import Bullet
+from Zelda.objects.weapon.Weapon import Weapon
 
 
 class ShootingWeapon(Weapon):
     """Shooting weapon class. Inherited from Weapon."""
-    def __init__(self, level: "Level", image_path: str, sounds: dict[str, set[str]], owner: "Entity", owner_distance: int, cooldown: int, bullet_speed: int, bullet_damage: int, bullet_range: int, bullet_img_path: str, extra_scale=1., bullet_extra_scale=1.): 
+    def __init__(self, level: "Level", image_path: str, sounds: dict[str, set[str]], owner: "Entity", owner_distance: int, cooldown: int, bullet_speed: int, bullet_damage: int, bullet_range: int, bullet_img_path: str, extra_scale=1., bullet_extra_scale=1.):
 
-        """        
+        """
         Init shooting weapon.
 
         :param level: Level
@@ -66,7 +66,7 @@ class ShootingWeapon(Weapon):
                 speed = angle * self.bullet_speed
             self.sounds.play("shoot")
             self.level.bullets.add(
-            
+
                 Bullet(
                     self.level,
                     (self.level.bullets,),

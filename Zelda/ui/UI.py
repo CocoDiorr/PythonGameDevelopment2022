@@ -1,6 +1,6 @@
 import pygame
 import os
-from config.Config import UI_SETTINGS, PLAYER_MAX_ENERGY, PLAYER_MAX_HEALTH
+from Zelda.config.Config import UI_SETTINGS, PLAYER_MAX_ENERGY, PLAYER_MAX_HEALTH
 
 
 class UI:
@@ -15,7 +15,7 @@ class UI:
         self.health_bar_rect = pygame.Rect(10, 10, UI_SETTINGS["HEALTH_BAR_WIDTH"], UI_SETTINGS["BAR_HEIGHT"])
         self.energy_bar_rect = pygame.Rect(10, 38, UI_SETTINGS["ENERGY_BAR_WIDTH"], UI_SETTINGS["BAR_HEIGHT"])
 
-        self.dust_image = pygame.image.load(os.path.join("pics", "dust.png")).convert_alpha()
+        self.dust_image = pygame.image.load(os.path.join(os.path.dirname(__file__), "..", "pics", "dust.png")).convert_alpha()
         self.dust_image = pygame.transform.scale(self.dust_image, (30, 30))
         self.dust_rect = self.dust_image.get_rect(bottomright=(self.display_surface.get_size()[0] - 10, self.display_surface.get_size()[1] - 20))
 

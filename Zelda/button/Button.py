@@ -1,7 +1,6 @@
 import pygame
-import os
-from audio.soundpack.SoundPack import SoundPack
-from config.Config import COMPANION_BUTTON, COMPANION_COLORS, BUTTON_SOUNDS
+from Zelda.audio.soundpack.SoundPack import SoundPack
+from Zelda.config.Config import COMPANION_BUTTON, COMPANION_COLORS, BUTTON_SOUNDS
 from typing import Callable
 
 

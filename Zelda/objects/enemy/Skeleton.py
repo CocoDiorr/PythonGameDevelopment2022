@@ -1,8 +1,8 @@
 import pygame.math
 
-from objects.enemy.Enemy import Enemy
-from config.Config import *
-from objects.weapon.Bow import Bow
+from Zelda.objects.enemy.Enemy import Enemy
+from Zelda.config.Config import *
+from Zelda.objects.weapon.Bow import Bow
 
 
 class Skeleton(Enemy):

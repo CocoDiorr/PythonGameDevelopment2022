@@ -1,5 +1,5 @@
 import pygame
-from config.Config import *
+from Zelda.config.Config import *
 
 
 class YSortCameraGroup(pygame.sprite.Group):

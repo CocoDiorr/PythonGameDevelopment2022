@@ -1,8 +1,8 @@
 import pygame
 import os
 from typing import Callable
-from audio.soundpack.SoundPack import SoundPack
-from config.Config import WINDOW_RESOLUTION, UI_SETTINGS, DEFAULT_LOCALE, MENU, BUTTON_SOUNDS, MUSIC_VOLUME, SOUNDS_VOLUME
+from Zelda.audio.soundpack.SoundPack import SoundPack
+from Zelda.config.Config import WINDOW_RESOLUTION, UI_SETTINGS, DEFAULT_LOCALE, MENU, BUTTON_SOUNDS, MUSIC_VOLUME, SOUNDS_VOLUME
 
 import gettext
 translation = gettext.translation("StartMenu", os.path.join(os.path.dirname(__file__), "..", "locale", "start_menu"), languages=[DEFAULT_LOCALE])

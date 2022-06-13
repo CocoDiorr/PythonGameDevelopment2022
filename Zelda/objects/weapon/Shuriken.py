@@ -1,5 +1,5 @@
-from objects.weapon.ShootingWeapon import ShootingWeapon
-from config.Config import *
+from Zelda.objects.weapon.ShootingWeapon import ShootingWeapon
+from Zelda.config.Config import *
 
 
 class Shuriken(ShootingWeapon):

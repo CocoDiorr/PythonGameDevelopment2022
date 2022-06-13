@@ -1,5 +1,5 @@
 import pygame.image
-from config.Config import *
+from Zelda.config.Config import *
 from csv import reader
 from os import walk
 
