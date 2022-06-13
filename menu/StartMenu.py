@@ -1,5 +1,6 @@
 import pygame
 import os
+from typing import Callable
 from audio.soundpack.SoundPack import SoundPack
 from config.Config import WINDOW_RESOLUTION, UI_SETTINGS, DEFAULT_LOCALE, MENU, BUTTON_SOUNDS, MUSIC_VOLUME, SOUNDS_VOLUME
 
@@ -9,8 +10,14 @@ _ = translation.gettext
 
 
 class StartMenu:
-    """ """
-    def __init__(self, game):
+    """ StartMenu class. """
+    def __init__(self, game: "Game"):
+        """
+        Init the Start menu.
+
+        :param game: Game
+
+        """
         self.game = game
         self.buttons_event = None
         self.settings_on = False
@@ -43,7 +50,6 @@ class StartMenu:
         self.start_menu_state = "options"
 
         # buttons
-
         self.buttons = []
         self.buttons.append(
             Item("play.png", "play_hovered.png",\
@@ -81,9 +87,8 @@ class StartMenu:
                int(WINDOW_RESOLUTION[0] * 0.5), int(WINDOW_RESOLUTION[1] * 0.15),\
                self, 2, 4, self.game.sounds_volume, 1, "sounds", False)
 
-
     def display(self):
-        """ """
+        """ Draw the Start menu. """
         self.surface.blit(self.bg_images[self.cur_frame], (0,0))
         self.times -= 1
         if self.times == 0:
@@ -91,7 +96,6 @@ class StartMenu:
             self.times = 20
 
         if not self.settings_on:
-            #pygame.draw.rect(self.surface, )
             self.surface.blit(self.vmik, self.vmik_rect)
             self.surface.blit(self.asvk, self.asvk_rect)
             for button in self.buttons[:3]:
@@ -111,37 +115,59 @@ class StartMenu:
                 button.display(self.surface)
 
     def play_button(self):
-        """ """
+        """ Call the play button. """
         self.game.level.create_map()
         self.game.game_state = "play"
-        #self.bg_music.pause()
 
     def settings_button(self):
-        """ """
+        """ Call the settings button. """
         self.settings_on = not self.settings_on
 
     def exit_button(self):
-        """ """
+        """ Call the exit button. """
         self.game.running = False
 
-    def lang_button(self, lang):
-        #self.game.locale = lang
+    def lang_button(self, lang: str):
+        """
+        Call the language button.
+
+        :param lang: language of the game
+
+        """
         self.game.update_locale(lang)
 
-    def update_locale(self, lang):
+    def update_locale(self, lang: str):
+        """
+        Update the language of the Game.
+
+        :param lang: language of the game
+
+        """
         self.vmik = pygame.image.load(os.path.join(MENU["PICS_PATH"], lang, "VMIK.png")).convert_alpha()
         self.vmik = pygame.transform.scale(self.vmik, (int(WINDOW_RESOLUTION[0] * 0.5), int(WINDOW_RESOLUTION[1] * 0.2)))
         self.vmik_rect = self.vmik.get_rect(midtop=(WINDOW_RESOLUTION[0] // 2, int(WINDOW_RESOLUTION[1] * 0.1)))
-
 
         for button in self.buttons[:3]:
             button.update_locale(lang)
 
 
 class Item:
-    """ """
-    def __init__(self, image, image_hovered, w:int, h:int, midtop, parent, action, args, numb, max_numb):
+    """ Item class. """
+    def __init__(self, image: str, image_hovered: str, w: int, h: int, midtop: tuple[int], parent: "Object", action: Callable[..., None], args: "args", numb: int, max_numb: int):
+        """
+        Init the Item class.
 
+        :param image: name of the image
+        :param image_hovered: name of the image, when hovering it
+        :param w: width of the image
+        :param h: height of the image
+        :param midtop: midtop image coordinates
+        :param parent: StartMenu or Level
+        :param action: function
+        :param args: args for the action
+        :param numb: number of the button
+        :param max_numb: number of the buttons on the screen
+        """
         # Parent object to go to
         self.parent = parent
         self.locale = self.parent.locale
@@ -151,7 +177,6 @@ class Item:
 
         self.image_path = os.path.join(MENU["PICS_PATH"], self.locale, image)
         self.image_hovered_path = os.path.join(MENU["PICS_PATH"], self.locale, image_hovered)
-
 
         self.image = pygame.image.load(self.image_path).convert_alpha()
         self.image = pygame.transform.scale(self.image, (w, h))
@@ -177,9 +202,8 @@ class Item:
 
         self.sounds = SoundPack(BUTTON_SOUNDS, self.parent.game.sounds_volume)
 
-
     def hover(self):
-        """ """
+        """ Hover on the button."""
         if self.button_rect.collidepoint(pygame.mouse.get_pos()):
             self.button_rect = self.rect_hovered
             self.button = self.image_hovered
@@ -188,7 +212,7 @@ class Item:
             self.button = self.image
 
     def click(self):
-        """ """
+        """ Click the button. """
         if self.button_rect.collidepoint(pygame.mouse.get_pos()):
             if self.parent.buttons_event and not self.pressed:
                 if self.args:
@@ -206,8 +230,9 @@ class Item:
         elif self.numb == self.max_numb:
             self.parent.buttons_event = None
 
-    def display(self, surface):
+    def display(self, surface: "pygame.display"):
         """
+        Draw the button on the screen
 
         :param surface:
 
@@ -216,8 +241,13 @@ class Item:
         self.click()
         surface.blit(self.button, self.button_rect)
 
-    def update_locale(self, lang):
-        """ """
+    def update_locale(self, lang: str):
+        """
+        Update the language of the button.
+
+        :param lang: language of the game
+
+        """
         global translation
         global _
 
@@ -238,26 +268,56 @@ class Item:
 
 
 class LangButton(Item):
-    """ """
-    def __init__(self, image, image_hovered, w, h, midtop, parent, action, args, numb, max_numb, lang):
-        """ """
+    """ Language button. Inherited from the Item. """
+    def __init__(self, image: str, image_hovered: str, w: int, h: int, midtop: tuple[int], parent:
+    "Object", action: Callable[..., None], args: "args", numb: int, max_numb: int, lang: str):
+        """
+        Init the Item class.
+
+        :param image: name of the image
+        :param image_hovered: name of the image, when hovering it
+        :param w: width of the image
+        :param h: height of the image
+        :param midtop: midtop image coordinates
+        :param parent: StartMenu or Level
+        :param action: function
+        :param args: args for the action
+        :param numb: number of the button
+        :param max_numb: number of the buttons on the screen
+        :param lang: current language
+        """
         super().__init__(image, image_hovered, w, h, midtop, parent, action, args, numb, max_numb)
         self.lang = lang
 
     def display(self, surface):
-        """ """
+        """ Draw the language button. """
         self.hover()
         self.click()
         if self.parent.game.locale == self.lang:
             surface.blit(self.image_hovered, self.rect_hovered)
-            #print(self.parent.game.locale)
         else:
             surface.blit(self.button, self.button_rect)
 
+
 class Toggle:
-    """ """
-    def __init__(self, l:int, t:int, w:int, h:int, parent, numb, max_numb, value, max_value, name, update_func=False):
-        """ """
+    """ Toggle Class. """
+    def __init__(self, l: int, t: int, w: int, h: int, parent, numb: int, max_numb: int, value: int, max_value: int, name: str, update_func: Callable[..., None] =False):
+        """
+        Init the Toggle class.
+
+        :param l: left coordinate
+        :param t: top coordinate
+        :param w: width
+        :param h: height
+        :param parent:
+        :param numb: number of the button
+        :param max_numb: number of buttons on the screen
+        :param value: current music value
+        :param max_value: maximum music value
+        :param name: string
+        :param update_func: function for update
+
+        """
         self.parent = parent
         self.name = name
 
@@ -278,8 +338,15 @@ class Toggle:
 
         self.update_func = update_func
 
-    def display_bar(self, surface, value, max_value):
-        """ """
+    def display_bar(self, surface: "pygame.display", value: float, max_value: float):
+        """
+        Draw the bar.
+
+        :param surface: pygame.display
+        :param value: current volume in the game
+        :param max_value: maximum volume in the game
+
+        """
 
         color = "#3D0814"
 
@@ -287,16 +354,17 @@ class Toggle:
         pygame.draw.rect(surface, color, self.slider)
 
     def hover(self):
+        """ Hover on the button. """
         if self.value_rect.collidepoint(pygame.mouse.get_pos()):
             self.slider = pygame.Rect.inflate(self.value_rect, 10, 10)
         else:
             self.slider = self.value_rect
 
     def slide(self):
+        """ Slide the button. """
         mouse_pos = pygame.mouse.get_pos()
         if self.slider.left - 10 <= mouse_pos[0] <= self.slider.right + 10 and \
             self.slider.top - 10 <= mouse_pos[1] <= self.slider.bottom + 10:
-        #if self.slider.collidepoint(pygame.mouse.get_pos()):
             if pygame.mouse.get_pressed()[0]:
                 if self.bottom[0] <= pygame.mouse.get_pos()[0] <= self.top[0] :
                     self.value_rect.center = (pygame.mouse.get_pos()[0], self.value_rect.center[1])
@@ -304,11 +372,19 @@ class Toggle:
                     self.update_volume()
 
     def update_volume(self):
+        """ Upgrade volume. """
         setattr(self.parent.game, self.name + "_volume", self.value)
         if self.update_func:
             getattr(self.parent.game, self.name).update_volume(self.value)
 
-    def display(self, surface, name):
+    def display(self, surface: pygame.display, name: str):
+        """
+        Draw the button.
+
+        :param surface: pygame.display
+        :param name: name of the button
+
+        """
         self.hover()
         self.slide()
         pygame.draw.rect(surface, "#FFBC42", self.rect, 0, 10)

@@ -15,20 +15,14 @@ _ = translation.gettext
 
 class Companion(pygame.sprite.Sprite):
     """Companion class."""
-    def __init__(self, screen, level, player=None):
+    def __init__(self, screen: "pygame.display", level: "Level", player: "Player" = None):
         """
-        Initialize the Companion:
+        Init the companion class.
 
-            * self.image -- image/surface of the companion
-            * self.rect -- corresponding rect to the companion
-            * self.to_show -- state of the companion:
-                -  0 - initial state
-                -  1 - hides
-                - -1 - shows up
-            * self.to_move -- state of moving:
-                -  0 - stays in the place
-                -  1 - hides
-                - -1 - shows up
+        :param screen: pygame.display
+        :param level: Level
+        :param player: Player
+
         """
         super().__init__()
         self.image = pygame.image.load(COMPANION_IMAGE).convert_alpha()
@@ -40,25 +34,20 @@ class Companion(pygame.sprite.Sprite):
         self.screen = screen
         self.level = level
         self.locale = self.level.locale
-        # self.sounds = SoundPack(COMPANION_SOUNDS, self.level.game.sounds_volume)
 
         # companion outline
         self.fill_box = pygame.Rect(self.rect.left - 5, self.rect.top - 5, self.rect.w + 5, self.rect.h + 5)
-
-        # message textbox
-        # self.hi_msg_1 =
-        # self.hi_msg_2 =
 
         # companion cooldown
         self.call = None
         self.available = True
 
-
-    def show_msg(self, screen, msg):
+    def show_msg(self, screen: "pygame.display", msg: str):
         """
+        Show the message msg.
 
-        :param screen: param msg:
-        :param msg:
+        :param screen: pygame.display
+        :param msg: message
 
         """
 
@@ -88,8 +77,6 @@ class Companion(pygame.sprite.Sprite):
                 surfaces.append((word_surface, (x,y)))
             tmp_width -= space
 
-
-
             if tmp_width > box_width:
                 box_width = tmp_width
             box_height += tmp_height
@@ -103,27 +90,30 @@ class Companion(pygame.sprite.Sprite):
         pygame.draw.rect(screen, COMPANION_COLORS["OUTLINE_COLOR"], text_box, 10, 20)
         screen.blits(surfaces)
 
-    def yes_button(self, companion):
+    def yes_button(self, companion: "Companion"):
         """
+        Change the state of companion to trading.
 
-        :param companion:
+        :param companion: Companion
 
         """
         companion.companion_state = "trade"
 
-    def no_button(self, level):
+    def no_button(self, level: "Level"):
         """
+        Leave the companion screen.
 
-        :param level:
+        :param level: Level
 
         """
         level.game_state = "active"
 
 
-    def greeting(self, screen):
+    def greeting(self, screen: "pygame.screen"):
         """
+        Greet the player as companion.
 
-        :param screen:
+        :param screen: pygame.screen
 
         """
         text_surface_1 = self.font.render(_("Hi, haven't seen you in a while ! <3"), 0, COMPANION_COLORS["FONT_COLOR"])
@@ -149,11 +139,12 @@ class Companion(pygame.sprite.Sprite):
         yes.display(screen)
         no.display(screen)
 
-    def trade_button(self, companion, name):
+    def trade_button(self, companion: "Companion", name: str):
         """
+        Tell the story for the amount of dust on the pressed button with the name name
 
-        :param companion: param name:
-        :param name:
+        :param companion: companion
+        :param name: string on the button
 
         """
         if companion.player.dust >= int(name):
@@ -164,8 +155,9 @@ class Companion(pygame.sprite.Sprite):
                 companion.generator = ipsedixit.Generator(f.read())
             companion.tell = companion.generator.paragraphs(1)
 
-    def trade(self, screen):
+    def trade(self, screen: "pygame.display"):
         """
+        Trade with the player.
 
         :param screen:
 
@@ -201,11 +193,11 @@ class Companion(pygame.sprite.Sprite):
             button.display(screen)
 
     def story(self):
-        """ """
+        """ Tell the story. """
         self.show_msg(self.screen, *self.tell)
 
     def display(self):
-        """ """
+        """ Draw the companion on the screen. """
         pygame.draw.rect(self.screen, COMPANION_COLORS["MAIN_COLOR"], self.fill_box, 0, 20)
         pygame.draw.rect(self.screen, COMPANION_COLORS["OUTLINE_COLOR"], self.fill_box, 10, 20)
         gradient_rect = pygame.Rect.inflate(self.fill_box, -5, -5)
@@ -220,7 +212,13 @@ class Companion(pygame.sprite.Sprite):
 
         self.screen.blit(self.image, self.rect)
 
-    def update_locale(self, lang):
+    def update_locale(self, lang: str):
+        """
+        Update the language of locale and companion settings.
+
+        :param lang: language of the game
+
+        """
         global translation
         global _
         self.locale = lang

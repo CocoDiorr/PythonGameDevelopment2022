@@ -20,7 +20,7 @@ def import_csv_layout(path: str) -> list[list[str]]:
         return terrain_map
 
 
-def import_folder(path: str) -> dict[str, pygame.image]:
+def import_folder(path: str) -> dict[str, "pygame.image"]:
     """
     Import images from the folder.
 

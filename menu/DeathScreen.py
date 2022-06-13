@@ -8,7 +8,14 @@ _ = translation.gettext
 
 
 class DeathScreen:
-    def __init__(self, level):
+    """ DeathScreen class. """
+    def __init__(self, level: "Level"):
+        """
+        Init the death screen class.
+
+        :param level: Level
+
+        """
         self.level = level
         self.locale = self.level.locale
 
@@ -19,12 +26,12 @@ class DeathScreen:
         self.transp_bg.fill((255, 0, 0, 128))
 
     def display(self):
+        """ Draw the Death screen. """
         text_surf_1 = self.font.render(_("You died"), 0, MENU["FONT_COLOR"])
         text_rect_1 = text_surf_1.get_rect(midtop=(WINDOW_RESOLUTION[0] // 2, int(WINDOW_RESOLUTION[1] * 0.2)))
 
         text_surf_2 = self.font.render(_("Press SPACE to exit"), 0, MENU["FONT_COLOR"])
         text_rect_2 = text_surf_2.get_rect(midtop=(WINDOW_RESOLUTION[0] // 2, int(WINDOW_RESOLUTION[1] * 0.6)))
-
 
         self.display_surface.blit(self.transp_bg, (0, 0))
 
@@ -37,7 +44,13 @@ class DeathScreen:
             self.level.game.game_state = "start"
             self.level.game.__init__(self.level.game.locale, self.level.game.music_volume, self.level.game.sounds_volume)
 
-    def update_locale(self, lang):
+    def update_locale(self, lang: str):
+        """
+        Update the language of locale and Death screen.
+
+        :param lang: language of the game
+
+        """
         global translation
         global _
         self.locale = lang
