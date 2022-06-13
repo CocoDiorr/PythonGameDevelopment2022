@@ -141,7 +141,6 @@ ANIMATION_SPEED = 0.15
 PLAYER_ABS_ACCEL = 1
 PLAYER_MAX_SPEED = 5
 
-# PLAYER_SPRITE_PATH = os.path.join(os.path.dirname(__file__), "pics", "red_square.jpg")
 PLAYER_SPRITE_PATH = os.path.join(
     os.path.dirname(__file__), "..", "map_graphics", "pics", "Special1.png"
 )

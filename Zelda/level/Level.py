@@ -139,7 +139,7 @@ class Level:
         )
         for bullet, entities in entity_collide.items():
             for entity in entities:
-                if entity != bullet.owner:  # mb later change on enemy group and player
+                if entity != bullet.owner:
                     bullet.kill()
                     entity.get_hit(bullet.damage)
 

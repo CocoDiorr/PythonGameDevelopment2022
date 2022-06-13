@@ -121,7 +121,6 @@ class Entity(pygame.sprite.Sprite):
         # set the image
         self.image = animation[int(self._frame_index)]
         self.rect = self.image.get_rect(center=self.hitbox.center)
-        # self.hitbox = self.rect.inflate(0, -26)
 
     def move(self, sprint=False):
         """
@@ -174,7 +173,6 @@ class Entity(pygame.sprite.Sprite):
         self.pos.y += curr_speed.y
         self.rect.center = self.pos
         self.hitbox.center = self.pos
-        # self.hitbox.y = self.pos.y
         self.collision("vertical")
 
         self.rect.center = self.hitbox.center

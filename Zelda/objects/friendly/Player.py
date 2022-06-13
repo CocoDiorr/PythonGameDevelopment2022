@@ -48,7 +48,7 @@ class Player(Entity):
             max_health=PLAYER_MAX_HEALTH,
             energy=PLAYER_ENERGY,
             max_energy=PLAYER_MAX_ENERGY,
-        )  # move constants from config to __init__ (to create player with certain health, weapon, etc, in new location)
+        )
         self.weapons = [
             Bow(self.level, self),
         ]

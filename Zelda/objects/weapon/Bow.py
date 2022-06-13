@@ -16,7 +16,6 @@ class Bow(ShootingWeapon):
     """Bow Class. Inherited from ShootingWeapon."""
 
     def __init__(self, level: "Level", owner: "Entity"):
-        # later <bullet_speed, ..., bullet_img_path> change to prepared Bullet examplar or to fabric
         """
         Init bow weapon.
 
