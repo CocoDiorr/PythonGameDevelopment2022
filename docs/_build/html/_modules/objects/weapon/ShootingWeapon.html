@@ -39,22 +39,22 @@
 
 <div class="viewcode-block" id="ShootingWeapon"><a class="viewcode-back" href="../../../modules/objects.weapon.html#objects.weapon.ShootingWeapon.ShootingWeapon">[docs]</a><span class="k">class</span> <span class="nc">ShootingWeapon</span><span class="p">(</span><span class="n">Weapon</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Shooting weapon class. Inherited from Weapon.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">image_path</span><span class="p">,</span> <span class="n">sounds</span><span class="p">,</span> <span class="n">owner</span><span class="p">,</span> <span class="n">owner_distance</span><span class="p">,</span> <span class="n">cooldown</span><span class="p">,</span> <span class="n">bullet_speed</span><span class="p">,</span> <span class="n">bullet_damage</span><span class="p">,</span> <span class="n">bullet_range</span><span class="p">,</span> <span class="n">bullet_img_path</span><span class="p">,</span> <span class="n">extra_scale</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">bullet_extra_scale</span><span class="o">=</span><span class="mf">1.</span><span class="p">):</span> <span class="c1"># later &lt;bullet_speed, ..., bullet_img_path&gt; change to prepared Bullet examplar or to fabric</span>
-        
-        <span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="n">image_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sounds</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">owner</span><span class="p">:</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="n">owner_distance</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">cooldown</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">bullet_speed</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">bullet_damage</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">bullet_range</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">bullet_img_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">extra_scale</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">bullet_extra_scale</span><span class="o">=</span><span class="mf">1.</span><span class="p">):</span> 
+
+        <span class="sd">&quot;&quot;&quot;        </span>
 <span class="sd">        Init shooting weapon.</span>
 
 <span class="sd">        :param level: Level</span>
-<span class="sd">        :param image_path: str: path to weapon image</span>
+<span class="sd">        :param image_path: path to weapon image</span>
 <span class="sd">        :param owner: Entity</span>
-<span class="sd">        :param owner_distance: int: distance from weapon to owner</span>
-<span class="sd">        :param cooldown: int: rate of attack</span>
-<span class="sd">        :param bullet_speed: int: speed of bullet</span>
-<span class="sd">        :param bullet_damage: int: bullet damage</span>
-<span class="sd">        :param bullet_range: int: bullet range</span>
-<span class="sd">        :param bullet_img_path: int: path to bullet image</span>
-<span class="sd">        :param extra_scale: float: extra scale for special weapon images</span>
-<span class="sd">        :param bullet_extra_scale: float:  extra scale for special bullet images</span>
+<span class="sd">        :param owner_distance: distance from weapon to owner</span>
+<span class="sd">        :param cooldown: rate of attack</span>
+<span class="sd">        :param bullet_speed: speed of bullet</span>
+<span class="sd">        :param bullet_damage: bullet damage</span>
+<span class="sd">        :param bullet_range: bullet range</span>
+<span class="sd">        :param bullet_img_path: path to bullet image</span>
+<span class="sd">        :param extra_scale: extra scale for special weapon images</span>
+<span class="sd">        :param bullet_extra_scale: extra scale for special bullet images</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="p">(</span><span class="n">level</span><span class="o">.</span><span class="n">visible</span><span class="p">,),</span> <span class="n">image_path</span><span class="p">,</span> <span class="n">sounds</span><span class="p">,</span> <span class="n">owner</span><span class="p">,</span> <span class="n">owner_distance</span><span class="p">,</span> <span class="n">cooldown</span><span class="p">,</span> <span class="n">extra_scale</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bullet_speed</span> <span class="o">=</span> <span class="n">bullet_speed</span>
@@ -66,7 +66,7 @@
 <div class="viewcode-block" id="ShootingWeapon.update"><a class="viewcode-back" href="../../../modules/objects.weapon.html#objects.weapon.ShootingWeapon.ShootingWeapon.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Update shooting weapon position and using.</span>
 
-<span class="sd">        :param dt: float: delta time for main loop updating</span>
+<span class="sd">        :param dt: delta time for main loop updating</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span></div>
 
@@ -82,7 +82,7 @@
 
 <span class="sd">        Create bullet in shooting weapon center position.</span>
 
-<span class="sd">        :param angle: pygame.math.Vector2: direction of shot</span>
+<span class="sd">        :param angle: direction of shot</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_use</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cooldown</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">last_use</span> <span class="o">=</span> <span class="mi">0</span>
@@ -128,7 +128,15 @@
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../mod.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/audio.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/button.html">button</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/companion.html">companion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/game.html">game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/level.html">level</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/menu.html">menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/objects.html">objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/ui.html">ui</a></li>
 </ul>
 
 <div class="relations">

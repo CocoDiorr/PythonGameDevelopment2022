@@ -65,7 +65,6 @@ class Level:
             'grass': import_folder(GRASS_PICS_FOLDER),
             'objects': import_folder(OBJECTS_PICS_FOLDER),
         }
-        print(graphics)
         for style, layout in layouts.items():
             for row_index, row in enumerate(layout):
                 for col_index, col in enumerate(row):

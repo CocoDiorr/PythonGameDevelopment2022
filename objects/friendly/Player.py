@@ -13,8 +13,15 @@ from objects.weapon.Shield import Shield
 from objects.enemy.Enemy import Enemy
 
 class Player(Entity):
-    """ """
-    def __init__(self, level, groups, position):
+    """Player class."""
+    def __init__(self, level: "Level", groups: tuple, position: pygame.math.Vector2):
+        """
+        Init player.
+
+        :param level: Level
+        :param groups: tuple
+        :param position: position where to create player
+        """
         super().__init__(level, groups, PLAYER_ANIMATION_PATH, PLAYER_SOUNDS, position, PLAYER_ABS_ACCEL, PLAYER_MAX_SPEED, PLAYER_HEALTH, max_health=PLAYER_MAX_HEALTH, energy=PLAYER_ENERGY, max_energy=PLAYER_MAX_ENERGY) # move constants from config to __init__ (to create player with certain health, weapon, etc, in new location)
         self.weapons = [Bow(self.level, self),]
         # self.weapons = [ShootingWeapon(self.level, SHOOTING_WEAPON_SPRITE_PATH, self, SHOOTING_WEAPON_DISTANCE, WEAPON_COOLDOWN, BULLET_SPEED, BULLET_DAMAGE, BULLET_RANGE, BULLET_SPRITE_PATH )]  # TODO: move to inventory later
@@ -23,7 +30,7 @@ class Player(Entity):
         self.dust = 1500
 
     def input(self):
-        """ """
+        """Input from keyboard and mouse."""
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_w] and not keys[pygame.K_s]:
@@ -64,19 +71,19 @@ class Player(Entity):
         if mouse[2]:
             self.shield.reflect_bullets()
 
-    def update_weapons(self, dt):
+    def update_weapons(self, dt: float):
         """
-
-        :param dt: 
-
+        Update position and using of player weapons.
+        
+        :param dt: delta time for main loop updating
         """
         for weapon in self.weapons:
             weapon.update(dt)
 
-    def update(self, dt):
+    def update(self, dt: float):
         """
 
-        :param dt: 
+        :param dt: delta time for main loop updating
 
         """
         self.set_animation_state()
@@ -85,11 +92,12 @@ class Player(Entity):
         self.update_weapons(dt)
         self.move(self.sprint)
 
-
-    # def get_hit(self, damage):  # overload later for invincible time
-    #     return super().get_hit(damage)
-
     def get_dust(self, enemy: Enemy):
+        """
+        Add dust to pay for stories.
+
+        :param enemy: killed enemy
+        """
         if hasattr(enemy, "weapon") and not (enemy.weapon is None):
             self.sounds.play("dust")
             if isinstance(enemy.weapon, ShootingWeapon):

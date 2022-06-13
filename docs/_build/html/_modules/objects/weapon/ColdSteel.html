@@ -35,18 +35,19 @@
 
 <div class="viewcode-block" id="ColdSteel"><a class="viewcode-back" href="../../../modules/objects.weapon.html#objects.weapon.ColdSteel.ColdSteel">[docs]</a><span class="k">class</span> <span class="nc">ColdSteel</span><span class="p">(</span><span class="n">Weapon</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Class for melee weapons and cold steel.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">image_path</span><span class="p">,</span> <span class="n">sounds</span><span class="p">,</span> <span class="n">owner</span><span class="p">,</span> <span class="n">owner_distance</span><span class="p">,</span> <span class="n">cooldown</span><span class="p">,</span> <span class="n">damage</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="n">groups</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">image_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sounds</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">owner</span><span class="p">:</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span> <span class="n">owner_distance</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">cooldown</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">damage</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Init coldsteel.</span>
 
 <span class="sd">        :param level: Level</span>
 <span class="sd">        :param groups: tuple</span>
-<span class="sd">        :param image_path: str: path to cold steel image</span>
+<span class="sd">        :param image_path: path to cold steel image</span>
+<span class="sd">        :param sounds: weapon sounds</span>
 <span class="sd">        :param owner: Entity</span>
-<span class="sd">        :param owner_distance: int: distance from weapon to owner</span>
-<span class="sd">        :param cooldown: int: rate of attack</span>
-<span class="sd">        :param damage: int: attack damage</span>
+<span class="sd">        :param owner_distance: distance from weapon to owner</span>
+<span class="sd">        :param cooldown: rate of attack</span>
+<span class="sd">        :param damage: attack damage</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">image_path</span><span class="p">,</span> <span class="n">sounds</span><span class="p">,</span> <span class="n">owner</span><span class="p">,</span> <span class="n">owner_distance</span><span class="p">,</span> <span class="n">cooldown</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">base_owner_distance</span> <span class="o">=</span> <span class="n">owner_distance</span>
@@ -71,7 +72,7 @@
 <div class="viewcode-block" id="ColdSteel.update"><a class="viewcode-back" href="../../../modules/objects.weapon.html#objects.weapon.ColdSteel.ColdSteel.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Update weapon position.</span>
 
-<span class="sd">        :param dt: float: delta time for main loop updating</span>
+<span class="sd">        :param dt: delta time for main loop updating</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_use</span> <span class="o">+=</span> <span class="n">dt</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">move</span><span class="p">()</span>
@@ -97,7 +98,15 @@
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../mod.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/audio.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/button.html">button</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/companion.html">companion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/game.html">game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/level.html">level</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/menu.html">menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/objects.html">objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/ui.html">ui</a></li>
 </ul>
 
 <div class="relations">

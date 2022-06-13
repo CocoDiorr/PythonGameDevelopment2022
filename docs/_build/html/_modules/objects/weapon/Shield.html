@@ -39,8 +39,8 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">level</span><span class="p">,</span>
-        <span class="n">owner</span><span class="p">,</span>
+        <span class="n">level</span><span class="p">:</span> <span class="s2">&quot;Level&quot;</span><span class="p">,</span>
+        <span class="n">owner</span><span class="p">:</span> <span class="s2">&quot;Entity&quot;</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Init shield.</span>
@@ -48,7 +48,6 @@
 <span class="sd">        :param level: Level</span>
 <span class="sd">        :param owner: Entity</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># maybe change to const path, cooldown</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="p">(</span><span class="n">level</span><span class="o">.</span><span class="n">shield</span><span class="p">,</span> <span class="n">level</span><span class="o">.</span><span class="n">visible</span><span class="p">),</span> <span class="n">SHIELD_SPRITE_PATH</span><span class="p">,</span> <span class="n">SHIELD_SOUNDS</span><span class="p">,</span> <span class="n">owner</span><span class="p">,</span> <span class="n">SHIELD_DISTANCE</span><span class="p">,</span> <span class="n">SHIELD_COOLDOWN</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Shield.move"><a class="viewcode-back" href="../../../modules/objects.weapon.html#objects.weapon.Shield.Shield.move">[docs]</a>    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -69,7 +68,7 @@
 <div class="viewcode-block" id="Shield.redirect_bullet"><a class="viewcode-back" href="../../../modules/objects.weapon.html#objects.weapon.Shield.Shield.redirect_bullet">[docs]</a>    <span class="k">def</span> <span class="nf">redirect_bullet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bullet</span><span class="p">:</span> <span class="n">Bullet</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Redirect bullet to shield.owner look angle. Change bullet damage.</span>
 
-<span class="sd">        :param bullet: Bullet: bullet to redirect</span>
+<span class="sd">        :param bullet: bullet to redirect</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="s2">&quot;reflect&quot;</span><span class="p">)</span>
         <span class="n">new_speed</span> <span class="o">=</span> <span class="p">(</span>
@@ -104,7 +103,15 @@
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../mod.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/audio.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/button.html">button</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/companion.html">companion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/game.html">game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/level.html">level</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/menu.html">menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/objects.html">objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/ui.html">ui</a></li>
 </ul>
 
 <div class="relations">

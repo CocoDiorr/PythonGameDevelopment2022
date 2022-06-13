@@ -6,20 +6,21 @@ from config.Config import *
 
 class Enemy(Entity):
     """Base enemy class. Inherited from Entity."""
-    def __init__(self, level, groups, animations_path, sounds, position, abs_accel, max_speed, health, attack_radius, notice_radius):
+    def __init__(self, level: "Level", groups: tuple, animations_path: str, sounds: dict[str, set[str]], position: pygame.math.Vector2, abs_accel: int, max_speed: int, health: int, attack_radius: int, notice_radius: int):
         super().__init__(level, groups, animations_path, sounds, position, abs_accel, max_speed, health)
         """
         Create base enemy.
 
         :param level: Level
         :param groups: tuple
-        :param animations_path: str: path to animation sheet
-        :param position: tuple: position where enemy is created
-        :param abs_accel: int: enemy acceleration
-        :param max_speed: int: enemy maximum speed
-        :param health: int: amount of health
-        :param attack_radius: int: radius where enemy attacks player
-        :param notice_radius: int: radius where enemy notices player
+        :param animations_path: path to animation sheet
+        :param sounds: player sounds
+        :param position: position where enemy is created
+        :param abs_accel: enemy acceleration
+        :param max_speed: enemy maximum speed
+        :param health: amount of health
+        :param attack_radius: radius where enemy attacks player
+        :param notice_radius: radius where enemy notices player
         """
         self.sprite_type = "enemy"
         self.status = "idle"
@@ -53,11 +54,11 @@ class Enemy(Entity):
         else:
             return "idle"
 
-    def equip_weapon(self, weapon):
+    def equip_weapon(self, weapon: "Weapon"):
         """
         Equip enemy with weapon.
 
-        :param weapon: Weapon
+        :param weapon: weapon to equip with
         """
         self.weapon = weapon
 
@@ -65,7 +66,7 @@ class Enemy(Entity):
         """
         Update enemy position and weapon using.
 
-        :param dt: float: delta time for main loop updating
+        :param dt: delta time for main loop updating
 
         """
 
@@ -85,5 +86,6 @@ class Enemy(Entity):
             self.weapon.update(dt)
 
     def kill(self):
+        """Destroy enemy."""
         self.level.player.get_dust(self)
         super().kill()
