@@ -25,5 +25,5 @@ class Shuriken(ShootingWeapon):
             SHURIKEN_RANGE,
             SHURIKEN_IMAGE_PATH,
             SHURIKEN_EXTRA_SCALE,
-            SHURIKEN_EXTRA_SCALE
+            SHURIKEN_EXTRA_SCALE,
         )

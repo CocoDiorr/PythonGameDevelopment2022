@@ -19,7 +19,15 @@ class Shield(Weapon):
         :param level: Level
         :param owner: Entity
         """
-        super().__init__(level, (level.shield, level.visible), SHIELD_SPRITE_PATH, SHIELD_SOUNDS, owner, SHIELD_DISTANCE, SHIELD_COOLDOWN)
+        super().__init__(
+            level,
+            (level.shield, level.visible),
+            SHIELD_SPRITE_PATH,
+            SHIELD_SOUNDS,
+            owner,
+            SHIELD_DISTANCE,
+            SHIELD_COOLDOWN,
+        )
 
     def move(self):
         """Change shield position."""

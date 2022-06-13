@@ -15,7 +15,9 @@ class SpriteSheet(object):
         # Load the sprite sheet.
         self.sprite_sheet = pygame.image.load(file_name).convert_alpha()
 
-    def get_image(self, x: int, y: int, width: int, height: int, colour: tuple[int]) -> "pygame.Surface":
+    def get_image(
+        self, x: int, y: int, width: int, height: int, colour: tuple[int]
+    ) -> "pygame.Surface":
         """
         Get the image.
 
@@ -41,12 +43,22 @@ class SpriteSheet(object):
         :return animations: dictionary of images
 
         """
-        animations = {'down': [], 'up': [], 'left': [], 'right': [],
-                      'down_idle': [], 'up_idle': [], 'left_idle': [], 'right_idle': []}
-        states = ('down', 'up', 'left', 'right')
+        animations = {
+            "down": [],
+            "up": [],
+            "left": [],
+            "right": [],
+            "down_idle": [],
+            "up_idle": [],
+            "left_idle": [],
+            "right_idle": [],
+        }
+        states = ("down", "up", "left", "right")
         separating = (0, 16, 32, 48)
         for state, hor in zip(states, separating):
-            animations[state + '_idle'] = [self.get_image(hor, separating[0], 16, 16, BLACK)]
+            animations[state + "_idle"] = [
+                self.get_image(hor, separating[0], 16, 16, BLACK)
+            ]
             for vert in separating:
                 animations[state].append(self.get_image(hor, vert, 16, 16, BLACK))
         return animations

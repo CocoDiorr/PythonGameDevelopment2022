@@ -11,7 +11,21 @@ from Zelda.objects.weapon.Weapon import Weapon
 class ShootingWeapon(Weapon):
     """Shooting weapon class. Inherited from Weapon."""
 
-    def __init__(self, level: "Level", image_path: str, sounds: dict[str, set[str]], owner: "Entity", owner_distance: int, cooldown: int, bullet_speed: int, bullet_damage: int, bullet_range: int, bullet_img_path: str, extra_scale=1., bullet_extra_scale=1.):
+    def __init__(
+        self,
+        level: "Level",
+        image_path: str,
+        sounds: dict[str, set[str]],
+        owner: "Entity",
+        owner_distance: int,
+        cooldown: int,
+        bullet_speed: int,
+        bullet_damage: int,
+        bullet_range: int,
+        bullet_img_path: str,
+        extra_scale=1.0,
+        bullet_extra_scale=1.0,
+    ):
         """
         Init shooting weapon.
 
@@ -27,7 +41,16 @@ class ShootingWeapon(Weapon):
         :param extra_scale: extra scale for special weapon images
         :param bullet_extra_scale: extra scale for special bullet images
         """
-        super().__init__(level, (level.visible,), image_path, sounds, owner, owner_distance, cooldown, extra_scale)
+        super().__init__(
+            level,
+            (level.visible,),
+            image_path,
+            sounds,
+            owner,
+            owner_distance,
+            cooldown,
+            extra_scale,
+        )
         self.bullet_speed = bullet_speed
         self.bullet_damage = bullet_damage
         self.bullet_range = bullet_range
@@ -67,7 +90,6 @@ class ShootingWeapon(Weapon):
                 speed = angle * self.bullet_speed
             self.sounds.play("shoot")
             self.level.bullets.add(
-
                 Bullet(
                     self.level,
                     (self.level.bullets,),
