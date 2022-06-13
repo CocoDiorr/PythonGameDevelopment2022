@@ -77,7 +77,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_use</span> <span class="o">+=</span> <span class="n">dt</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">move</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">update_uses</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_uses</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span><span class="o">.</span><span class="n">update_volume</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">sounds_volume</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Weapon.move"><a class="viewcode-back" href="../../../modules/objects.weapon.html#objects.weapon.Weapon.Weapon.move">[docs]</a>    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Change weapon position.&quot;&quot;&quot;</span>

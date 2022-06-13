@@ -28,7 +28,9 @@
           <div class="body" role="main">
             
   <h1>Source code for objects.enemy.Turret</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">objects.enemy.Enemy</span> <span class="k">import</span> <span class="n">Enemy</span>
+<span></span><span class="kn">import</span> <span class="nn">pygame.math</span>
+
+<span class="kn">from</span> <span class="nn">objects.enemy.Enemy</span> <span class="k">import</span> <span class="n">Enemy</span>
 <span class="kn">from</span> <span class="nn">config.Config</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">objects.weapon.ShootingWeapon</span> <span class="k">import</span> <span class="n">ShootingWeapon</span>
 <span class="kn">from</span> <span class="nn">objects.weapon.Bow</span> <span class="k">import</span> <span class="n">Bow</span>
@@ -36,13 +38,13 @@
 
 <div class="viewcode-block" id="Turret"><a class="viewcode-back" href="../../../modules/objects.enemy.html#objects.enemy.Turret.Turret">[docs]</a><span class="k">class</span> <span class="nc">Turret</span><span class="p">(</span><span class="n">Enemy</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Enemy turret class.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">):</span>
         
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create turret.</span>
 
 <span class="sd">        :param level: Level</span>
-<span class="sd">        :param position: tuple: position where turret is created</span>
+<span class="sd">        :param position: position where turret is created</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="p">(</span><span class="n">level</span><span class="o">.</span><span class="n">visible</span><span class="p">,</span> <span class="n">level</span><span class="o">.</span><span class="n">obstacle</span><span class="p">,</span> <span class="n">level</span><span class="o">.</span><span class="n">entity</span><span class="p">),</span> <span class="n">TURRET_ANIMATION</span><span class="p">,</span> <span class="n">TURRET_SOUNDS</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">TURRET_HEALTH</span><span class="p">,</span> <span class="n">TURRET_ATTACK_RADIUS</span><span class="p">,</span> <span class="n">TURRET_NOTICE_RADIUS</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">equip_weapon</span><span class="p">(</span><span class="n">Bow</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="bp">self</span><span class="p">))</span></div>
@@ -65,7 +67,15 @@
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../mod.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/audio.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/button.html">button</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/companion.html">companion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/game.html">game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/level.html">level</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/menu.html">menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/objects.html">objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/ui.html">ui</a></li>
 </ul>
 
 <div class="relations">

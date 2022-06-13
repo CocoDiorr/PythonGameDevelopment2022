@@ -29,16 +29,16 @@
             
   <h1>Source code for level.Support</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">pygame.image</span>
-
 <span class="kn">from</span> <span class="nn">config.Config</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">csv</span> <span class="k">import</span> <span class="n">reader</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">walk</span>
 
 
-<div class="viewcode-block" id="import_csv_layout"><a class="viewcode-back" href="../../modules/level.html#level.Support.import_csv_layout">[docs]</a><span class="k">def</span> <span class="nf">import_csv_layout</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<div class="viewcode-block" id="import_csv_layout"><a class="viewcode-back" href="../../modules/level.html#level.Support.import_csv_layout">[docs]</a><span class="k">def</span> <span class="nf">import_csv_layout</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Import terrain objects from the csv file.</span>
 
-<span class="sd">    :param path: </span>
+<span class="sd">    :param path: str: path to map&#39;s layer csv file</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">terrain_map</span> <span class="o">=</span> <span class="p">[]</span>
@@ -48,18 +48,20 @@
             <span class="n">terrain_map</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">terrain_map</span></div>
 
+
 <div class="viewcode-block" id="import_folder"><a class="viewcode-back" href="../../modules/level.html#level.Support.import_folder">[docs]</a><span class="k">def</span> <span class="nf">import_folder</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Import images from the folder.</span>
+
+<span class="sd">    :param path: str: path to the folder with image.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">surf_list</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">__</span><span class="p">,</span> <span class="n">img_files</span> <span class="ow">in</span> <span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">img_files</span><span class="p">:</span>
             <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
-            <span class="n">image_surf</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">full_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
-            <span class="c1"># surf_list.append(image_surf)</span>
             <span class="n">surf_list</span><span class="p">[</span><span class="n">image</span><span class="p">]</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">full_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">surf_list</span></div>
-
-<span class="c1"># print(import_folder(&quot;../map_graphics/Grass&quot;))</span>
-<span class="c1"># print(import_csv_layout(os.path.join(&quot;../&quot;, LEVEL_0_ENTITIES)))</span>
 </pre></div>
 
           </div>
@@ -79,7 +81,15 @@
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../mod.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/audio.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/button.html">button</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/companion.html">companion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/game.html">game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/level.html">level</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/menu.html">menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/objects.html">objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/ui.html">ui</a></li>
 </ul>
 
 <div class="relations">

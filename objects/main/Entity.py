@@ -7,8 +7,24 @@ from config.SpriteSheet import SpriteSheet
 
 
 class Entity(pygame.sprite.Sprite):
-    """ """
-    def __init__(self, level, groups, animations_path, sounds, position, abs_accel, max_speed, health, max_health=None, energy=None, max_energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
+    """Base entity class."""
+    def __init__(self, level: "Level", groups: tuple, animations_path: str, sounds: dict[str, set[str]], position: pygame.math.Vector2, abs_accel: int, max_speed: int, health: int, max_health=None, energy=None, max_energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
+        """
+        Init base entity.
+
+        :param level: Level
+        :param groups: visible or obstacle gro
+        :param animations_path: path to entity animation sheet
+        :param sounds: entity sounds
+        :param position: position where entity is created
+        :param abs_accel: acceleration of entity
+        :param max_speed: entity maximum speed
+        :param health: entity health
+        :param max_health: entity maximum health
+        :param energy: entity energy, used in sprint
+        :param max_energy: entity maximum energy
+        :param look_angle: entity looking direction
+        """
         super().__init__(groups)
         self.level = level
         self.anim_state = 'down_idle'
@@ -44,11 +60,11 @@ class Entity(pygame.sprite.Sprite):
         self.sprite_type = 'entity'
 
     def sprint_on(self):
-        """ """
+        """Start sprint."""
         self.sprint[0] = True
 
     def sprint_off(self):
-        """ """
+        """Stop sprint."""
         self.sprint[0] = False
 
     def set_animation_state(self):
@@ -84,7 +100,7 @@ class Entity(pygame.sprite.Sprite):
         """
         Change entity position.
 
-        :param sprint: Default value = False: move faster flag
+        :param sprint: move faster flag
         """
 
         if self.accel.length() != 0:
@@ -134,29 +150,10 @@ class Entity(pygame.sprite.Sprite):
 
     def collision(self, direction):
         """
+        Check if entity collides with obstacles.
 
-        :param direction: 
-
+        :param direction: direction of collide, can be vertical or horizontal
         """
-        # if direction == 'horizontal':
-        #     collided_sprite = pygame.sprite.spritecollideany(self, self.level.obstacle)
-        #     if collided_sprite:
-        #         if self.speed.x > 0:  # moving right
-        #             self.rect.right = collided_sprite.rect.left
-        #             self.pos = pygame.math.Vector2(self.rect.center)
-        #         if self.speed.x < 0:  # moving left
-        #             self.rect.left = collided_sprite.rect.right
-        #             self.pos = pygame.math.Vector2(self.rect.center)
-        #
-        # if direction == 'vertical':
-        #     collided_sprite = pygame.sprite.spritecollideany(self, self.level.obstacle)
-        #     if collided_sprite:
-        #         if self.speed.y > 0:  # moving down
-        #             self.rect.bottom = collided_sprite.rect.top
-        #             self.pos = pygame.math.Vector2(self.rect.center)
-        #         if self.speed.y < 0:  # moving up
-        #             self.rect.top = collided_sprite.rect.bottom
-        #             self.pos = pygame.math.Vector2(self.rect.center)
         if direction == 'horizontal':
             for sprite in self.level.obstacle:
                 if sprite.hitbox.colliderect(self.hitbox):
@@ -176,12 +173,11 @@ class Entity(pygame.sprite.Sprite):
                         self.hitbox.top = sprite.hitbox.bottom
                         self.pos = pygame.math.Vector2(self.hitbox.center)
 
-
-    def get_hit(self, damage):
+    def get_hit(self, damage: int):
         """
+        Get hit if entity was attacked.
 
-        :param damage: 
-
+        :param damage: hit damage
         """
         self.health = max(self.health - damage, 0)
         self.sounds.update_volume(self.level.game.sounds_volume)

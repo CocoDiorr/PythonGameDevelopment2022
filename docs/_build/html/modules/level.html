@@ -37,12 +37,14 @@
 <dt class="sig sig-object py" id="level.Camera.YSortBulletsCameraGroup">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">level.Camera.</span></span><span class="sig-name descname"><span class="pre">YSortBulletsCameraGroup</span></span><a class="reference internal" href="../_modules/level/Camera.html#YSortBulletsCameraGroup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#level.Camera.YSortBulletsCameraGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pygame.sprite.Group</span></code></p>
+<p>Make camera draw bullets with offset.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="level.Camera.YSortBulletsCameraGroup.custom_draw">
-<span class="sig-name descname"><span class="pre">custom_draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/level/Camera.html#YSortBulletsCameraGroup.custom_draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#level.Camera.YSortBulletsCameraGroup.custom_draw" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">custom_draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="objects.friendly.html#objects.friendly.Player.Player" title="objects.friendly.Player.Player"><span class="pre">Player</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/level/Camera.html#YSortBulletsCameraGroup.custom_draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#level.Camera.YSortBulletsCameraGroup.custom_draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw bullets.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>player</strong> – </p>
+<dd class="field-odd"><p><strong>player</strong> – “Player”</p>
 </dd>
 </dl>
 </dd></dl>
@@ -53,12 +55,14 @@
 <dt class="sig sig-object py" id="level.Camera.YSortCameraGroup">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">level.Camera.</span></span><span class="sig-name descname"><span class="pre">YSortCameraGroup</span></span><a class="reference internal" href="../_modules/level/Camera.html#YSortCameraGroup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#level.Camera.YSortCameraGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pygame.sprite.Group</span></code></p>
+<p>Make camera draw the map, obstacles and visibles with offset.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="level.Camera.YSortCameraGroup.custom_draw">
-<span class="sig-name descname"><span class="pre">custom_draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/level/Camera.html#YSortCameraGroup.custom_draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#level.Camera.YSortCameraGroup.custom_draw" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">custom_draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="objects.friendly.html#objects.friendly.Player.Player" title="objects.friendly.Player.Player"><span class="pre">Player</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/level/Camera.html#YSortCameraGroup.custom_draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#level.Camera.YSortCameraGroup.custom_draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the map, obstacles and visibles.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>player</strong> – </p>
+<dd class="field-odd"><p><strong>player</strong> – “Player”</p>
 </dd>
 </dl>
 </dd></dl>
@@ -85,7 +89,8 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="level.Level.Level.create_map">
 <span class="sig-name descname"><span class="pre">create_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/level/Level.html#Level.create_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#level.Level.Level.create_map" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Create a map.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="level.Level.Level.death">
@@ -119,10 +124,11 @@
 <span id="level-support"></span><h2>level.Support<a class="headerlink" href="#module-level.Support" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="level.Support.import_csv_layout">
-<span class="sig-prename descclassname"><span class="pre">level.Support.</span></span><span class="sig-name descname"><span class="pre">import_csv_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/level/Support.html#import_csv_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#level.Support.import_csv_layout" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<span class="sig-prename descclassname"><span class="pre">level.Support.</span></span><span class="sig-name descname"><span class="pre">import_csv_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/level/Support.html#import_csv_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#level.Support.import_csv_layout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import terrain objects from the csv file.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> – </p>
+<dd class="field-odd"><p><strong>path</strong> – str: path to map’s layer csv file</p>
 </dd>
 </dl>
 </dd></dl>
@@ -130,7 +136,13 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="level.Support.import_folder">
 <span class="sig-prename descclassname"><span class="pre">level.Support.</span></span><span class="sig-name descname"><span class="pre">import_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/level/Support.html#import_folder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#level.Support.import_folder" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Import images from the folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – str: path to the folder with image.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 </div>

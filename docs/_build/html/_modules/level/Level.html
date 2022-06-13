@@ -33,6 +33,7 @@
 <span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">choice</span>
 <span class="kn">import</span> <span class="nn">pygame.sprite</span>
 <span class="kn">import</span> <span class="nn">pygame.math</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">randint</span>
 <span class="kn">from</span> <span class="nn">objects.friendly.Player</span> <span class="k">import</span> <span class="n">Player</span>
 <span class="kn">from</span> <span class="nn">objects.main.Solid</span> <span class="k">import</span> <span class="n">Solid</span>
 <span class="kn">from</span> <span class="nn">objects.enemy.Turret</span> <span class="k">import</span> <span class="n">Turret</span>
@@ -60,11 +61,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_surface</span><span class="p">()</span>
         <span class="c1"># sprite group setup</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">YSortCameraGroup</span><span class="p">()</span> <span class="c1"># pygame.sprite.Group()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">YSortCameraGroup</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">obstacle</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">entity</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">bullets</span> <span class="o">=</span> <span class="n">YSortBulletsCameraGroup</span><span class="p">()</span> <span class="c1"># pygame.sprite.Group()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bullets</span> <span class="o">=</span> <span class="n">YSortBulletsCameraGroup</span><span class="p">()</span>
 
         <span class="c1"># Companion</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">companion</span> <span class="o">=</span> <span class="n">Companion</span><span class="p">(</span><span class="n">screen</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
@@ -79,10 +80,10 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">shield</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cold_steels</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span>
-        <span class="c1">#self.create_map()</span>
+        <span class="c1"># self.create_map()</span>
 
 <div class="viewcode-block" id="Level.create_map"><a class="viewcode-back" href="../../modules/level.html#level.Level.Level.create_map">[docs]</a>    <span class="k">def</span> <span class="nf">create_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; Create a map.&quot;&quot;&quot;</span>
 
         <span class="n">layouts</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;boundary&#39;</span><span class="p">:</span> <span class="n">import_csv_layout</span><span class="p">(</span><span class="n">LEVEL_0_FLOORBLOCKS</span><span class="p">),</span>
@@ -95,7 +96,7 @@
             <span class="s1">&#39;grass&#39;</span><span class="p">:</span> <span class="n">import_folder</span><span class="p">(</span><span class="n">GRASS_PICS_FOLDER</span><span class="p">),</span>
             <span class="s1">&#39;objects&#39;</span><span class="p">:</span> <span class="n">import_folder</span><span class="p">(</span><span class="n">OBJECTS_PICS_FOLDER</span><span class="p">),</span>
         <span class="p">}</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">graphics</span><span class="p">)</span>
+
         <span class="k">for</span> <span class="n">style</span><span class="p">,</span> <span class="n">layout</span> <span class="ow">in</span> <span class="n">layouts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">row_index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layout</span><span class="p">):</span>
                 <span class="k">for</span> <span class="n">col_index</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
@@ -105,14 +106,10 @@
                         <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s1">&#39;boundary&#39;</span><span class="p">:</span>
                             <span class="n">Solid</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">obstacle</span><span class="p">],</span> <span class="s1">&#39;invisible&#39;</span><span class="p">)</span>
                         <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s1">&#39;grass&#39;</span><span class="p">:</span>
-                            <span class="c1"># create a grass tile</span>
-                            <span class="c1"># print(col, f&#39;{col}.png&#39;)</span>
                             <span class="n">random_grass_image</span> <span class="o">=</span> <span class="n">graphics</span><span class="p">[</span><span class="s1">&#39;grass&#39;</span><span class="p">][</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{col}</span><span class="s1">.png&#39;</span><span class="p">]</span>
                             <span class="n">random_grass_image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">random_grass_image</span><span class="p">,</span> <span class="p">(</span><span class="n">TILESIZE</span><span class="p">,</span> <span class="n">TILESIZE</span><span class="p">))</span>
                             <span class="n">Solid</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">obstacle</span><span class="p">],</span> <span class="s1">&#39;grass&#39;</span><span class="p">,</span> <span class="n">random_grass_image</span><span class="p">)</span>
                         <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s1">&#39;object&#39;</span><span class="p">:</span>
-                            <span class="c1"># create an object tile</span>
-                            <span class="c1"># print(col, f&#39;{col}.png&#39;)</span>
                             <span class="n">surf</span> <span class="o">=</span> <span class="n">graphics</span><span class="p">[</span><span class="s1">&#39;objects&#39;</span><span class="p">][</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{col}</span><span class="s1">.png&#39;</span><span class="p">]</span>
                             <span class="n">surf</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">surf</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">TILESIZE</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">TILESIZE</span><span class="p">))</span>
                             <span class="n">Solid</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">obstacle</span><span class="p">],</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span> <span class="n">surf</span><span class="p">)</span>
@@ -120,16 +117,17 @@
                         <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s1">&#39;player&#39;</span><span class="p">:</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="o">=</span> <span class="n">Player</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">entity</span><span class="p">,),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
                         <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s1">&#39;entities&#39;</span><span class="p">:</span>
-
-                            <span class="k">if</span> <span class="n">col</span> <span class="o">==</span> <span class="s1">&#39;45&#39;</span><span class="p">:</span>
+                            <span class="n">tmp</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">tmp</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                                 <span class="n">Skeleton</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-                                <span class="c1"># Ninja(self, (x, y))</span>
-                            <span class="k">elif</span> <span class="n">col</span> <span class="o">==</span> <span class="s1">&#39;46&#39;</span><span class="p">:</span>
+                            <span class="k">elif</span> <span class="n">tmp</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                                <span class="n">Ninja</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+                            <span class="k">elif</span> <span class="n">tmp</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
                                 <span class="n">Turret</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-                            <span class="k">elif</span> <span class="n">col</span> <span class="o">==</span> <span class="s1">&#39;47&#39;</span><span class="p">:</span>
+                            <span class="k">elif</span> <span class="n">tmp</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
                                 <span class="n">Swordsman</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-                            <span class="c1"># else:</span>
-                            <span class="c1">#     Skeleton(self, (x, y))</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">StrongSwordsman</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">companion</span><span class="o">.</span><span class="n">player</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span></div>
 
@@ -162,8 +160,9 @@
         <span class="k">for</span> <span class="n">bullet</span><span class="p">,</span> <span class="n">obstacles</span> <span class="ow">in</span> <span class="n">obstacles_collide</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">obstacle</span> <span class="ow">in</span> <span class="n">obstacles</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">bullet</span><span class="o">.</span><span class="n">owner</span> <span class="o">!=</span> <span class="n">obstacle</span><span class="p">:</span>
-                    <span class="n">bullet</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
-                    <span class="k">continue</span></div>
+                    <span class="k">if</span> <span class="n">obstacle</span><span class="o">.</span><span class="n">sprite_type</span> <span class="o">!=</span> <span class="s1">&#39;invisible&#39;</span><span class="p">:</span>
+                        <span class="n">bullet</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+                        <span class="k">continue</span></div>
 
 <div class="viewcode-block" id="Level.companion_call"><a class="viewcode-back" href="../../modules/level.html#level.Level.Level.companion_call">[docs]</a>    <span class="k">def</span> <span class="nf">companion_call</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
@@ -233,7 +232,15 @@
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../mod.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/audio.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/button.html">button</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/companion.html">companion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/game.html">game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/level.html">level</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/menu.html">menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/objects.html">objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/ui.html">ui</a></li>
 </ul>
 
 <div class="relations">
