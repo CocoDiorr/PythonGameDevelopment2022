@@ -39,7 +39,7 @@ class Enemy(Entity):
         return direction
 
     def get_player_distance(self):
-        """Get distance from enemy to player"""
+        """Get distance from enemy to player."""
         enemy_vector = self.pos
         player_vector = self.level.player.pos
         return (player_vector - enemy_vector).magnitude()

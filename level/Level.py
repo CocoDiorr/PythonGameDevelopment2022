@@ -21,9 +21,14 @@ from level.Camera import *
 
 
 class Level:
-    """ """
-    def __init__(self, locale, game):
+    """ Level class. """
+    def __init__(self, locale: str, game: "Game"):
+        """ Init Level class.
 
+        :param locale: name of locale ('en' or 'ru')
+        :param game: Game
+
+        """
         # settings
         self.game = game
         self.game_state = "active"
@@ -50,7 +55,6 @@ class Level:
 
         self.shield = pygame.sprite.Group()
         self.cold_steels = pygame.sprite.Group()
-        # self.create_map()
 
     def create_map(self):
         """ Create a map."""
@@ -102,7 +106,7 @@ class Level:
         self.companion.player = self.player
 
     def bullets_update(self):
-        """ """
+        """ Update bullets. """
         self.bullets.update()
 
         entity_collide = pygame.sprite.groupcollide(self.bullets, self.entity, False, False)
@@ -132,10 +136,12 @@ class Level:
                 if bullet.owner != obstacle:
                     if obstacle.sprite_type != 'invisible':
                         bullet.kill()
+                        if obstacle.sprite_type == 'grass':
+                            obstacle.kill()
                         continue
 
     def companion_call(self):
-        """ """
+        """ Call the companion. """
         self.companion.companion_state = "greeting"
         if self.game_state != "companion":
             self.game_state = "companion"
@@ -143,27 +149,25 @@ class Level:
             self.game_state = "active"
 
     def esc_menu_call(self):
-        """ """
+        """ Call escape menu. """
         if self.game_state != "esc":
             self.game_state = "esc"
         else:
             self.game_state = "active"
 
     def death(self):
-        """ """
+        """ Call death screen. """
         if self.player.health <= 0:
             self.game_state = "death"
 
-    def run(self, dt):
+    def run(self, dt: float):
+        """
+        Draw the map, player, obstacles and visibles, bullets according to the movement of the player.
+
+        :param dt: delta time for main loop updating
 
         """
-
-        :param dt:
-
-        """
-        # self.visible.draw(self.display_surface)
         self.visible.custom_draw(self.player)
-        # self.bullets.draw(self.display_surface)
         self.bullets.custom_draw(self.player)
         self.ui.display(self.player)
         if self.game_state == "active":
@@ -177,9 +181,13 @@ class Level:
         elif self.game_state == "death":
             self.death_screen.display()
 
-        # self.enemy.enemy_update(self.player)
+    def update_locale(self, lang: str):
+        """
+        Update the language of the game death screen, escape menu and companion.
 
-    def update_locale(self, lang):
+        :param lang: language of the game
+
+        """
         self.death_screen.update_locale(lang)
         self.esc_menu.update_locale(lang)
         self.companion.update_locale(lang)

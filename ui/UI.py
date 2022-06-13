@@ -2,9 +2,11 @@ import pygame
 import os
 from config.Config import UI_SETTINGS, PLAYER_MAX_ENERGY, PLAYER_MAX_HEALTH
 
+
 class UI:
-    """ """
+    """ UI class"""
     def __init__(self):
+        """ Init the UI class"""
         # general
         self.display_surface = pygame.display.get_surface()
         self.font = pygame.font.Font(UI_SETTINGS["UI_FONT"], UI_SETTINGS["UI_FONT_SIZE"])
@@ -17,13 +19,14 @@ class UI:
         self.dust_image = pygame.transform.scale(self.dust_image, (30, 30))
         self.dust_rect = self.dust_image.get_rect(bottomright=(self.display_surface.get_size()[0] - 10, self.display_surface.get_size()[1] - 20))
 
-    def show_bar(self, current, max_amount, bg_rect, color):
+    def show_bar(self, current: int, max_amount: int, bg_rect: "pygame.rect", color: ...):
         """
+        Draw the bar.
 
-        :param current: param max_amount:
-        :param bg_rect: param color:
-        :param max_amount: param color:
-        :param color: 
+        :param current: current amount of something
+        :param max_amount: maximum amount of somethinf
+        :param bg_rect: pygame.rect
+        :param color: color, RGB or hex
 
         """
         back_rect = pygame.Rect.inflate(bg_rect, 6, 6)
@@ -39,10 +42,11 @@ class UI:
         pygame.draw.rect(self.display_surface, color, current_rect, 0, 30)
         pygame.draw.rect(self.display_surface, UI_SETTINGS["UI_COLORS"]["BORDER_COLOR"], back_rect, 3, 10)
 
-    def show_dust(self, dust):
+    def show_dust(self, dust: int):
         """
+        Draw the number of dust.
 
-        :param dust: 
+        :param dust: current player's dust
 
         """
 
@@ -52,10 +56,11 @@ class UI:
         self.display_surface.blit(self.dust_image, self.dust_rect)
         self.display_surface.blit(text_surf, text_rect)
 
-    def display(self, player):
+    def display(self, player: "Player"):
         """
+        Draw the bar.
 
-        :param player: 
+        :param player: Player
 
         """
         self.show_bar(player.health, PLAYER_MAX_HEALTH, self.health_bar_rect, UI_SETTINGS["UI_COLORS"]["HEALTH"])

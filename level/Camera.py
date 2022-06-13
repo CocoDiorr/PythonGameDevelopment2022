@@ -23,7 +23,7 @@ class YSortCameraGroup(pygame.sprite.Group):
         """
         Draw the map, obstacles and visibles.
 
-        :param player: "Player"
+        :param player: Player
 
         """
 
@@ -46,7 +46,6 @@ class YSortCameraGroup(pygame.sprite.Group):
 
 class YSortBulletsCameraGroup(pygame.sprite.Group):
     """ Make camera draw bullets with offset. """
-
     def __init__(self):
         """ Init camera for bullets with offset. """
         # general setup
@@ -60,10 +59,9 @@ class YSortBulletsCameraGroup(pygame.sprite.Group):
         """
         Draw bullets.
 
-        :param player: "Player"
+        :param player: Player
 
         """
-
         # getting the offset
         self.offset.x = player.rect.centerx - self.half_width
         self.offset.y = player.rect.centery - self.half_height

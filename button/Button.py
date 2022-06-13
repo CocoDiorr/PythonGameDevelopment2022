@@ -2,11 +2,25 @@ import pygame
 import os
 from audio.soundpack.SoundPack import SoundPack
 from config.Config import COMPANION_BUTTON, COMPANION_COLORS, BUTTON_SOUNDS
+from typing import Callable
 
 
 class Button:
-    """ """
-    def __init__(self, parent, pos, w, h, text, action=None, args=None, numb=None, max_numb=None):
+    """ Button class. """
+    def __init__(self, parent: "Level", pos: tuple[int], w: int, h: int, text: str, action: Callable[..., None] = None, args: "args" = None, numb: int = None, max_numb: int = None):
+        """
+        Init the button class.
+
+        :param parent: Level
+        :param pos: position, (x, y)
+        :param w: width
+        :param h: height
+        :param text: button text
+        :param action: function for the button
+        :param args: args for the function
+        :param numb: number of the button
+        :param max_numb: number of buttons on the screen at the moment
+        """
         self.parent = parent
         self.x, self.y = pos
         self.action = action
@@ -23,14 +37,14 @@ class Button:
         self.sounds = SoundPack(BUTTON_SOUNDS, self.parent.game.sounds_volume)
 
     def hover(self):
-        """ """
+        """ Hover the button. """
         if self.rect.collidepoint(pygame.mouse.get_pos()):
             self.text_rect = pygame.Rect.inflate(self.rect, 20, 20)
         else:
             self.text_rect = self.rect
 
     def click(self):
-        """ """
+        """  Click the button. """
         if self.rect.collidepoint(pygame.mouse.get_pos()):
             if self.parent.buttons_event and not self.pressed:
                 if self.args:
@@ -49,10 +63,11 @@ class Button:
             self.parent.buttons_event = None
 
 
-    def display(self, surface):
+    def display(self, surface: "pygame.surface"):
         """
+        Draw the surface on the screen.
 
-        :param surface: 
+        :param surface: "pygame.surface"
 
         """
         self.hover()
