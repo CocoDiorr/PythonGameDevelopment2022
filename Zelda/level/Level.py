@@ -1,6 +1,5 @@
 """This module is used to draw the map."""
 import pygame
-from random import choice
 import pygame.sprite
 import pygame.math
 from random import randint
@@ -15,9 +14,18 @@ from Zelda.companion.Companion import Companion
 from Zelda.ui.UI import UI
 from Zelda.menu.EscMenu import EscMenu
 from Zelda.menu.DeathScreen import DeathScreen
-from Zelda.config.Config import *
-from Zelda.level.Support import *
-from Zelda.level.Camera import *
+from Zelda.config.Config import (
+    LEVEL_0_FLOORBLOCKS,
+    LEVEL_0_GRASS,
+    LEVEL_0_OBJECTS,
+    LEVEL_0_PLAYER,
+    LEVEL_0_ENTITIES,
+    GRASS_PICS_FOLDER,
+    OBJECTS_PICS_FOLDER,
+    TILESIZE,
+)
+from Zelda.level.Support import import_folder, import_csv_layout
+from Zelda.level.Camera import YSortCameraGroup, YSortBulletsCameraGroup
 
 
 class Level:

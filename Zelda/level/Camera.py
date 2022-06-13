@@ -1,6 +1,6 @@
 """This module is used to draw movements."""
 import pygame
-from Zelda.config.Config import *
+from Zelda.config.Config import LEVEL_0_PIC_PATH, TILESIZE
 
 
 class YSortCameraGroup(pygame.sprite.Group):

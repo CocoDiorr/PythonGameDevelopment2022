@@ -9,8 +9,6 @@ from Zelda.config.Config import (
     DEFAULT_LOCALE,
     MENU,
     BUTTON_SOUNDS,
-    MUSIC_VOLUME,
-    SOUNDS_VOLUME,
 )
 
 import gettext
@@ -449,7 +447,7 @@ class Toggle:
 
     def __init__(
         self,
-        l: int,
+        l: int,  # noqa: E741
         t: int,
         w: int,
         h: int,

@@ -2,8 +2,8 @@
 
 import pygame
 from Zelda.audio.soundpack.SoundPack import SoundPack
-from Zelda.config.Config import COMPANION_BUTTON, COMPANION_COLORS, BUTTON_SOUNDS
-from typing import Callable
+from Zelda.config.Config import COMPANION_BUTTON, BUTTON_SOUNDS
+from typing import Any, Callable
 
 
 class Button:
@@ -17,7 +17,7 @@ class Button:
         h: int,
         text: str,
         action: Callable[..., None] = None,
-        args: "args" = None,
+        args: Any = None,
         numb: int = None,
         max_numb: int = None,
     ):

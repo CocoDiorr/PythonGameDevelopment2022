@@ -1,7 +1,6 @@
 """This module is used to operate with companion."""
 import pygame
 import os
-from Zelda.audio.soundpack.SoundPack import SoundPack
 from Zelda.config.Config import (
     COMPANION_FONT,
     COMPANION_FONT_SIZE,
@@ -9,9 +8,7 @@ from Zelda.config.Config import (
     COMPANION_SIZE,
     COMPANION_IMAGE,
     COMPANION_COLORS,
-    COMPANION_BUTTON,
     DEFAULT_LOCALE,
-    COMPANION_SOUNDS,
 )
 from Zelda.button.Button import Button
 import ipsedixit
@@ -76,7 +73,7 @@ class Companion(pygame.sprite.Sprite):
         words = [word.split(" ") for word in msg.splitlines()]
         space = self.font.size(" ")[0]
 
-        max_width, max_height = 30, self.fill_box.h
+        max_width = 30
         x, y = self.fill_box.left, self.fill_box.top + self.fill_box.height - 40
         box_width, box_height = 20, 20
         surfaces = []

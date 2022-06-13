@@ -3,8 +3,16 @@ import pygame
 import pygame.math
 import pygame.sprite
 from Zelda.audio.soundpack.SoundPack import SoundPack
-from Zelda.config.Config import *
 from Zelda.config.SpriteSheet import SpriteSheet
+from Zelda.config.Config import (
+    ANIMATION_SPEED,
+    ENTITY_SPEED_FADE,
+    ENTITY_SPEED_ZERO,
+    ENERGY_SPEND,
+    SPRINT_MULTIPLIER,
+    ENERGY_RECOVER,
+    MIN_SPRINT_ENERGY,
+)
 
 
 class Entity(pygame.sprite.Sprite):

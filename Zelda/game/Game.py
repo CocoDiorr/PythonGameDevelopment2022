@@ -3,7 +3,14 @@ import pygame
 import pygame.display
 import pygame.mixer
 from Zelda.audio.soundpack.SoundPack import MusicPack
-from Zelda.config.Config import *
+from Zelda.config.Config import (
+    MUSIC_VOLUME,
+    SOUNDS_VOLUME,
+    WINDOW_RESOLUTION,
+    GAME_MUSIC,
+    FPS,
+    BACKGROUND_COLOR,
+)
 from Zelda.level.Level import Level
 from Zelda.menu.StartMenu import StartMenu
 

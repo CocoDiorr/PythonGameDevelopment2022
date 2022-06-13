@@ -1,7 +1,6 @@
 """This module is used to operate with escape menu."""
 import pygame
-import os
-from Zelda.config.Config import WINDOW_RESOLUTION, MENU
+from Zelda.config.Config import WINDOW_RESOLUTION
 from Zelda.menu.StartMenu import Item
 
 

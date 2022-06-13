@@ -1,6 +1,15 @@
 """This module is used to operate with Shuriken."""
 from Zelda.objects.weapon.ShootingWeapon import ShootingWeapon
-from Zelda.config.Config import *
+from Zelda.config.Config import (
+    SHURIKEN_IMAGE_PATH,
+    SHURIKEN_SOUNDS,
+    SHURIKEN_DISTANCE,
+    SHIELD_COOLDOWN,
+    SHURIKEN_SPEED,
+    SHURIKEN_DAMAGE,
+    SHURIKEN_RANGE,
+    SHURIKEN_EXTRA_SCALE,
+)
 
 
 class Shuriken(ShootingWeapon):

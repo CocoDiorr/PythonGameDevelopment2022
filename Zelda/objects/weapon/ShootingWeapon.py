@@ -3,7 +3,6 @@ import pygame
 import pygame.math
 import pygame.sprite
 import pygame.rect
-from Zelda.config.Config import *
 from Zelda.objects.weapon.Bullet import Bullet
 from Zelda.objects.weapon.Weapon import Weapon
 

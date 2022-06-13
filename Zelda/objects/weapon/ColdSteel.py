@@ -1,7 +1,7 @@
 """This module is used to operate with base ColdSteel class."""
 from Zelda.objects.weapon.Weapon import Weapon
 import pygame
-from Zelda.config.Config import *
+from Zelda.config.Config import TILESIZE
 
 
 class ColdSteel(Weapon):

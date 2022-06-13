@@ -1,7 +1,6 @@
 """This module is used to operate with base solid class."""
 import pygame
-from Zelda.objects.weapon.ShootingWeapon import Weapon
-from Zelda.config.Config import *
+from Zelda.config.Config import TILESIZE
 
 
 class Solid(pygame.sprite.Sprite):

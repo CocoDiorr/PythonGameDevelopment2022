@@ -4,14 +4,25 @@ import pygame.sprite
 import pygame.key
 import pygame.mouse
 import pygame.math
-from Zelda.config.Config import *
 from Zelda.objects.main.Entity import Entity
-from Zelda.objects.weapon.Bullet import Bullet
 from Zelda.objects.weapon.ColdSteel import ColdSteel
 from Zelda.objects.weapon.ShootingWeapon import ShootingWeapon
 from Zelda.objects.weapon.Bow import Bow
 from Zelda.objects.weapon.Shield import Shield
 from Zelda.objects.enemy.Enemy import Enemy
+from Zelda.config.Config import (
+    PLAYER_ANIMATION_PATH,
+    PLAYER_SOUNDS,
+    PLAYER_ABS_ACCEL,
+    PLAYER_MAX_SPEED,
+    PLAYER_HEALTH,
+    PLAYER_MAX_HEALTH,
+    PLAYER_ENERGY,
+    PLAYER_MAX_ENERGY,
+    GET_DUST_HEALTH_MULTIPLIER,
+    GET_DUST_WEAPON_MULTIPLIER,
+    GET_DUST_MULTIPLIER,
+)
 
 
 class Player(Entity):

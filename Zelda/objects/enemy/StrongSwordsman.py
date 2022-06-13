@@ -2,7 +2,20 @@
 import pygame.math
 from Zelda.objects.weapon.ColdSteel import ColdSteel
 from Zelda.objects.enemy.Enemy import Enemy
-from Zelda.config.Config import *
+from Zelda.config.Config import (
+    STRONG_SWORDSMAN_ANIMATION,
+    SWORDSMAN_SOUNDS,
+    SWORDSMAN_ABS_ACCEL,
+    SWORDSMAN_MAX_SPEED,
+    SWORDSMAN_HEALTH,
+    SWORDSMAN_ATTACK_RADIUS,
+    SWORDSMAN_NOTICE_RADIUS,
+    STRONG_SWORD_SPRITE_PATH,
+    SWORD_SOUNDS,
+    SWORD_DISTANCE,
+    SWORD_COOLDOWN,
+    STRONG_SWORD_DAMAGE,
+)
 
 
 class StrongSwordsman(Enemy):

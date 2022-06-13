@@ -1,9 +1,15 @@
 """This module is used to operate with Bow."""
 from Zelda.objects.weapon.ShootingWeapon import ShootingWeapon
-from Zelda.config.Config import *
-
-# from level.Level import Level
-# from objects.friendly.Player import Player
+from Zelda.config.Config import (
+    BOW_IMAGE_PATH,
+    BOW_SOUNDS,
+    BOW_DISTANCE,
+    BOW_COOLDOWN,
+    ARROW_SPEED,
+    ARROW_DAMAGE,
+    ARROW_RANGE,
+    ARROW_IMAGE_PATH,
+)
 
 
 class Bow(ShootingWeapon):

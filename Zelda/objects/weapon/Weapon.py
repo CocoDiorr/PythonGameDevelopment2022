@@ -4,7 +4,7 @@ import pygame.math
 import pygame.sprite
 import pygame.rect
 from Zelda.audio.soundpack.SoundPack import SoundPack
-from Zelda.config.Config import *
+from Zelda.config.Config import SCALE
 
 
 class Weapon(pygame.sprite.Sprite):

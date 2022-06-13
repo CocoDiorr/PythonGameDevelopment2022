@@ -1,8 +1,16 @@
 """This module is used to operate with Shield."""
 import pygame
-from Zelda.config.Config import *
 from Zelda.objects.weapon.Bullet import Bullet
 from Zelda.objects.weapon.Weapon import Weapon
+from Zelda.config.Config import (
+    SHIELD_SPRITE_PATH,
+    SHIELD_SOUNDS,
+    SHIELD_DISTANCE,
+    SHIELD_COOLDOWN,
+    SHIELD_ALPHA,
+    BULLET_REFLECTION_ACCELERATION,
+    BULLET_REFLECTION_DAMAGE_UP,
+)
 
 
 class Shield(Weapon):
@@ -35,7 +43,7 @@ class Shield(Weapon):
             self.start_image, self.owner.look_angle.angle_to(pygame.math.Vector2(0, 1))
         )
         if not any(self.uses):
-            self.image.set_alpha(SHIELD_ALPHA)  # later add animation
+            self.image.set_alpha(SHIELD_ALPHA)
         super().move()
 
     def reflect_bullets(self):

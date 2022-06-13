@@ -1,9 +1,14 @@
 """This module is used to operate with Turret."""
 import pygame.math
 from Zelda.objects.enemy.Enemy import Enemy
-from Zelda.config.Config import *
-from Zelda.objects.weapon.ShootingWeapon import ShootingWeapon
 from Zelda.objects.weapon.Bow import Bow
+from Zelda.config.Config import (
+    TURRET_ANIMATION,
+    TURRET_SOUNDS,
+    TURRET_HEALTH,
+    TURRET_ATTACK_RADIUS,
+    TURRET_NOTICE_RADIUS,
+)
 
 
 class Turret(Enemy):

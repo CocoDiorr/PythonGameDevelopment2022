@@ -2,7 +2,6 @@
 import pygame
 from Zelda.objects.main.Entity import Entity
 from Zelda.objects.weapon.ShootingWeapon import ShootingWeapon
-from Zelda.config.Config import *
 
 
 class Enemy(Entity):
