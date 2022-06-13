@@ -132,6 +132,8 @@ class Level:
                 if bullet.owner != obstacle:
                     if obstacle.sprite_type != 'invisible':
                         bullet.kill()
+                        if obstacle.sprite_type == 'grass':
+                            obstacle.kill()
                         continue
 
     def companion_call(self):
