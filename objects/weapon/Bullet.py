@@ -9,27 +9,27 @@ class Bullet(pygame.sprite.Sprite):
 
     def __init__(
         self,
-        level,
+        level: "Level",
         groups: tuple,
         image_path: str,
         position: tuple,
         speed: pygame.math.Vector2,
         damage: int,
         ran: int,
-        weapon,
-        extra_scale=1
+        weapon: "Weapon",
+        extra_scale=1.
     ):
         """
         Init bullet.
 
         :param level: Level
         :param groups: tuple
-        :param image_path: str: bullet image path
-        :param position: tuple: bullet position in Level
-        :param speed: pygame.math.Vector2: bullet speed
-        :param damage: int: bullet damage
-        :param ran: int: shot range
-        :param weapon: ShootingWeapon: shot source weapon
+        :param image_path: bullet image path
+        :param position: bullet position in Level
+        :param speed: bullet speed
+        :param damage: bullet damage
+        :param ran: shot range
+        :param weapon: shot source weapon
         """
         super().__init__(groups)
         self.level = level
@@ -53,7 +53,7 @@ class Bullet(pygame.sprite.Sprite):
     def set_speed(self, new_speed: pygame.math.Vector2):
         """Set bullet speed.
 
-        :param new_speed: pygame.math.Vector2: speed to set with
+        :param new_speed: speed to set with
         """
         self.speed = new_speed
 

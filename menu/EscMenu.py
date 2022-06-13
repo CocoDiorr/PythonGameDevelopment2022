@@ -3,6 +3,9 @@ import os
 from config.Config import WINDOW_RESOLUTION, MENU
 from menu.StartMenu import Item
 
+# import sys
+# sys.path.insert(0, '../..')
+
 
 class EscMenu:
     def __init__(self, level):

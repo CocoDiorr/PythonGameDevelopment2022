@@ -17,6 +17,7 @@ class SpriteSheet(object):
     def get_image(self, x, y, width, height, colour):
         """
 
+
         :param x: param y:
         :param width: param height:
         :param colour: 
