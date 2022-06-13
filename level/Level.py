@@ -3,6 +3,7 @@ import pygame
 from random import choice
 import pygame.sprite
 import pygame.math
+from random import randint
 from objects.friendly.Player import Player
 from objects.main.Solid import Solid
 from objects.enemy.Turret import Turret
@@ -86,14 +87,24 @@ class Level:
                         if style == 'player':
                             self.player = Player(self, (self.visible, self.entity,), (x, y))
                         if style == 'entities':
-
-                            if col == '45':
+                            tmp = randint(1,5)
+                            if tmp == 1:
                                 Skeleton(self, (x, y))
-                                # Ninja(self, (x, y))
-                            elif col == '46':
+                            elif tmp == 2:
+                                Ninja(self, (x, y))
+                            elif tmp == 3:
                                 Turret(self, (x, y))
-                            elif col == '47':
+                            elif tmp == 4:
                                 Swordsman(self, (x, y))
+                            else:
+                                StrongSwordsman(self, (x, y))
+                            # if col == '45':
+                            #     Skeleton(self, (x, y))
+                            #     # Ninja(self, (x, y))
+                            # elif col == '46':
+                            #     Turret(self, (x, y))
+                            # elif col == '47':
+                            #     Swordsman(self, (x, y))
                             # else:
                             #     Skeleton(self, (x, y))
 
