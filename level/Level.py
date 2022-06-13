@@ -3,6 +3,7 @@ import pygame
 from random import choice
 import pygame.sprite
 import pygame.math
+from random import randint
 from objects.friendly.Player import Player
 from objects.main.Solid import Solid
 from objects.enemy.Turret import Turret
@@ -30,11 +31,11 @@ class Level:
 
         self.display_surface = pygame.display.get_surface()
         # sprite group setup
-        self.visible = YSortCameraGroup() # pygame.sprite.Group()
+        self.visible = YSortCameraGroup()
         self.obstacle = pygame.sprite.Group()
         self.entity = pygame.sprite.Group()
 
-        self.bullets = YSortBulletsCameraGroup() # pygame.sprite.Group()
+        self.bullets = YSortBulletsCameraGroup()
 
         # Companion
         self.companion = Companion(screen=self.display_surface, level=self)
@@ -49,10 +50,10 @@ class Level:
 
         self.shield = pygame.sprite.Group()
         self.cold_steels = pygame.sprite.Group()
-        #self.create_map()
+        # self.create_map()
 
     def create_map(self):
-        """ """
+        """ Create a map."""
 
         layouts = {
             'boundary': import_csv_layout(LEVEL_0_FLOORBLOCKS),
@@ -65,7 +66,7 @@ class Level:
             'grass': import_folder(GRASS_PICS_FOLDER),
             'objects': import_folder(OBJECTS_PICS_FOLDER),
         }
-        print(graphics)
+
         for style, layout in layouts.items():
             for row_index, row in enumerate(layout):
                 for col_index, col in enumerate(row):
@@ -75,14 +76,10 @@ class Level:
                         if style == 'boundary':
                             Solid((x, y), [self.obstacle], 'invisible')
                         if style == 'grass':
-                            # create a grass tile
-                            # print(col, f'{col}.png')
                             random_grass_image = graphics['grass'][f'{col}.png']
                             random_grass_image = pygame.transform.scale(random_grass_image, (TILESIZE, TILESIZE))
                             Solid((x, y), [self.visible, self.obstacle], 'grass', random_grass_image)
                         if style == 'object':
-                            # create an object tile
-                            # print(col, f'{col}.png')
                             surf = graphics['objects'][f'{col}.png']
                             surf = pygame.transform.scale(surf, (2 * TILESIZE, 2 * TILESIZE))
                             Solid((x, y), [self.visible, self.obstacle], 'object', surf)
@@ -90,16 +87,17 @@ class Level:
                         if style == 'player':
                             self.player = Player(self, (self.visible, self.entity,), (x, y))
                         if style == 'entities':
-
-                            if col == '45':
+                            tmp = randint(1,5)
+                            if tmp == 1:
                                 Skeleton(self, (x, y))
-                                # Ninja(self, (x, y))
-                            elif col == '46':
+                            elif tmp == 2:
+                                Ninja(self, (x, y))
+                            elif tmp == 3:
                                 Turret(self, (x, y))
-                            elif col == '47':
+                            elif tmp == 4:
                                 Swordsman(self, (x, y))
-                            # else:
-                            #     Skeleton(self, (x, y))
+                            else:
+                                StrongSwordsman(self, (x, y))
 
         self.companion.player = self.player
 
@@ -132,8 +130,9 @@ class Level:
         for bullet, obstacles in obstacles_collide.items():
             for obstacle in obstacles:
                 if bullet.owner != obstacle:
-                    bullet.kill()
-                    continue
+                    if obstacle.sprite_type != 'invisible':
+                        bullet.kill()
+                        continue
 
     def companion_call(self):
         """ """

@@ -11,17 +11,11 @@ class Entity(pygame.sprite.Sprite):
     def __init__(self, level, groups, animations_path, sounds, position, abs_accel, max_speed, health, max_health=None, energy=None, max_energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
         super().__init__(groups)
         self.level = level
-# <<<<<<< HEAD
-#         self.size = size
-#         self.image = pygame.image.load(image_path).convert_alpha()
-#         self.image = pygame.transform.scale(self.image, (64, 64))
-# =======
         self.anim_state = 'down_idle'
         self.animations = SpriteSheet(animations_path).get_animations()
         self._frame_index = 0
         self._animation_speed = ANIMATION_SPEED
         self.image = self.animations[self.anim_state][0]
-# >>>>>>> 0159bc375d81a9ca68ac4c16a4c22337961d4882
         self.rect = self.image.get_rect()
         self.sounds = SoundPack(sounds, self.level.game.sounds_volume)
         self.pos = pygame.math.Vector2(position)
@@ -47,6 +41,7 @@ class Entity(pygame.sprite.Sprite):
         self.look_angle = look_angle.normalize()
 
         self.hitbox = self.rect.inflate(-26, -26)
+        self.sprite_type = 'entity'
 
     def sprint_on(self):
         """ """
