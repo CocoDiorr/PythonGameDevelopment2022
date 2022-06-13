@@ -30,11 +30,11 @@ class Level:
 
         self.display_surface = pygame.display.get_surface()
         # sprite group setup
-        self.visible = YSortCameraGroup() # pygame.sprite.Group()
+        self.visible = YSortCameraGroup()
         self.obstacle = pygame.sprite.Group()
         self.entity = pygame.sprite.Group()
 
-        self.bullets = YSortBulletsCameraGroup() # pygame.sprite.Group()
+        self.bullets = YSortBulletsCameraGroup()
 
         # Companion
         self.companion = Companion(screen=self.display_surface, level=self)
@@ -49,10 +49,10 @@ class Level:
 
         self.shield = pygame.sprite.Group()
         self.cold_steels = pygame.sprite.Group()
-        #self.create_map()
+        # self.create_map()
 
     def create_map(self):
-        """ """
+        """ Create a map."""
 
         layouts = {
             'boundary': import_csv_layout(LEVEL_0_FLOORBLOCKS),
@@ -65,7 +65,7 @@ class Level:
             'grass': import_folder(GRASS_PICS_FOLDER),
             'objects': import_folder(OBJECTS_PICS_FOLDER),
         }
-        print(graphics)
+
         for style, layout in layouts.items():
             for row_index, row in enumerate(layout):
                 for col_index, col in enumerate(row):
@@ -75,14 +75,10 @@ class Level:
                         if style == 'boundary':
                             Solid((x, y), [self.obstacle], 'invisible')
                         if style == 'grass':
-                            # create a grass tile
-                            # print(col, f'{col}.png')
                             random_grass_image = graphics['grass'][f'{col}.png']
                             random_grass_image = pygame.transform.scale(random_grass_image, (TILESIZE, TILESIZE))
                             Solid((x, y), [self.visible, self.obstacle], 'grass', random_grass_image)
                         if style == 'object':
-                            # create an object tile
-                            # print(col, f'{col}.png')
                             surf = graphics['objects'][f'{col}.png']
                             surf = pygame.transform.scale(surf, (2 * TILESIZE, 2 * TILESIZE))
                             Solid((x, y), [self.visible, self.obstacle], 'object', surf)

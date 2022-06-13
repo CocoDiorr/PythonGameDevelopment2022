@@ -5,17 +5,9 @@ BACKGROUND_COLOR = (113,221,238)
 BLACK = (0, 0, 0)
 
 DEFAULT_LOCALE = 'en'
-
 FPS = 60
-
 TILESIZE = 64
-# LEVEL_0_DETAILS = os.path.join("map_graphics/levels/0/", "level_0_Details.csv")
-# LEVEL_0_ENTITIES = os.path.join("map_graphics/levels/0/", "level_0_Entities.csv")
-# LEVEL_0_FLOOR = os.path.join("map_graphics/levels/0/", "level_0_Floor.csv")
-# LEVEL_0_FLOORBLOCKS = os.path.join("map_graphics/levels/0/", "level_0_Floorblocks.csv")
-# LEVEL_0_GRASS = os.path.join("map_graphics/levels/0/", "level_0_Grass.csv")
-# LEVEL_0_OBJECTS = os.path.join("map_graphics/levels/0/", "level_0_Objects.csv")
-# LEVEL_0_PLAYER = os.path.join("map_graphics/levels/0/", "level_0_Player.csv")
+SCALE = int(TILESIZE / 16)
 
 LEVEL_PATH = "1"
 
@@ -31,14 +23,8 @@ LEVEL_0_GRASS = os.path.join("map_graphics", "levels", LEVEL_PATH, "map_Grass.cs
 LEVEL_0_OBJECTS = os.path.join("map_graphics", "levels", LEVEL_PATH, "map_Objects.csv")
 LEVEL_0_PLAYER = os.path.join("map_graphics", "levels", LEVEL_PATH, "map_Player.csv")
 
-
-SCALE = int(TILESIZE / 16)
-
-
-
 ENTITY_SPEED_FADE = 0.8
 ENTITY_SPEED_ZERO = 1e-1
-
 
 SOLID_PATH = os.path.join("pics", "red_square.jpg")
 BORDER_PATH = os.path.join("pics", "green_border.png")
@@ -67,10 +53,6 @@ GAME_MUSIC = {
 }
 SOUNDS_VOLUME = 0.2
 MUSIC_VOLUME = 0.5
-
-# Audio
-# AUDIO = {"START_MENU": os.path.join("audio", "main.ogg"),
-# }
 
 # Menu
 MENU = {"FONT_SIZE": 33,\
@@ -128,12 +110,6 @@ TURRET_SOUNDS = {
         os.path.join("audio", "sound_effects", "hurt", "hurt3.mp3"),
     },
 }
-# TURRET_SOUNDS = {
-#     "hurt": {
-#         os.path.join("audio", "sound_effects", "wood", "wood1.mp3"),
-#         os.path.join("audio", "sound_effects", "wood", "wood2.mp3"),
-#     },
-# }
 
 SKELETON_MAX_SPEED = 3
 SKELETON_HEALTH = 10
@@ -266,8 +242,6 @@ SHURIKEN_SOUNDS = {
         os.path.join("audio", "sound_effects", "bow", "shoot2.mp3"),
     },
 }
-
-
 
 ARROW_SPEED = 10
 ARROW_DAMAGE = 1
