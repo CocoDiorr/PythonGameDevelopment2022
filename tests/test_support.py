@@ -4,7 +4,6 @@ from unittest.mock import MagicMock, patch, mock_open
 from Zelda.level.Support import import_csv_layout, import_folder
 import pygame
 
-os.path.dirname(__file__)
 
 class TestImportCSVLayout(unittest.TestCase):
     def setUp(self):
@@ -38,18 +37,18 @@ def MyReader(path):
 
 class TestImportFolder(unittest.TestCase):
     def setUp(self):
-        os.mkdir(os.path.join('tests', 'extra'))
-        with open(os.path.join('tests', 'extra', 'qwe.png'), 'w') as f:
+        os.mkdir(os.path.join(os.path.dirname(__file__), 'extra'))
+        with open(os.path.join(os.path.dirname(__file__), 'extra', 'qwe.png'), 'w') as f:
             f.write('PNG1')
-        with open(os.path.join('tests', 'extra', 'asd.png'), 'w') as f:
+        with open(os.path.join(os.path.dirname(__file__), 'extra', 'asd.png'), 'w') as f:
             f.write('PNG2')
         pygame.image.load = MyReader
-        self.path = os.path.join('tests', 'extra')
+        self.path = os.path.join(os.path.dirname(__file__), 'extra')
 
     def tearDown(self):
-        os.remove(os.path.join('tests', 'extra', 'qwe.png'))
-        os.remove(os.path.join('tests', 'extra', 'asd.png'))
-        os.rmdir(os.path.join('tests', 'extra'))
+        os.remove(os.path.join(os.path.dirname(__file__), 'extra', 'qwe.png'))
+        os.remove(os.path.join(os.path.dirname(__file__), 'extra', 'asd.png'))
+        os.rmdir(os.path.join(os.path.dirname(__file__), 'extra'))
 
     def test_01_correct_work(self):
         surf_list = import_folder(self.path)
@@ -60,9 +59,9 @@ class TestImportFolder(unittest.TestCase):
         assert surf_list == {}
 
     def test_03_nested_folders(self):
-        os.mkdir(os.path.join('tests', 'extra', 'extra2'))
-        with open(os.path.join('tests', 'extra', 'extra2', 'zxc.png'), 'w') as f:
+        os.mkdir(os.path.join(os.path.dirname(__file__), 'extra', 'extra2'))
+        with open(os.path.join(os.path.dirname(__file__), 'extra', 'extra2', 'zxc.png'), 'w') as f:
             f.write('PNG3')
         self.assertRaises(FileNotFoundError, import_folder, self.path)
-        os.remove(os.path.join('tests', 'extra', 'extra2', 'zxc.png'))
-        os.rmdir(os.path.join('tests', 'extra', 'extra2'))
+        os.remove(os.path.join(os.path.dirname(__file__), 'extra', 'extra2', 'zxc.png'))
+        os.rmdir(os.path.join(os.path.dirname(__file__), 'extra', 'extra2'))
