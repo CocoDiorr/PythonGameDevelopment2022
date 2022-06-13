@@ -9,8 +9,8 @@ class Shield(Weapon):
 
     def __init__(
         self,
-        level,
-        owner,
+        level: "Level",
+        owner: "Entity",
     ):
         """
         Init shield.
@@ -18,7 +18,6 @@ class Shield(Weapon):
         :param level: Level
         :param owner: Entity
         """
-        # maybe change to const path, cooldown
         super().__init__(level, (level.shield, level.visible), SHIELD_SPRITE_PATH, SHIELD_SOUNDS, owner, SHIELD_DISTANCE, SHIELD_COOLDOWN)
 
     def move(self):
@@ -39,7 +38,7 @@ class Shield(Weapon):
     def redirect_bullet(self, bullet: Bullet):
         """Redirect bullet to shield.owner look angle. Change bullet damage.
 
-        :param bullet: Bullet: bullet to redirect
+        :param bullet: bullet to redirect
         """
         self.sounds.play("reflect")
         new_speed = (

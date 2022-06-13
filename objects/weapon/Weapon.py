@@ -10,18 +10,19 @@ class Weapon(pygame.sprite.Sprite):
     """Base weapon class."""
 
     def __init__(
-        self, level, groups: tuple, image_path: str, sounds, owner, owner_distance: int, cooldown: int, extra_scale=1.
+        self, level: "Level", groups: tuple, image_path: str, sounds: dict[str, set[str]], owner: "Entity", owner_distance: int, cooldown: int, extra_scale=1.
     ):
         """
         Init base weapon.
 
         :param level: Level
         :param groups: tuple
-        :param image_path: str: path to weapon image
+        :param image_path: path to weapon image
+        :param sounds: weapon sounds
         :param owner: Entity
-        :param owner_distance: int: distance from weapon to owner
-        :param cooldown: int: rate of attack
-        :param extra_scale: Default value = 1.: scale for special images
+        :param owner_distance: distance from weapon to owner
+        :param cooldown: rate of attack
+        :param extra_scale: scale for special images
         """
         super().__init__(groups)
         self.level = level
@@ -42,7 +43,7 @@ class Weapon(pygame.sprite.Sprite):
     def update(self, dt: float):
         """Update weapon position and using.
 
-        :param dt: float: delta time for main loop updating
+        :param dt: delta time for main loop updating
         """
         self.last_use += dt
         self.move()
