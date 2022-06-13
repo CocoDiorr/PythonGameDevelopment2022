@@ -185,8 +185,6 @@ class Item:
         self.numb = numb
         self.max_numb = max_numb
 
-
-
         self.sounds = SoundPack(BUTTON_SOUNDS, self.parent.game.sounds_volume)
 
 
@@ -204,9 +202,11 @@ class Item:
         if self.button_rect.collidepoint(pygame.mouse.get_pos()):
             if self.parent.buttons_event and not self.pressed:
                 if self.args:
+                    self.sounds.update_volume(self.parent.game.sounds_volume)
                     self.sounds.play("click")
                     self.action(*self.args)
                 else:
+                    self.sounds.update_volume(self.parent.game.sounds_volume)
                     self.sounds.play("click")
                     self.action()
                 self.pressed = True
