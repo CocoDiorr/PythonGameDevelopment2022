@@ -1,7 +1,8 @@
-import pygame.image
-from config.Config import *
+"""This module realises import from the folder and import from csv file."""
 from csv import reader
 from os import walk
+import pygame.image
+from config.Config import *
 
 
 def import_csv_layout(path: str) -> list[list[str]]:

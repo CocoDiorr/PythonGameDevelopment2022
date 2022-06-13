@@ -1,3 +1,4 @@
+"""This module is used to store the settings."""
 import os
 
 WINDOW_RESOLUTION = (1280, 720)

@@ -1,3 +1,4 @@
+"""This module is used to operate with Level."""
 import os
 import pygame
 from random import choice
@@ -21,9 +22,11 @@ from level.Camera import *
 
 
 class Level:
-    """ Level class. """
+    """Level class."""
+
     def __init__(self, locale: str, game: "Game"):
-        """ Init Level class.
+        """
+        Init Level class.
 
         :param locale: name of locale ('en' or 'ru')
         :param game: Game
@@ -57,8 +60,7 @@ class Level:
         self.cold_steels = pygame.sprite.Group()
 
     def create_map(self):
-        """ Create a map."""
-
+        """Create a map."""
         layouts = {
             'boundary': import_csv_layout(LEVEL_0_FLOORBLOCKS),
             'grass': import_csv_layout(LEVEL_0_GRASS),
@@ -106,7 +108,7 @@ class Level:
         self.companion.player = self.player
 
     def bullets_update(self):
-        """ Update bullets. """
+        """Update bullets."""
         self.bullets.update()
 
         entity_collide = pygame.sprite.groupcollide(self.bullets, self.entity, False, False)
@@ -141,7 +143,7 @@ class Level:
                         continue
 
     def companion_call(self):
-        """ Call the companion. """
+        """Call the companion."""
         self.companion.companion_state = "greeting"
         if self.game_state != "companion":
             self.game_state = "companion"
@@ -149,14 +151,14 @@ class Level:
             self.game_state = "active"
 
     def esc_menu_call(self):
-        """ Call escape menu. """
+        """Call escape menu."""
         if self.game_state != "esc":
             self.game_state = "esc"
         else:
             self.game_state = "active"
 
     def death(self):
-        """ Call death screen. """
+        """Call death screen."""
         if self.player.health <= 0:
             self.game_state = "death"
 

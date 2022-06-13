@@ -1,6 +1,7 @@
-import pygame
+"""This module is used to operate with companion."""
 from sys import exit
 import os
+import pygame
 from audio.soundpack.SoundPack import SoundPack
 from config.Config import COMPANION_FONT, COMPANION_FONT_SIZE, WINDOW_RESOLUTION,\
                           COMPANION_SIZE, COMPANION_IMAGE, COMPANION_COLORS,\
@@ -15,6 +16,7 @@ _ = translation.gettext
 
 class Companion(pygame.sprite.Sprite):
     """Companion class."""
+
     def __init__(self, screen: "pygame.display", level: "Level", player: "Player" = None):
         """
         Init the companion class.
@@ -50,7 +52,6 @@ class Companion(pygame.sprite.Sprite):
         :param msg: message
 
         """
-
         words = [word.split(' ') for word in msg.splitlines()]
         space = self.font.size(' ')[0]
 
@@ -141,7 +142,7 @@ class Companion(pygame.sprite.Sprite):
 
     def trade_button(self, companion: "Companion", name: str):
         """
-        Tell the story for the amount of dust on the pressed button with the name name
+        Tell the story for the amount of dust on the pressed button with the name name.
 
         :param companion: companion
         :param name: string on the button
@@ -193,11 +194,11 @@ class Companion(pygame.sprite.Sprite):
             button.display(screen)
 
     def story(self):
-        """ Tell the story. """
+        """Tell the story."""
         self.show_msg(self.screen, *self.tell)
 
     def display(self):
-        """ Draw the companion on the screen. """
+        """Draw the companion on the screen."""
         pygame.draw.rect(self.screen, COMPANION_COLORS["MAIN_COLOR"], self.fill_box, 0, 20)
         pygame.draw.rect(self.screen, COMPANION_COLORS["OUTLINE_COLOR"], self.fill_box, 10, 20)
         gradient_rect = pygame.Rect.inflate(self.fill_box, -5, -5)
