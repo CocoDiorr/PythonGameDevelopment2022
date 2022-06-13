@@ -159,7 +159,7 @@ class Companion(pygame.sprite.Sprite):
         if companion.player.dust >= int(name):
             companion.companion_state = "story"
             companion.player.dust -= int(name)
-            companion.txt = path.join("texts", companion.locale , f"{name}.txt")
+            companion.txt = os.path.join("texts", companion.locale , f"{name}.txt")
             with open(companion.txt, "r", encoding='utf-8') as f:
                 companion.generator = ipsedixit.Generator(f.read())
             companion.tell = companion.generator.paragraphs(1)

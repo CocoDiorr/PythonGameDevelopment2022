@@ -73,20 +73,13 @@ class StartMenu:
 
         )
 
-        # self.toggles = []
-        # self.toggles.append(
-        #     Toggle(int(WINDOW_RESOLUTION[0] * 0.25), int(WINDOW_RESOLUTION[1] * 0.13),\
-        #            int(WINDOW_RESOLUTION[0] * 0.5), int(WINDOW_RESOLUTION[1] * 0.15),\
-        #            self, 1, 3)
-        # )
         self.music_toggle = Toggle(int(WINDOW_RESOLUTION[0] * 0.25), int(WINDOW_RESOLUTION[1] * 0.13),\
                int(WINDOW_RESOLUTION[0] * 0.5), int(WINDOW_RESOLUTION[1] * 0.15),\
-               self, 1, 4, MUSIC_VOLUME, 1)
+               self, 1, 4, self.game.music_volume, 1, "music", True)
 
         self.sounds_toggle = Toggle(int(WINDOW_RESOLUTION[0] * 0.25), int(WINDOW_RESOLUTION[1] * 0.35),\
                int(WINDOW_RESOLUTION[0] * 0.5), int(WINDOW_RESOLUTION[1] * 0.15),\
-               self, 2, 4, SOUNDS_VOLUME, 1)
-        #self.volume_rect = pygame.Rect(int(WINDOW_RESOLUTION[0] * 0.4), int(WINDOW_RESOLUTION[1] * 0.1), int(WINDOW_RESOLUTION[0] * 0.3), int(WINDOW_RESOLUTION[1] * 0.15))
+               self, 2, 4, self.game.sounds_volume, 1, "sounds", False)
 
 
     def display(self):
@@ -104,8 +97,6 @@ class StartMenu:
             for button in self.buttons[:3]:
                 button.display(self.surface)
         else:
-            # for toggle in self.toggles:
-            #     toggle.display(self.surface, 0.2, 1, "Music")
             self.music_toggle.display(self.surface, _("Music"))
             self.sounds_toggle.display(self.surface, _("Sounds"))
 
@@ -118,7 +109,6 @@ class StartMenu:
             self.surface.blit(text_surf_2, text_rect_2)
             for button in self.buttons[3:]:
                 button.display(self.surface)
-        #self.bg_music.play(loops = -1)
 
     def play_button(self):
         """ """
@@ -261,9 +251,10 @@ class LangButton(Item):
             surface.blit(self.button, self.button_rect)
 
 class Toggle:
-    def __init__(self, l:int, t:int, w:int, h:int, parent, numb, max_numb, value, max_value):
+    def __init__(self, l:int, t:int, w:int, h:int, parent, numb, max_numb, value, max_value, name, update_func=False):
         """ """
         self.parent = parent
+        self.name = name
 
         self.rect = pygame.Rect(l, t, w, h)
         self.font = pygame.font.Font(UI_SETTINGS["UI_FONT"], UI_SETTINGS["UI_FONT_SIZE"])
@@ -280,6 +271,8 @@ class Toggle:
         self.value_rect = pygame.Rect(self.bottom[0] + relative_number, self.bottom[1] - 10, 30, 20)
         self.slider = self.value_rect
 
+        self.update_func = update_func
+
     def display_bar(self, surface, value, max_value):
 
         color = "#3D0814"
@@ -294,10 +287,20 @@ class Toggle:
             self.slider = self.value_rect
 
     def slide(self):
-        if self.slider.collidepoint(pygame.mouse.get_pos()):
+        mouse_pos = pygame.mouse.get_pos()
+        if self.slider.left - 10 <= mouse_pos[0] <= self.slider.right + 10 and \
+            self.slider.top - 10 <= mouse_pos[1] <= self.slider.bottom + 10:
+        #if self.slider.collidepoint(pygame.mouse.get_pos()):
             if pygame.mouse.get_pressed()[0]:
-                if self.bottom[0] + self.value_rect.w // 2 <= pygame.mouse.get_pos()[0] <= self.top[0] - self.value_rect.w // 2:
+                if self.bottom[0] <= pygame.mouse.get_pos()[0] <= self.top[0] :
                     self.value_rect.center = (pygame.mouse.get_pos()[0], self.value_rect.center[1])
+                    self.value = (self.value_rect.center[0] - self.bottom[0]) / (self.top[0] - self.bottom[0])
+                    self.update_volume()
+
+    def update_volume(self):
+        setattr(self.parent.game, self.name + "_volume", self.value)
+        if self.update_func:
+            getattr(self.parent.game, self.name).update_volume(self.value)
 
     def display(self, surface, name):
         self.hover()
