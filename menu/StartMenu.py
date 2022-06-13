@@ -217,6 +217,7 @@ class Item:
         surface.blit(self.button, self.button_rect)
 
     def update_locale(self, lang):
+        """ """
         global translation
         global _
 
@@ -237,11 +238,14 @@ class Item:
 
 
 class LangButton(Item):
+    """ """
     def __init__(self, image, image_hovered, w, h, midtop, parent, action, args, numb, max_numb, lang):
+        """ """
         super().__init__(image, image_hovered, w, h, midtop, parent, action, args, numb, max_numb)
         self.lang = lang
 
     def display(self, surface):
+        """ """
         self.hover()
         self.click()
         if self.parent.game.locale == self.lang:
@@ -251,6 +255,7 @@ class LangButton(Item):
             surface.blit(self.button, self.button_rect)
 
 class Toggle:
+    """ """
     def __init__(self, l:int, t:int, w:int, h:int, parent, numb, max_numb, value, max_value, name, update_func=False):
         """ """
         self.parent = parent
@@ -268,12 +273,13 @@ class Toggle:
         full_length = self.top[0] - self.bottom[0]
         relative_number = (self.value / self.max_value) * full_length
 
-        self.value_rect = pygame.Rect(self.bottom[0] + relative_number, self.bottom[1] - 10, 30, 20)
+        self.value_rect = pygame.Rect(self.bottom[0] + relative_number, self.bottom[1] - 15, 40, 30)
         self.slider = self.value_rect
 
         self.update_func = update_func
 
     def display_bar(self, surface, value, max_value):
+        """ """
 
         color = "#3D0814"
 
