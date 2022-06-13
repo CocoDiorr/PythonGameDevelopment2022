@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>menu.StartMenu &#8212; level  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for menu.StartMenu</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">audio.soundpack.SoundPack</span> <span class="k">import</span> <span class="n">SoundPack</span>
+<span class="kn">from</span> <span class="nn">config.Config</span> <span class="k">import</span> <span class="n">WINDOW_RESOLUTION</span><span class="p">,</span> <span class="n">UI_SETTINGS</span><span class="p">,</span> <span class="n">DEFAULT_LOCALE</span><span class="p">,</span> <span class="n">MENU</span><span class="p">,</span> <span class="n">BUTTON_SOUNDS</span><span class="p">,</span> <span class="n">MUSIC_VOLUME</span><span class="p">,</span> <span class="n">SOUNDS_VOLUME</span>
+
+<span class="kn">import</span> <span class="nn">gettext</span>
+<span class="n">translation</span> <span class="o">=</span> <span class="n">gettext</span><span class="o">.</span><span class="n">translation</span><span class="p">(</span><span class="s2">&quot;StartMenu&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;locale&quot;</span><span class="p">,</span> <span class="s2">&quot;start_menu&quot;</span><span class="p">),</span> <span class="n">languages</span><span class="o">=</span><span class="p">[</span><span class="n">DEFAULT_LOCALE</span><span class="p">])</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">translation</span><span class="o">.</span><span class="n">gettext</span>
+
+
+<div class="viewcode-block" id="StartMenu"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.StartMenu">[docs]</a><span class="k">class</span> <span class="nc">StartMenu</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game</span> <span class="o">=</span> <span class="n">game</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttons_event</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_on</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">Font</span><span class="p">(</span><span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;UI_FONT&quot;</span><span class="p">],</span> <span class="n">MENU</span><span class="p">[</span><span class="s2">&quot;FONT_SIZE&quot;</span><span class="p">])</span>
+
+        <span class="c1"># settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">locale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">locale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_surface</span><span class="p">()</span>
+
+        <span class="c1"># Background</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bg_images</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">pic</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MENU</span><span class="p">[</span><span class="s2">&quot;PICS_PATH&quot;</span><span class="p">],</span> <span class="s2">&quot;bg&quot;</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bg_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MENU</span><span class="p">[</span><span class="s2">&quot;PICS_PATH&quot;</span><span class="p">],</span> <span class="s2">&quot;bg&quot;</span><span class="p">,</span> <span class="n">pic</span><span class="p">))</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">(),</span> <span class="n">WINDOW_RESOLUTION</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cur_frame</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">=</span> <span class="mi">20</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frames</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bg_images</span><span class="p">)</span>
+
+        <span class="c1"># Name above</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vmik</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MENU</span><span class="p">[</span><span class="s2">&quot;PICS_PATH&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">locale</span><span class="p">,</span> <span class="s2">&quot;VMIK.png&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vmik</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vmik</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vmik_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmik</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">midtop</span><span class="o">=</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">)))</span>
+
+        <span class="c1"># ASVK</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">asvk</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MENU</span><span class="p">[</span><span class="s2">&quot;PICS_PATH&quot;</span><span class="p">],</span> <span class="s2">&quot;asvk.png&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">asvk</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asvk</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">asvk_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asvk</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">topleft</span><span class="o">=</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+        <span class="c1"># state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_menu_state</span> <span class="o">=</span> <span class="s2">&quot;options&quot;</span>
+
+        <span class="c1"># buttons</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;play.png&quot;</span><span class="p">,</span> <span class="s2">&quot;play_hovered.png&quot;</span><span class="p">,</span>\
+                 <span class="nb">int</span><span class="p">(</span><span class="mf">0.3</span> <span class="o">*</span> <span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.2</span> <span class="o">*</span> <span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>\
+                <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)),</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">play_button</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;settings.png&quot;</span><span class="p">,</span> <span class="s2">&quot;settings_hovered.png&quot;</span><span class="p">,</span>\
+                 <span class="nb">int</span><span class="p">(</span><span class="mf">0.3</span> <span class="o">*</span> <span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>\
+                <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.7</span>  <span class="o">+</span> <span class="mi">20</span><span class="p">)),</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_button</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">Item</span><span class="p">(</span><span class="s2">&quot;exit.png&quot;</span><span class="p">,</span> <span class="s2">&quot;exit_hovered.png&quot;</span><span class="p">,</span>\
+                 <span class="nb">int</span><span class="p">(</span><span class="mf">0.2</span> <span class="o">*</span> <span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>\
+                <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.8</span> <span class="o">+</span> <span class="mi">40</span><span class="p">)),</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">exit_button</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">LangButton</span><span class="p">(</span><span class="s2">&quot;USA.png&quot;</span><span class="p">,</span> <span class="s2">&quot;USA_hovered.png&quot;</span><span class="p">,</span>\
+                 <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">),</span>\
+                <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.40</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.7</span><span class="p">)),</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lang_button</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">,),</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;en&#39;</span><span class="p">)</span>
+
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">LangButton</span><span class="p">(</span><span class="s2">&quot;Russia.png&quot;</span><span class="p">,</span> <span class="s2">&quot;Russia_hovered.png&quot;</span><span class="p">,</span>\
+                 <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">),</span>\
+                <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.6</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.7</span><span class="p">)),</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lang_button</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;ru&#39;</span><span class="p">,),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;ru&#39;</span><span class="p">)</span>
+
+        <span class="p">)</span>
+
+        <span class="c1"># self.toggles = []</span>
+        <span class="c1"># self.toggles.append(</span>
+        <span class="c1">#     Toggle(int(WINDOW_RESOLUTION[0] * 0.25), int(WINDOW_RESOLUTION[1] * 0.13),\</span>
+        <span class="c1">#            int(WINDOW_RESOLUTION[0] * 0.5), int(WINDOW_RESOLUTION[1] * 0.15),\</span>
+        <span class="c1">#            self, 1, 3)</span>
+        <span class="c1"># )</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">music_toggle</span> <span class="o">=</span> <span class="n">Toggle</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.25</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.13</span><span class="p">),</span>\
+               <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.15</span><span class="p">),</span>\
+               <span class="bp">self</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">MUSIC_VOLUME</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sounds_toggle</span> <span class="o">=</span> <span class="n">Toggle</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.25</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.35</span><span class="p">),</span>\
+               <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.15</span><span class="p">),</span>\
+               <span class="bp">self</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">SOUNDS_VOLUME</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1">#self.volume_rect = pygame.Rect(int(WINDOW_RESOLUTION[0] * 0.4), int(WINDOW_RESOLUTION[1] * 0.1), int(WINDOW_RESOLUTION[0] * 0.3), int(WINDOW_RESOLUTION[1] * 0.15))</span>
+
+
+<div class="viewcode-block" id="StartMenu.display"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.StartMenu.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bg_images</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cur_frame</span><span class="p">],</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cur_frame</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cur_frame</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">frames</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">=</span> <span class="mi">20</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_on</span><span class="p">:</span>
+            <span class="c1">#pygame.draw.rect(self.surface, )</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vmik</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmik_rect</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asvk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">asvk_rect</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">button</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># for toggle in self.toggles:</span>
+            <span class="c1">#     toggle.display(self.surface, 0.2, 1, &quot;Music&quot;)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">music_toggle</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Music&quot;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sounds_toggle</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Sounds&quot;</span><span class="p">))</span>
+
+            <span class="n">text_surf_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Volume&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">MENU</span><span class="p">[</span><span class="s2">&quot;FONT_COLOR&quot;</span><span class="p">])</span>
+            <span class="n">text_rect_1</span> <span class="o">=</span> <span class="n">text_surf_1</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">midtop</span><span class="o">=</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.05</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text_surf_1</span><span class="p">,</span> <span class="n">text_rect_1</span><span class="p">)</span>
+
+            <span class="n">text_surf_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Choose language&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">MENU</span><span class="p">[</span><span class="s2">&quot;FONT_COLOR&quot;</span><span class="p">])</span>
+            <span class="n">text_rect_2</span> <span class="o">=</span> <span class="n">text_surf_2</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">midtop</span><span class="o">=</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.6</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text_surf_2</span><span class="p">,</span> <span class="n">text_rect_2</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">button</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">3</span><span class="p">:]:</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="p">)</span></div>
+        <span class="c1">#self.bg_music.play(loops = -1)</span>
+
+<div class="viewcode-block" id="StartMenu.play_button"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.StartMenu.play_button">[docs]</a>    <span class="k">def</span> <span class="nf">play_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">create_map</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">game_state</span> <span class="o">=</span> <span class="s2">&quot;play&quot;</span></div>
+        <span class="c1">#self.bg_music.pause()</span>
+
+<div class="viewcode-block" id="StartMenu.settings_button"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.StartMenu.settings_button">[docs]</a>    <span class="k">def</span> <span class="nf">settings_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_on</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_on</span></div>
+
+<div class="viewcode-block" id="StartMenu.exit_button"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.StartMenu.exit_button">[docs]</a>    <span class="k">def</span> <span class="nf">exit_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="StartMenu.lang_button"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.StartMenu.lang_button">[docs]</a>    <span class="k">def</span> <span class="nf">lang_button</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang</span><span class="p">):</span>
+        <span class="c1">#self.game.locale = lang</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">update_locale</span><span class="p">(</span><span class="n">lang</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="StartMenu.update_locale"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.StartMenu.update_locale">[docs]</a>    <span class="k">def</span> <span class="nf">update_locale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vmik</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MENU</span><span class="p">[</span><span class="s2">&quot;PICS_PATH&quot;</span><span class="p">],</span> <span class="n">lang</span><span class="p">,</span> <span class="s2">&quot;VMIK.png&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vmik</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vmik</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vmik_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmik</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">midtop</span><span class="o">=</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">)))</span>
+
+
+        <span class="k">for</span> <span class="n">button</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
+            <span class="n">button</span><span class="o">.</span><span class="n">update_locale</span><span class="p">(</span><span class="n">lang</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Item"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.Item">[docs]</a><span class="k">class</span> <span class="nc">Item</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">image_hovered</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">midtop</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">numb</span><span class="p">,</span> <span class="n">max_numb</span><span class="p">):</span>
+
+        <span class="c1"># Parent object to go to</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">locale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">locale</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_name</span> <span class="o">=</span> <span class="n">image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_hovered_name</span> <span class="o">=</span> <span class="n">image_hovered</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MENU</span><span class="p">[</span><span class="s2">&quot;PICS_PATH&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">locale</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_hovered_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MENU</span><span class="p">[</span><span class="s2">&quot;PICS_PATH&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">locale</span><span class="p">,</span> <span class="n">image_hovered</span><span class="p">)</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">midtop</span><span class="o">=</span><span class="n">midtop</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_hovered</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_hovered_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_hovered</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_hovered</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect_hovered</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_hovered</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">midtop</span><span class="o">=</span><span class="n">midtop</span><span class="p">)</span>
+
+        <span class="c1"># Button to display</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span>
+
+        <span class="c1"># Action for button to do when pressed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">action</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
+
+        <span class="c1"># Whether the button pressed or not</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pressed</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Index of button</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numb</span> <span class="o">=</span> <span class="n">numb</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_numb</span> <span class="o">=</span> <span class="n">max_numb</span>
+
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span> <span class="o">=</span> <span class="n">SoundPack</span><span class="p">(</span><span class="n">BUTTON_SOUNDS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">sounds_volume</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Item.hover"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.Item.hover">[docs]</a>    <span class="k">def</span> <span class="nf">hover</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">button_rect</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">button_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect_hovered</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_hovered</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">button_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span></div>
+
+<div class="viewcode-block" id="Item.click"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.Item.click">[docs]</a>    <span class="k">def</span> <span class="nf">click</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">button_rect</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">buttons_event</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pressed</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pressed</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">buttons_event</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pressed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">numb</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_numb</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">buttons_event</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Item.display"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.Item.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param surface:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hover</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">button</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">button_rect</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Item.update_locale"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.Item.update_locale">[docs]</a>    <span class="k">def</span> <span class="nf">update_locale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang</span><span class="p">):</span>
+        <span class="k">global</span> <span class="n">translation</span>
+        <span class="k">global</span> <span class="n">_</span>
+
+        <span class="n">translation</span> <span class="o">=</span> <span class="n">gettext</span><span class="o">.</span><span class="n">translation</span><span class="p">(</span><span class="s2">&quot;StartMenu&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;locale&quot;</span><span class="p">,</span> <span class="s2">&quot;start_menu&quot;</span><span class="p">),</span> <span class="n">languages</span><span class="o">=</span><span class="p">[</span><span class="n">lang</span><span class="p">])</span>
+        <span class="n">translation</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">translation</span><span class="o">.</span><span class="n">gettext</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MENU</span><span class="p">[</span><span class="s2">&quot;PICS_PATH&quot;</span><span class="p">],</span> <span class="n">lang</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_hovered_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MENU</span><span class="p">[</span><span class="s2">&quot;PICS_PATH&quot;</span><span class="p">],</span> <span class="n">lang</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_hovered_name</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">locale</span> <span class="o">=</span> <span class="n">lang</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">h</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_hovered</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_hovered_path</span><span class="p">)</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_hovered</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_hovered</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">h</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="LangButton"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.LangButton">[docs]</a><span class="k">class</span> <span class="nc">LangButton</span><span class="p">(</span><span class="n">Item</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">image_hovered</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">midtop</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">numb</span><span class="p">,</span> <span class="n">max_numb</span><span class="p">,</span> <span class="n">lang</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">image_hovered</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">midtop</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">numb</span><span class="p">,</span> <span class="n">max_numb</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lang</span> <span class="o">=</span> <span class="n">lang</span>
+
+<div class="viewcode-block" id="LangButton.display"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.LangButton.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hover</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">locale</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">lang</span><span class="p">:</span>
+            <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_hovered</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect_hovered</span><span class="p">)</span>
+            <span class="c1">#print(self.parent.game.locale)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">button</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">button_rect</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="Toggle"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.Toggle">[docs]</a><span class="k">class</span> <span class="nc">Toggle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">numb</span><span class="p">,</span> <span class="n">max_numb</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">Font</span><span class="p">(</span><span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;UI_FONT&quot;</span><span class="p">],</span> <span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;UI_FONT_SIZE&quot;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span> <span class="o">=</span> <span class="n">max_value</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">midright</span> <span class="o">+</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bottom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">midleft</span> <span class="o">+</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+        <span class="n">full_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">bottom</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">relative_number</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span><span class="p">)</span> <span class="o">*</span> <span class="n">full_length</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">value_rect</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bottom</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">relative_number</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bottom</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rect</span>
+
+<div class="viewcode-block" id="Toggle.display_bar"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.Toggle.display_bar">[docs]</a>    <span class="k">def</span> <span class="nf">display_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">):</span>
+
+        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#3D0814&quot;</span>
+
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bottom</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">slider</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Toggle.hover"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.Toggle.hover">[docs]</a>    <span class="k">def</span> <span class="nf">hover</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rect</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">slider</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value_rect</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">slider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rect</span></div>
+
+<div class="viewcode-block" id="Toggle.slide"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.Toggle.slide">[docs]</a>    <span class="k">def</span> <span class="nf">slide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">slider</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pressed</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bottom</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rect</span><span class="o">.</span><span class="n">w</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rect</span><span class="o">.</span><span class="n">w</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">value_rect</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rect</span><span class="o">.</span><span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Toggle.display"><a class="viewcode-back" href="../../modules/menu.html#menu.StartMenu.Toggle.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hover</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slide</span><span class="p">()</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="s2">&quot;#FFBC42&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="s2">&quot;#3D0814&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+        <span class="n">text_surface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;UI_FONT_COLOR&quot;</span><span class="p">])</span>
+        <span class="n">text_rect</span> <span class="o">=</span> <span class="n">text_surface</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">topleft</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">w</span> <span class="o">*</span> <span class="mf">0.02</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">h</span> <span class="o">*</span> <span class="mf">0.08</span><span class="p">)))</span>
+
+        <span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text_surface</span><span class="p">,</span> <span class="n">text_rect</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_bar</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">level</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../mod.html">audio</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

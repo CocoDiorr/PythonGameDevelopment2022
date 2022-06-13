@@ -4,7 +4,7 @@ from config.Config import *
 
 class Shuriken(ShootingWeapon):
     """Shuriken weapon class."""
-    def __init__(self, level, owner):
+    def __init__(self, level: "Level", owner: "Entity"):
         """
         Init shuriken weapon.
 

@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ui.UI &#8212; level  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for ui.UI</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">config.Config</span> <span class="k">import</span> <span class="n">UI_SETTINGS</span><span class="p">,</span> <span class="n">PLAYER_MAX_ENERGY</span><span class="p">,</span> <span class="n">PLAYER_MAX_HEALTH</span>
+
+<div class="viewcode-block" id="UI"><a class="viewcode-back" href="../../modules/ui.html#ui.UI.UI">[docs]</a><span class="k">class</span> <span class="nc">UI</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># general</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_surface</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">Font</span><span class="p">(</span><span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;UI_FONT&quot;</span><span class="p">],</span> <span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;UI_FONT_SIZE&quot;</span><span class="p">])</span>
+
+        <span class="c1"># bar setup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health_bar_rect</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;HEALTH_BAR_WIDTH&quot;</span><span class="p">],</span> <span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;BAR_HEIGHT&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">energy_bar_rect</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;ENERGY_BAR_WIDTH&quot;</span><span class="p">],</span> <span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;BAR_HEIGHT&quot;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dust_image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;pics&quot;</span><span class="p">,</span> <span class="s2">&quot;dust.png&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">convert_alpha</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dust_image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dust_image</span><span class="p">,</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dust_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dust_image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">bottomright</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span><span class="o">.</span><span class="n">get_size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span><span class="o">.</span><span class="n">get_size</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">20</span><span class="p">))</span>
+
+<div class="viewcode-block" id="UI.show_bar"><a class="viewcode-back" href="../../modules/ui.html#ui.UI.UI.show_bar">[docs]</a>    <span class="k">def</span> <span class="nf">show_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">,</span> <span class="n">max_amount</span><span class="p">,</span> <span class="n">bg_rect</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param current: param max_amount:</span>
+<span class="sd">        :param bg_rect: param color:</span>
+<span class="sd">        :param max_amount: param color:</span>
+<span class="sd">        :param color: </span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">back_rect</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="n">bg_rect</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span><span class="p">,</span> <span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;UI_COLORS&quot;</span><span class="p">][</span><span class="s2">&quot;BG_COLOR&quot;</span><span class="p">],</span> <span class="n">back_rect</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+        <span class="c1"># stats converting</span>
+        <span class="n">ratio</span> <span class="o">=</span> <span class="n">current</span> <span class="o">/</span> <span class="n">max_amount</span>
+        <span class="n">current_width</span> <span class="o">=</span> <span class="n">bg_rect</span><span class="o">.</span><span class="n">w</span> <span class="o">*</span> <span class="n">ratio</span>
+        <span class="n">current_rect</span> <span class="o">=</span> <span class="n">bg_rect</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">current_rect</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">current_width</span>
+
+        <span class="c1"># drawing the bar</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">current_rect</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span><span class="p">,</span> <span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;UI_COLORS&quot;</span><span class="p">][</span><span class="s2">&quot;BORDER_COLOR&quot;</span><span class="p">],</span> <span class="n">back_rect</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UI.show_dust"><a class="viewcode-back" href="../../modules/ui.html#ui.UI.UI.show_dust">[docs]</a>    <span class="k">def</span> <span class="nf">show_dust</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dust</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param dust: </span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">text_surf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">dust</span><span class="p">)),</span> <span class="kc">False</span><span class="p">,</span> <span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;UI_FONT_COLOR&quot;</span><span class="p">])</span>
+        <span class="n">text_rect</span> <span class="o">=</span> <span class="n">text_surf</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">midright</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dust_rect</span><span class="o">.</span><span class="n">midleft</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dust_image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dust_rect</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text_surf</span><span class="p">,</span> <span class="n">text_rect</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UI.display"><a class="viewcode-back" href="../../modules/ui.html#ui.UI.UI.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param player: </span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_bar</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">health</span><span class="p">,</span> <span class="n">PLAYER_MAX_HEALTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">health_bar_rect</span><span class="p">,</span> <span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;UI_COLORS&quot;</span><span class="p">][</span><span class="s2">&quot;HEALTH&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_bar</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">energy</span><span class="p">,</span> <span class="n">PLAYER_MAX_ENERGY</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">energy_bar_rect</span><span class="p">,</span> <span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;UI_COLORS&quot;</span><span class="p">][</span><span class="s2">&quot;ENERGY&quot;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_dust</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">dust</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">level</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../mod.html">audio</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
