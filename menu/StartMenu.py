@@ -4,7 +4,7 @@ from audio.soundpack.SoundPack import SoundPack
 from config.Config import WINDOW_RESOLUTION, UI_SETTINGS, DEFAULT_LOCALE, MENU, BUTTON_SOUNDS, MUSIC_VOLUME, SOUNDS_VOLUME
 
 import gettext
-translation = gettext.translation("StartMenu", os.path.join("locale", "start_menu"), languages=[DEFAULT_LOCALE])
+translation = gettext.translation("StartMenu", os.path.join(os.path.dirname(__file__), "..", "locale", "start_menu"), languages=[DEFAULT_LOCALE])
 _ = translation.gettext
 
 
@@ -230,7 +230,7 @@ class Item:
         global translation
         global _
 
-        translation = gettext.translation("StartMenu", os.path.join("locale", "start_menu"), languages=[lang])
+        translation = gettext.translation("StartMenu", os.path.join(os.path.dirname(__file__), "..", "locale", "start_menu"), languages=[lang])
         translation.install()
         _ = translation.gettext
 
