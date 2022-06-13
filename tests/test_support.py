@@ -1,10 +1,10 @@
 import os
 import unittest
 from unittest.mock import MagicMock, patch, mock_open
-from level.Support import import_csv_layout, import_folder
+from Zelda.level.Support import import_csv_layout, import_folder
 import pygame
 
-import time
+os.path.dirname(__file__)
 
 class TestImportCSVLayout(unittest.TestCase):
     def setUp(self):
@@ -13,12 +13,12 @@ class TestImportCSVLayout(unittest.TestCase):
         self.map = [['1','2','3'],['4','5','6']]
 
     def test_01_correct_work(self):
-        with patch('level.Support.open', mock_open(read_data=self.csv)) as open_mock:
+        with patch('Zelda.level.Support.open', mock_open(read_data=self.csv)) as open_mock:
             map = import_csv_layout(self.path)
         assert map == self.map
     
     def test_02_file_not_found(self):
-        with patch('level.Support.open', mock_open(read_data=self.csv)) as open_mock:
+        with patch('Zelda.level.Support.open', mock_open(read_data=self.csv)) as open_mock:
             open_mock.side_effect = FileNotFoundError
             self.assertRaises(FileNotFoundError, import_csv_layout, self.path)
 
@@ -47,7 +47,6 @@ class TestImportFolder(unittest.TestCase):
         self.path = os.path.join('tests', 'extra')
 
     def tearDown(self):
-        time.sleep(1)
         os.remove(os.path.join('tests', 'extra', 'qwe.png'))
         os.remove(os.path.join('tests', 'extra', 'asd.png'))
         os.rmdir(os.path.join('tests', 'extra'))
