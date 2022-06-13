@@ -5,18 +5,19 @@ from config.Config import *
 
 class ColdSteel(Weapon):
     """Class for melee weapons and cold steel."""
-    def __init__(self, level, groups, image_path, sounds, owner, owner_distance, cooldown, damage):
+    def __init__(self, level: "Level", groups: tuple, image_path: str, sounds: dict[str, set[str]], owner: "Entity", owner_distance: int, cooldown: int, damage: int):
         
         """
         Init coldsteel.
 
         :param level: Level
         :param groups: tuple
-        :param image_path: str: path to cold steel image
+        :param image_path: path to cold steel image
+        :param sounds: weapon sounds
         :param owner: Entity
-        :param owner_distance: int: distance from weapon to owner
-        :param cooldown: int: rate of attack
-        :param damage: int: attack damage
+        :param owner_distance: distance from weapon to owner
+        :param cooldown: rate of attack
+        :param damage: attack damage
         """
         super().__init__(level, groups, image_path, sounds, owner, owner_distance, cooldown)
         self.base_owner_distance = owner_distance
@@ -41,7 +42,7 @@ class ColdSteel(Weapon):
     def update(self, dt: float):
         """Update weapon position.
 
-        :param dt: float: delta time for main loop updating
+        :param dt: delta time for main loop updating
         """
         self.sounds.update_volume(self.level.game.sounds_volume)
         self.last_use += dt

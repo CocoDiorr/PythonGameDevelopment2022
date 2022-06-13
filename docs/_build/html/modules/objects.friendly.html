@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>objects.friendly &#8212; level  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="objects.main" href="objects.main.html" />
+    <link rel="prev" title="objects.enemy" href="objects.enemy.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="objects-friendly">
+<h1>objects.friendly<a class="headerlink" href="#objects-friendly" title="Permalink to this heading">¶</a></h1>
+<section id="module-objects.friendly.Player">
+<span id="objects-friendly-player"></span><h2>objects.friendly.Player<a class="headerlink" href="#module-objects.friendly.Player" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="objects.friendly.Player.Player">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">objects.friendly.Player.</span></span><span class="sig-name descname"><span class="pre">Player</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="level.html#level.Level.Level" title="level.Level.Level"><span class="pre">Level</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Vector2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/friendly/Player.html#Player"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.friendly.Player.Player" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="objects.main.html#objects.main.Entity.Entity" title="objects.main.Entity.Entity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Entity</span></code></a></p>
+<p>Player class.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="objects.friendly.Player.Player.get_dust">
+<span class="sig-name descname"><span class="pre">get_dust</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enemy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="objects.enemy.html#objects.enemy.Enemy.Enemy" title="objects.enemy.Enemy.Enemy"><span class="pre">Enemy</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/friendly/Player.html#Player.get_dust"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.friendly.Player.Player.get_dust" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add dust to pay for stories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>enemy</strong> – killed enemy</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="objects.friendly.Player.Player.input">
+<span class="sig-name descname"><span class="pre">input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/friendly/Player.html#Player.input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.friendly.Player.Player.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input from keyboard and mouse.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="objects.friendly.Player.Player.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/friendly/Player.html#Player.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.friendly.Player.Player.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update player position and weapons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dt</strong> – delta time for main loop updating</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="objects.friendly.Player.Player.update_weapons">
+<span class="sig-name descname"><span class="pre">update_weapons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/friendly/Player.html#Player.update_weapons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.friendly.Player.Player.update_weapons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update position and using of player weapons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dt</strong> – delta time for main loop updating</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">level</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="audio.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="button.html">button</a></li>
+<li class="toctree-l1"><a class="reference internal" href="companion.html">companion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="level.html">level</a></li>
+<li class="toctree-l1"><a class="reference internal" href="menu.html">menu</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="objects.html">objects</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="objects.enemy.html">objects.enemy</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">objects.friendly</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-objects.friendly.Player">objects.friendly.Player</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="objects.main.html">objects.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects.weapon.html">objects.weapon</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html">ui</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../mod.html">&lt;no title&gt;</a><ul>
+  <li><a href="objects.html">objects</a><ul>
+      <li>Previous: <a href="objects.enemy.html" title="previous chapter">objects.enemy</a></li>
+      <li>Next: <a href="objects.main.html" title="next chapter">objects.main</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/modules/objects.friendly.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

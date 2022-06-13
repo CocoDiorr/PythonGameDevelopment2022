@@ -3,9 +3,9 @@ from config.Config import *
 
 
 class YSortCameraGroup(pygame.sprite.Group):
-    """ """
+    """ Make camera draw the map, obstacles and visibles with offset."""
     def __init__(self):
-
+        """ Init camera for map, obstacles and visibles with offset. """
         # general setup
         super().__init__()
         self.display_surface = pygame.display.get_surface()
@@ -19,10 +19,11 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.floor_surf = pygame.transform.scale2x(self.floor_surf)
         self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))
 
-    def custom_draw(self, player):
+    def custom_draw(self, player: "Player"):
         """
+        Draw the map, obstacles and visibles.
 
-        :param player: 
+        :param player: Player
 
         """
 
@@ -44,10 +45,9 @@ class YSortCameraGroup(pygame.sprite.Group):
 
 
 class YSortBulletsCameraGroup(pygame.sprite.Group):
-    """ """
-
+    """ Make camera draw bullets with offset. """
     def __init__(self):
-
+        """ Init camera for bullets with offset. """
         # general setup
         super().__init__()
         self.display_surface = pygame.display.get_surface()
@@ -55,13 +55,13 @@ class YSortBulletsCameraGroup(pygame.sprite.Group):
         self.half_height = self.display_surface.get_size()[1] // 2
         self.offset = pygame.math.Vector2()
 
-    def custom_draw(self, player):
+    def custom_draw(self, player: "Player"):
         """
+        Draw bullets.
 
-        :param player: 
+        :param player: Player
 
         """
-
         # getting the offset
         self.offset.x = player.rect.centerx - self.half_width
         self.offset.y = player.rect.centery - self.half_height

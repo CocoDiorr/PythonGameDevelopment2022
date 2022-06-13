@@ -9,22 +9,22 @@ from objects.weapon.Weapon import Weapon
 
 class ShootingWeapon(Weapon):
     """Shooting weapon class. Inherited from Weapon."""
-    def __init__(self, level, image_path, sounds, owner, owner_distance, cooldown, bullet_speed, bullet_damage, bullet_range, bullet_img_path, extra_scale=1., bullet_extra_scale=1.): # later <bullet_speed, ..., bullet_img_path> change to prepared Bullet examplar or to fabric
-        
-        """
+    def __init__(self, level: "Level", image_path: str, sounds: dict[str, set[str]], owner: "Entity", owner_distance: int, cooldown: int, bullet_speed: int, bullet_damage: int, bullet_range: int, bullet_img_path: str, extra_scale=1., bullet_extra_scale=1.): 
+
+        """        
         Init shooting weapon.
 
         :param level: Level
-        :param image_path: str: path to weapon image
+        :param image_path: path to weapon image
         :param owner: Entity
-        :param owner_distance: int: distance from weapon to owner
-        :param cooldown: int: rate of attack
-        :param bullet_speed: int: speed of bullet
-        :param bullet_damage: int: bullet damage
-        :param bullet_range: int: bullet range
-        :param bullet_img_path: int: path to bullet image
-        :param extra_scale: float: extra scale for special weapon images
-        :param bullet_extra_scale: float:  extra scale for special bullet images
+        :param owner_distance: distance from weapon to owner
+        :param cooldown: rate of attack
+        :param bullet_speed: speed of bullet
+        :param bullet_damage: bullet damage
+        :param bullet_range: bullet range
+        :param bullet_img_path: path to bullet image
+        :param extra_scale: extra scale for special weapon images
+        :param bullet_extra_scale: extra scale for special bullet images
         """
         super().__init__(level, (level.visible,), image_path, sounds, owner, owner_distance, cooldown, extra_scale)
         self.bullet_speed = bullet_speed
@@ -36,7 +36,7 @@ class ShootingWeapon(Weapon):
     def update(self, dt: float):
         """Update shooting weapon position and using.
 
-        :param dt: float: delta time for main loop updating
+        :param dt: delta time for main loop updating
         """
         super().update(dt)
 
@@ -52,7 +52,7 @@ class ShootingWeapon(Weapon):
 
         Create bullet in shooting weapon center position.
 
-        :param angle: pygame.math.Vector2: direction of shot
+        :param angle: direction of shot
         """
         if self.last_use >= self.cooldown:
             self.last_use = 0

@@ -5,12 +5,17 @@ from menu.StartMenu import Item
 
 
 class EscMenu:
-    def __init__(self, level):
+    """ Escape Menu class. """
+    def __init__(self, level: "Level"):
+        """
+        Init the EscMenu class.
+
+        :param level: Level
+
+        """
         self.level = level
-        #self.buttons_event = None
 
         self.locale = self.level.locale
-        #pics_path = os.path.join("pics", "menu")
         self.surface = pygame.display.get_surface()
 
         self.transp_bg = pygame.Surface(WINDOW_RESOLUTION, pygame.SRCALPHA)
@@ -33,15 +38,16 @@ class EscMenu:
         )
 
     def exit_button_call(self):
+        """ Call the exit button. """
         self.level.game_state = "active"
-        #self.level.game.game_state = "start"
         self.level.game.__init__(self.level.game.locale, self.level.game.music_volume, self.level.game.sounds_volume)
-        #self.level.game.run()
 
     def play_button_call(self):
+        """ Call the play button"""
         self.level.game_state = "active"
 
     def display(self):
+        """ Draw the Escape menu. """
         self.surface.blit(self.transp_bg, (0, 0))
 
         pygame.draw.rect(self.surface, "#FFBC42", self.bg_rect, 0, 20)
@@ -50,6 +56,12 @@ class EscMenu:
         for button in self.buttons:
             button.display(self.surface)
 
-    def update_locale(self, lang):
+    def update_locale(self, lang: str):
+        """
+        Update the language of Escape menu.
+
+        :param lang: language of the game
+
+        """
         for button in self.buttons:
             button.update_locale(lang)

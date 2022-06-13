@@ -7,15 +7,22 @@ from level.Level import Level
 from menu.StartMenu import StartMenu
 
 
-
 class Game:
-    """ """
-    def __init__(self, locale='en', music_volume=MUSIC_VOLUME, sounds_volume=SOUNDS_VOLUME):
+    """ Game class. """
+    def __init__(self, locale: str = 'en', music_volume: float = MUSIC_VOLUME, sounds_volume: float = SOUNDS_VOLUME):
+        """
+        Init base weapon.
+
+        :param locale: name of locale ('en' or 'ru')
+        :param music_volume: game music volume
+        :param sounds_volume: game sounds volume
+
+        """
         self.screen = pygame.display.set_mode(WINDOW_RESOLUTION)
         self.clock = pygame.time.Clock()
         self.running = True
         self.locale = locale
-        self.music_volume = music_volume    # use self.music.update_volume when change music_volume
+        self.music_volume = music_volume
         self.music = MusicPack(GAME_MUSIC, music_volume)
         self.sounds_volume = sounds_volume
         self.level = Level(self.locale, self)
@@ -23,7 +30,7 @@ class Game:
         self.start_menu = StartMenu(self)
 
     def run(self):
-        """ """
+        """ Run the game. """
         pygame.mixer.init()
         pygame.mixer.set_num_channels(32)
         while self.running:
@@ -72,7 +79,13 @@ class Game:
             pygame.display.update()
         pygame.mixer.quit()
 
-    def update_locale(self, lang):
+    def update_locale(self, lang: str):
+        """
+        Update the language of locale and game start menu.
+
+        :param lang: language of the game
+
+        """
         self.locale = lang
         self.level.update_locale(lang)
         self.start_menu.update_locale(lang)

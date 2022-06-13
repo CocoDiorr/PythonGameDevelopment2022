@@ -3,6 +3,7 @@ import pygame
 from random import choice
 import pygame.sprite
 import pygame.math
+from random import randint
 from objects.friendly.Player import Player
 from objects.main.Solid import Solid
 from objects.enemy.Turret import Turret
@@ -20,9 +21,14 @@ from level.Camera import *
 
 
 class Level:
-    """ """
-    def __init__(self, locale, game):
+    """ Level class. """
+    def __init__(self, locale: str, game: "Game"):
+        """ Init Level class.
 
+        :param locale: name of locale ('en' or 'ru')
+        :param game: Game
+
+        """
         # settings
         self.game = game
         self.game_state = "active"
@@ -30,11 +36,11 @@ class Level:
 
         self.display_surface = pygame.display.get_surface()
         # sprite group setup
-        self.visible = YSortCameraGroup() # pygame.sprite.Group()
+        self.visible = YSortCameraGroup()
         self.obstacle = pygame.sprite.Group()
         self.entity = pygame.sprite.Group()
 
-        self.bullets = YSortBulletsCameraGroup() # pygame.sprite.Group()
+        self.bullets = YSortBulletsCameraGroup()
 
         # Companion
         self.companion = Companion(screen=self.display_surface, level=self)
@@ -49,10 +55,9 @@ class Level:
 
         self.shield = pygame.sprite.Group()
         self.cold_steels = pygame.sprite.Group()
-        #self.create_map()
 
     def create_map(self):
-        """ """
+        """ Create a map."""
 
         layouts = {
             'boundary': import_csv_layout(LEVEL_0_FLOORBLOCKS),
@@ -65,7 +70,7 @@ class Level:
             'grass': import_folder(GRASS_PICS_FOLDER),
             'objects': import_folder(OBJECTS_PICS_FOLDER),
         }
-        print(graphics)
+
         for style, layout in layouts.items():
             for row_index, row in enumerate(layout):
                 for col_index, col in enumerate(row):
@@ -75,14 +80,10 @@ class Level:
                         if style == 'boundary':
                             Solid((x, y), [self.obstacle], 'invisible')
                         if style == 'grass':
-                            # create a grass tile
-                            # print(col, f'{col}.png')
                             random_grass_image = graphics['grass'][f'{col}.png']
                             random_grass_image = pygame.transform.scale(random_grass_image, (TILESIZE, TILESIZE))
                             Solid((x, y), [self.visible, self.obstacle], 'grass', random_grass_image)
                         if style == 'object':
-                            # create an object tile
-                            # print(col, f'{col}.png')
                             surf = graphics['objects'][f'{col}.png']
                             surf = pygame.transform.scale(surf, (2 * TILESIZE, 2 * TILESIZE))
                             Solid((x, y), [self.visible, self.obstacle], 'object', surf)
@@ -90,21 +91,22 @@ class Level:
                         if style == 'player':
                             self.player = Player(self, (self.visible, self.entity,), (x, y))
                         if style == 'entities':
-
-                            if col == '45':
+                            tmp = randint(1,5)
+                            if tmp == 1:
                                 Skeleton(self, (x, y))
-                                # Ninja(self, (x, y))
-                            elif col == '46':
+                            elif tmp == 2:
+                                Ninja(self, (x, y))
+                            elif tmp == 3:
                                 Turret(self, (x, y))
-                            elif col == '47':
+                            elif tmp == 4:
                                 Swordsman(self, (x, y))
-                            # else:
-                            #     Skeleton(self, (x, y))
+                            else:
+                                StrongSwordsman(self, (x, y))
 
         self.companion.player = self.player
 
     def bullets_update(self):
-        """ """
+        """ Update bullets. """
         self.bullets.update()
 
         entity_collide = pygame.sprite.groupcollide(self.bullets, self.entity, False, False)
@@ -132,11 +134,14 @@ class Level:
         for bullet, obstacles in obstacles_collide.items():
             for obstacle in obstacles:
                 if bullet.owner != obstacle:
-                    bullet.kill()
-                    continue
+                    if obstacle.sprite_type != 'invisible':
+                        bullet.kill()
+                        if obstacle.sprite_type == 'grass':
+                            obstacle.kill()
+                        continue
 
     def companion_call(self):
-        """ """
+        """ Call the companion. """
         self.companion.companion_state = "greeting"
         if self.game_state != "companion":
             self.game_state = "companion"
@@ -144,27 +149,25 @@ class Level:
             self.game_state = "active"
 
     def esc_menu_call(self):
-        """ """
+        """ Call escape menu. """
         if self.game_state != "esc":
             self.game_state = "esc"
         else:
             self.game_state = "active"
 
     def death(self):
-        """ """
+        """ Call death screen. """
         if self.player.health <= 0:
             self.game_state = "death"
 
-    def run(self, dt):
+    def run(self, dt: float):
+        """
+        Draw the map, player, obstacles and visibles, bullets according to the movement of the player.
+
+        :param dt: delta time for main loop updating
 
         """
-
-        :param dt:
-
-        """
-        # self.visible.draw(self.display_surface)
         self.visible.custom_draw(self.player)
-        # self.bullets.draw(self.display_surface)
         self.bullets.custom_draw(self.player)
         self.ui.display(self.player)
         if self.game_state == "active":
@@ -178,9 +181,13 @@ class Level:
         elif self.game_state == "death":
             self.death_screen.display()
 
-        # self.enemy.enemy_update(self.player)
+    def update_locale(self, lang: str):
+        """
+        Update the language of the game death screen, escape menu and companion.
 
-    def update_locale(self, lang):
+        :param lang: language of the game
+
+        """
         self.death_screen.update_locale(lang)
         self.esc_menu.update_locale(lang)
         self.companion.update_locale(lang)
