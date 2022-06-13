@@ -1,4 +1,3 @@
-"""This module is used to operate with animations."""
 import pygame
 from Zelda.config.Config import *
 
@@ -12,6 +11,7 @@ class SpriteSheet(object):
 
         :param file_name: file_name of the file, which contains images for the animations
         """
+
         # Load the sprite sheet.
         self.sprite_sheet = pygame.image.load(file_name).convert_alpha()
 

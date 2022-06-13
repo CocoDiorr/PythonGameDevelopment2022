@@ -1,13 +1,11 @@
-"""This module is used to operate with buttons."""
-from typing import Callable
 import pygame
 from Zelda.audio.soundpack.SoundPack import SoundPack
 from Zelda.config.Config import COMPANION_BUTTON, COMPANION_COLORS, BUTTON_SOUNDS
+from typing import Callable
 
 
 class Button:
-    """Button class."""
-
+    """ Button class. """
     def __init__(self, parent: "Level", pos: tuple[int], w: int, h: int, text: str, action: Callable[..., None] = None, args: "args" = None, numb: int = None, max_numb: int = None):
         """
         Init the button class.
@@ -38,14 +36,14 @@ class Button:
         self.sounds = SoundPack(BUTTON_SOUNDS, self.parent.game.sounds_volume)
 
     def hover(self):
-        """Hover the button."""
+        """ Hover the button. """
         if self.rect.collidepoint(pygame.mouse.get_pos()):
             self.text_rect = pygame.Rect.inflate(self.rect, 20, 20)
         else:
             self.text_rect = self.rect
 
     def click(self):
-        """Click the button."""
+        """  Click the button. """
         if self.rect.collidepoint(pygame.mouse.get_pos()):
             if self.parent.buttons_event and not self.pressed:
                 if self.args:
