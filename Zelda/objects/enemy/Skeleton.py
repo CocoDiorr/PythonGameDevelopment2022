@@ -1,5 +1,5 @@
+"""This module is used to operate with Skeleton."""
 import pygame.math
-
 from Zelda.objects.enemy.Enemy import Enemy
 from Zelda.config.Config import *
 from Zelda.objects.weapon.Bow import Bow
@@ -7,6 +7,7 @@ from Zelda.objects.weapon.Bow import Bow
 
 class Skeleton(Enemy):
     """Enemy skeleton class."""
+
     def __init__(self, level, position: pygame.math.Vector2):
         """
         Create skeleton.

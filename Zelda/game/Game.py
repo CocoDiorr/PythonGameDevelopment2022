@@ -1,3 +1,4 @@
+"""This module is used to operate with the Game."""
 import pygame
 import pygame.display
 import pygame.mixer
@@ -8,7 +9,8 @@ from Zelda.menu.StartMenu import StartMenu
 
 
 class Game:
-    """ Game class. """
+    """Game class."""
+
     def __init__(self, locale: str = 'en', music_volume: float = MUSIC_VOLUME, sounds_volume: float = SOUNDS_VOLUME):
         """
         Init base weapon.
@@ -30,7 +32,7 @@ class Game:
         self.start_menu = StartMenu(self)
 
     def run(self):
-        """ Run the game. """
+        """Run the game."""
         pygame.mixer.init()
         pygame.mixer.set_num_channels(32)
         while self.running:

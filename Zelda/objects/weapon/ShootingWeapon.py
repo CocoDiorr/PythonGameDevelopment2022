@@ -1,3 +1,4 @@
+"""This module is used to operate with base Shooting weapon class."""
 import pygame
 import pygame.math
 import pygame.sprite
@@ -9,8 +10,8 @@ from Zelda.objects.weapon.Weapon import Weapon
 
 class ShootingWeapon(Weapon):
     """Shooting weapon class. Inherited from Weapon."""
-    def __init__(self, level: "Level", image_path: str, sounds: dict[str, set[str]], owner: "Entity", owner_distance: int, cooldown: int, bullet_speed: int, bullet_damage: int, bullet_range: int, bullet_img_path: str, extra_scale=1., bullet_extra_scale=1.):
 
+    def __init__(self, level: "Level", image_path: str, sounds: dict[str, set[str]], owner: "Entity", owner_distance: int, cooldown: int, bullet_speed: int, bullet_damage: int, bullet_range: int, bullet_img_path: str, extra_scale=1., bullet_extra_scale=1.):
         """
         Init shooting weapon.
 

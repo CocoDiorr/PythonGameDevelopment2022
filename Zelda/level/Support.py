@@ -1,3 +1,4 @@
+"""This module is used to import from folders and csv files."""
 import pygame.image
 from Zelda.config.Config import *
 from csv import reader

@@ -1,3 +1,4 @@
+"""This module is used to operate with base entity class."""
 import pygame
 import pygame.math
 import pygame.sprite
@@ -8,6 +9,7 @@ from Zelda.config.SpriteSheet import SpriteSheet
 
 class Entity(pygame.sprite.Sprite):
     """Base entity class."""
+
     def __init__(self, level: "Level", groups: tuple, animations_path: str, sounds: dict[str, set[str]], position: pygame.math.Vector2, abs_accel: int, max_speed: int, health: int, max_health=None, energy=None, max_energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
         """
         Init base entity.
@@ -102,7 +104,6 @@ class Entity(pygame.sprite.Sprite):
 
         :param sprint: move faster flag
         """
-
         if self.accel.length() != 0:
             self.accel.scale_to_length(self.abs_accel)
         if self.accel.x == 0:

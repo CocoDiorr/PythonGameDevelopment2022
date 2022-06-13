@@ -1,3 +1,5 @@
+"""This module is used to operate with settings."""
+
 import os
 
 WINDOW_RESOLUTION = (1280, 720)

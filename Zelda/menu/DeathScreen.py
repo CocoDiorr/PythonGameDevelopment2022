@@ -1,3 +1,4 @@
+"""This module is used to operate with death screen."""
 import pygame
 import os
 from Zelda.config.Config import MENU, UI_SETTINGS, WINDOW_RESOLUTION, DEFAULT_LOCALE
@@ -8,7 +9,8 @@ _ = translation.gettext
 
 
 class DeathScreen:
-    """ DeathScreen class. """
+    """DeathScreen class."""
+
     def __init__(self, level: "Level"):
         """
         Init the death screen class.
@@ -26,7 +28,7 @@ class DeathScreen:
         self.transp_bg.fill((255, 0, 0, 128))
 
     def display(self):
-        """ Draw the Death screen. """
+        """Draw the Death screen."""
         text_surf_1 = self.font.render(_("You died"), 0, MENU["FONT_COLOR"])
         text_rect_1 = text_surf_1.get_rect(midtop=(WINDOW_RESOLUTION[0] // 2, int(WINDOW_RESOLUTION[1] * 0.2)))
 

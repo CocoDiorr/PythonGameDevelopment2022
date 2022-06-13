@@ -1,3 +1,4 @@
+"""This module is used to operate with Player."""
 import pygame
 import pygame.sprite
 import pygame.key
@@ -15,6 +16,7 @@ from Zelda.objects.enemy.Enemy import Enemy
 
 class Player(Entity):
     """Player class."""
+
     def __init__(self, level: "Level", groups: tuple, position: pygame.math.Vector2):
         """
         Init player.

@@ -1,3 +1,4 @@
+"""Zelda module main."""
 from Zelda.game.Game import Game
 import os
 import pygame

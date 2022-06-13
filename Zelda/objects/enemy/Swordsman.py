@@ -1,5 +1,5 @@
+"""This module is used to operate with Swordsman."""
 import pygame.math
-
 from Zelda.objects.weapon.ColdSteel import ColdSteel
 from Zelda.objects.enemy.Enemy import Enemy
 from Zelda.config.Config import *
@@ -7,6 +7,7 @@ from Zelda.config.Config import *
 
 class Swordsman(Enemy):
     """Enemy swordsman class."""
+
     def __init__(self, level: "Level", position: pygame.math.Vector2):
         """
         Create swordsman.

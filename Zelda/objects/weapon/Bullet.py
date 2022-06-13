@@ -1,3 +1,4 @@
+"""This module is used to operate with Bullet."""
 import pygame
 import pygame.math
 import pygame.sprite
@@ -51,7 +52,8 @@ class Bullet(pygame.sprite.Sprite):
         self.owner = self.weapon.owner
 
     def set_speed(self, new_speed: pygame.math.Vector2):
-        """Set bullet speed.
+        """
+        Set bullet speed.
 
         :param new_speed: speed to set with
         """
