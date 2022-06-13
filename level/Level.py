@@ -127,9 +127,11 @@ class Level:
         obstacles_collide = pygame.sprite.groupcollide(self.bullets, self.obstacle, False, False)
         for bullet, obstacles in obstacles_collide.items():
             for obstacle in obstacles:
+                print(obstacle)
                 if bullet.owner != obstacle:
-                    bullet.kill()
-                    continue
+                    if obstacle.sprite_type != 'invisible':
+                        bullet.kill()
+                        continue
 
     def companion_call(self):
         """ """

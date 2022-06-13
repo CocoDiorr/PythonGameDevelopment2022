@@ -4,7 +4,7 @@ from csv import reader
 from os import walk
 
 
-def import_csv_layout(path):
+def import_csv_layout(path: str) -> list[list[str]]:
     """
     Import terrain objects from the csv file.
 
