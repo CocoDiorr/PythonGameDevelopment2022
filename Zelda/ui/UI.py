@@ -1,12 +1,14 @@
+"""This module is used to operate with UI."""
 import pygame
 import os
 from Zelda.config.Config import UI_SETTINGS, PLAYER_MAX_ENERGY, PLAYER_MAX_HEALTH
 
 
 class UI:
-    """ UI class"""
+    """UI class"""
+
     def __init__(self):
-        """ Init the UI class"""
+        """Init the UI class"""
         # general
         self.display_surface = pygame.display.get_surface()
         self.font = pygame.font.Font(UI_SETTINGS["UI_FONT"], UI_SETTINGS["UI_FONT_SIZE"])
@@ -49,7 +51,6 @@ class UI:
         :param dust: current player's dust
 
         """
-
         text_surf = self.font.render(str(int(dust)), False, UI_SETTINGS["UI_FONT_COLOR"])
         text_rect = text_surf.get_rect(midright=self.dust_rect.midleft)
 

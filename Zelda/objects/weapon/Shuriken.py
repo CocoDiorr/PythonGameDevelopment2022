@@ -1,9 +1,11 @@
+"""This module is used to operate with Shuriken."""
 from Zelda.objects.weapon.ShootingWeapon import ShootingWeapon
 from Zelda.config.Config import *
 
 
 class Shuriken(ShootingWeapon):
     """Shuriken weapon class."""
+
     def __init__(self, level: "Level", owner: "Entity"):
         """
         Init shuriken weapon.

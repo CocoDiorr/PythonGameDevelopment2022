@@ -1,11 +1,13 @@
+"""This module is used to draw movements."""
 import pygame
 from Zelda.config.Config import *
 
 
 class YSortCameraGroup(pygame.sprite.Group):
-    """ Make camera draw the map, obstacles and visibles with offset."""
+    """Make camera draw the map, obstacles and visibles with offset."""
+
     def __init__(self):
-        """ Init camera for map, obstacles and visibles with offset. """
+        """Init camera for map, obstacles and visibles with offset. """
         # general setup
         super().__init__()
         self.display_surface = pygame.display.get_surface()
@@ -45,9 +47,9 @@ class YSortCameraGroup(pygame.sprite.Group):
 
 
 class YSortBulletsCameraGroup(pygame.sprite.Group):
-    """ Make camera draw bullets with offset. """
+    """Make camera draw bullets with offset."""
     def __init__(self):
-        """ Init camera for bullets with offset. """
+        """Init camera for bullets with offset."""
         # general setup
         super().__init__()
         self.display_surface = pygame.display.get_surface()

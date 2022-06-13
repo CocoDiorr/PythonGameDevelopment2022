@@ -1,3 +1,4 @@
+"""This module is used to operate with animations."""
 import pygame
 from Zelda.config.Config import *
 

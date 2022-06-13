@@ -1,3 +1,4 @@
+"""This module is used to operate with start menu."""
 import pygame
 import os
 from typing import Callable
@@ -10,7 +11,7 @@ _ = translation.gettext
 
 
 class StartMenu:
-    """ StartMenu class. """
+    """StartMenu class."""
     def __init__(self, game: "Game"):
         """
         Init the Start menu.
@@ -88,7 +89,7 @@ class StartMenu:
                self, 2, 4, self.game.sounds_volume, 1, "sounds", False)
 
     def display(self):
-        """ Draw the Start menu. """
+        """Draw the Start menu."""
         self.surface.blit(self.bg_images[self.cur_frame], (0,0))
         self.times -= 1
         if self.times == 0:
@@ -115,16 +116,16 @@ class StartMenu:
                 button.display(self.surface)
 
     def play_button(self):
-        """ Call the play button. """
+        """Call the play button."""
         self.game.level.create_map()
         self.game.game_state = "play"
 
     def settings_button(self):
-        """ Call the settings button. """
+        """Call the settings button."""
         self.settings_on = not self.settings_on
 
     def exit_button(self):
-        """ Call the exit button. """
+        """Call the exit button."""
         self.game.running = False
 
     def lang_button(self, lang: str):
@@ -152,7 +153,8 @@ class StartMenu:
 
 
 class Item:
-    """ Item class. """
+    """Item class."""
+
     def __init__(self, image: str, image_hovered: str, w: int, h: int, midtop: tuple[int], parent: "Object", action: Callable[..., None], args: "args", numb: int, max_numb: int):
         """
         Init the Item class.
@@ -203,7 +205,7 @@ class Item:
         self.sounds = SoundPack(BUTTON_SOUNDS, self.parent.game.sounds_volume)
 
     def hover(self):
-        """ Hover on the button."""
+        """Hover on the button."""
         if self.button_rect.collidepoint(pygame.mouse.get_pos()):
             self.button_rect = self.rect_hovered
             self.button = self.image_hovered
@@ -212,7 +214,7 @@ class Item:
             self.button = self.image
 
     def click(self):
-        """ Click the button. """
+        """Click the button."""
         if self.button_rect.collidepoint(pygame.mouse.get_pos()):
             if self.parent.buttons_event and not self.pressed:
                 if self.args:
@@ -268,7 +270,8 @@ class Item:
 
 
 class LangButton(Item):
-    """ Language button. Inherited from the Item. """
+    """Language button. Inherited from Item class."""
+
     def __init__(self, image: str, image_hovered: str, w: int, h: int, midtop: tuple[int], parent:
     "Object", action: Callable[..., None], args: "args", numb: int, max_numb: int, lang: str):
         """
@@ -290,7 +293,7 @@ class LangButton(Item):
         self.lang = lang
 
     def display(self, surface):
-        """ Draw the language button. """
+        """Draw the language button."""
         self.hover()
         self.click()
         if self.parent.game.locale == self.lang:
@@ -300,7 +303,8 @@ class LangButton(Item):
 
 
 class Toggle:
-    """ Toggle Class. """
+    """Toggle Class."""
+
     def __init__(self, l: int, t: int, w: int, h: int, parent, numb: int, max_numb: int, value: int, max_value: int, name: str, update_func: Callable[..., None] =False):
         """
         Init the Toggle class.
@@ -354,14 +358,14 @@ class Toggle:
         pygame.draw.rect(surface, color, self.slider)
 
     def hover(self):
-        """ Hover on the button. """
+        """Hover on the button."""
         if self.value_rect.collidepoint(pygame.mouse.get_pos()):
             self.slider = pygame.Rect.inflate(self.value_rect, 10, 10)
         else:
             self.slider = self.value_rect
 
     def slide(self):
-        """ Slide the button. """
+        """Slide the button."""
         mouse_pos = pygame.mouse.get_pos()
         if self.slider.left - 10 <= mouse_pos[0] <= self.slider.right + 10 and \
             self.slider.top - 10 <= mouse_pos[1] <= self.slider.bottom + 10:
@@ -372,7 +376,7 @@ class Toggle:
                     self.update_volume()
 
     def update_volume(self):
-        """ Upgrade volume. """
+        """Upgrade volume."""
         setattr(self.parent.game, self.name + "_volume", self.value)
         if self.update_func:
             getattr(self.parent.game, self.name).update_volume(self.value)

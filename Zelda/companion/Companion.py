@@ -1,3 +1,4 @@
+"""This module is used to operate with companion."""
 import pygame
 import os
 from Zelda.audio.soundpack.SoundPack import SoundPack
@@ -14,6 +15,7 @@ _ = translation.gettext
 
 class Companion(pygame.sprite.Sprite):
     """Companion class."""
+
     def __init__(self, screen: "pygame.display", level: "Level", player: "Player" = None):
         """
         Init the companion class.
@@ -192,11 +194,11 @@ class Companion(pygame.sprite.Sprite):
             button.display(screen)
 
     def story(self):
-        """ Tell the story. """
+        """Tell the story."""
         self.show_msg(self.screen, *self.tell)
 
     def display(self):
-        """ Draw the companion on the screen. """
+        """Draw the companion on the screen."""
         pygame.draw.rect(self.screen, COMPANION_COLORS["MAIN_COLOR"], self.fill_box, 0, 20)
         pygame.draw.rect(self.screen, COMPANION_COLORS["OUTLINE_COLOR"], self.fill_box, 10, 20)
         gradient_rect = pygame.Rect.inflate(self.fill_box, -5, -5)

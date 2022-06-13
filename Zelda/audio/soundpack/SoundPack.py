@@ -1,10 +1,12 @@
+"""This module is used to operate with soundpacks."""
 import pygame
 import pygame.mixer
 from random import choice
 
 
 class SoundPack:
-    """" SoundPack class. """
+    """SoundPack class."""
+
     def __init__(self, sounds: dict[str, set[str]], volume: float):
         """
         Init SoundPack class.
@@ -79,12 +81,12 @@ class MusicPack:
             pygame.mixer.music.play(-1)
 
     def pause(self):
-        """ Pause the music. """
+        """Pause the music."""
         pygame.mixer.music.pause()
         self.is_paused = True
 
     def unpause(self):
-        """ Unpause the music. """
+        """Unpause the music."""
         if self.is_paused:
             pygame.mixer.music.unpause()
             self.is_paused = False

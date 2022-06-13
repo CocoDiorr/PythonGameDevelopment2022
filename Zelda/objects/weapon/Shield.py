@@ -1,3 +1,4 @@
+"""This module is used to operate with Shield."""
 import pygame
 from Zelda.config.Config import *
 from Zelda.objects.weapon.Bullet import Bullet

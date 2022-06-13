@@ -1,3 +1,4 @@
+"""This module is used to operate with base Enemy class."""
 import pygame
 from Zelda.objects.main.Entity import Entity
 from Zelda.objects.weapon.ShootingWeapon import ShootingWeapon
@@ -6,6 +7,7 @@ from Zelda.config.Config import *
 
 class Enemy(Entity):
     """Base enemy class."""
+
     def __init__(self, level: "Level", groups: tuple, animations_path: str, sounds: dict[str, set[str]], position: pygame.math.Vector2, abs_accel: int, max_speed: int, health: int, attack_radius: int, notice_radius: int):
         super().__init__(level, groups, animations_path, sounds, position, abs_accel, max_speed, health)
         """

@@ -1,3 +1,4 @@
+"""This module is used to operate with Bow."""
 from Zelda.objects.weapon.ShootingWeapon import ShootingWeapon
 from Zelda.config.Config import *
 

@@ -1,3 +1,4 @@
+"""This module is used to operate with base weapon class."""
 import pygame
 import pygame.math
 import pygame.sprite
@@ -41,7 +42,8 @@ class Weapon(pygame.sprite.Sprite):
         self.uses = [False, False]
 
     def update(self, dt: float):
-        """Update weapon position and using.
+        """
+        Update weapon position and using.
 
         :param dt: delta time for main loop updating
         """
@@ -52,14 +54,12 @@ class Weapon(pygame.sprite.Sprite):
 
     def move(self):
         """Change weapon position."""
-
         self.rect = self.image.get_rect()
         self.pos = self.owner.pos + self.owner.look_angle * self.owner_distance
         self.rect.center = self.pos
 
     def update_uses(self):
         """Update weapon using."""
-
         if all(self.uses):
             self.uses = [False for _ in self.uses]
         elif any(self.uses):

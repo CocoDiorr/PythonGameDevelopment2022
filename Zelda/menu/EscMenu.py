@@ -1,3 +1,4 @@
+"""This module is used to operate with escape menu."""
 import pygame
 import os
 from Zelda.config.Config import WINDOW_RESOLUTION, MENU
@@ -5,7 +6,7 @@ from Zelda.menu.StartMenu import Item
 
 
 class EscMenu:
-    """ Escape Menu class. """
+    """Escape Menu class."""
     def __init__(self, level: "Level"):
         """
         Init the EscMenu class.
@@ -38,16 +39,16 @@ class EscMenu:
         )
 
     def exit_button_call(self):
-        """ Call the exit button. """
+        """Call the exit button."""
         self.level.game_state = "active"
         self.level.game.__init__(self.level.game.locale, self.level.game.music_volume, self.level.game.sounds_volume)
 
     def play_button_call(self):
-        """ Call the play button"""
+        """Call the play button"""
         self.level.game_state = "active"
 
     def display(self):
-        """ Draw the Escape menu. """
+        """Draw the Escape menu."""
         self.surface.blit(self.transp_bg, (0, 0))
 
         pygame.draw.rect(self.surface, "#FFBC42", self.bg_rect, 0, 20)
