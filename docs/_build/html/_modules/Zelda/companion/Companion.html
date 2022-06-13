@@ -11,11 +11,13 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
    
   <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -25,16 +27,19 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for Zelda.companion.Companion</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pygame</span>
+<span></span><span class="sd">&quot;&quot;&quot;This module is used to operate with companion.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pygame</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">Zelda.audio.soundpack.SoundPack</span> <span class="k">import</span> <span class="n">SoundPack</span>
-<span class="kn">from</span> <span class="nn">Zelda.config.Config</span> <span class="k">import</span> <span class="n">COMPANION_FONT</span><span class="p">,</span> <span class="n">COMPANION_FONT_SIZE</span><span class="p">,</span> <span class="n">WINDOW_RESOLUTION</span><span class="p">,</span>\
+<span class="kn">from</span> <span class="nn">Zelda.audio.soundpack.SoundPack</span> <span class="kn">import</span> <span class="n">SoundPack</span>
+<span class="kn">from</span> <span class="nn">Zelda.config.Config</span> <span class="kn">import</span> <span class="n">COMPANION_FONT</span><span class="p">,</span> <span class="n">COMPANION_FONT_SIZE</span><span class="p">,</span> <span class="n">WINDOW_RESOLUTION</span><span class="p">,</span>\
                           <span class="n">COMPANION_SIZE</span><span class="p">,</span> <span class="n">COMPANION_IMAGE</span><span class="p">,</span> <span class="n">COMPANION_COLORS</span><span class="p">,</span>\
                           <span class="n">COMPANION_BUTTON</span><span class="p">,</span> <span class="n">DEFAULT_LOCALE</span><span class="p">,</span> <span class="n">COMPANION_SOUNDS</span>
-<span class="kn">from</span> <span class="nn">Zelda.button.Button</span> <span class="k">import</span> <span class="n">Button</span>
+<span class="kn">from</span> <span class="nn">Zelda.button.Button</span> <span class="kn">import</span> <span class="n">Button</span>
 <span class="kn">import</span> <span class="nn">ipsedixit</span>
 
 <span class="kn">import</span> <span class="nn">gettext</span>
@@ -44,7 +49,8 @@
 
 <div class="viewcode-block" id="Companion"><a class="viewcode-back" href="../../../Zelda.companion.html#Zelda.companion.Companion.Companion">[docs]</a><span class="k">class</span> <span class="nc">Companion</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">Sprite</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Companion class.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="s2">&quot;pygame.display&quot;</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="n">player</span><span class="p">:</span> <span class="s2">&quot;Player&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">screen</span><span class="p">:</span> <span class="s2">&quot;pygame.display&quot;</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="n">player</span><span class="p">:</span> <span class="s2">&quot;Player&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Init the companion class.</span>
 
@@ -79,7 +85,6 @@
 <span class="sd">        :param msg: message</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">msg</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()]</span>
         <span class="n">space</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -170,7 +175,7 @@
 
 <div class="viewcode-block" id="Companion.trade_button"><a class="viewcode-back" href="../../../Zelda.companion.html#Zelda.companion.Companion.Companion.trade_button">[docs]</a>    <span class="k">def</span> <span class="nf">trade_button</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">companion</span><span class="p">:</span> <span class="s2">&quot;Companion&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Tell the story for the amount of dust on the pressed button with the name name</span>
+<span class="sd">        Tell the story for the amount of dust on the pressed button with the name name.</span>
 
 <span class="sd">        :param companion: companion</span>
 <span class="sd">        :param name: string on the button</span>
@@ -179,7 +184,7 @@
         <span class="k">if</span> <span class="n">companion</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">dust</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
             <span class="n">companion</span><span class="o">.</span><span class="n">companion_state</span> <span class="o">=</span> <span class="s2">&quot;story&quot;</span>
             <span class="n">companion</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">dust</span> <span class="o">-=</span> <span class="nb">int</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-            <span class="n">companion</span><span class="o">.</span><span class="n">txt</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;texts&quot;</span><span class="p">,</span> <span class="n">companion</span><span class="o">.</span><span class="n">locale</span> <span class="p">,</span> <span class="n">f</span><span class="s2">&quot;</span><span class="si">{name}</span><span class="s2">.txt&quot;</span><span class="p">)</span>
+            <span class="n">companion</span><span class="o">.</span><span class="n">txt</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;texts&quot;</span><span class="p">,</span> <span class="n">companion</span><span class="o">.</span><span class="n">locale</span> <span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.txt&quot;</span><span class="p">)</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">companion</span><span class="o">.</span><span class="n">txt</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">companion</span><span class="o">.</span><span class="n">generator</span> <span class="o">=</span> <span class="n">ipsedixit</span><span class="o">.</span><span class="n">Generator</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
             <span class="n">companion</span><span class="o">.</span><span class="n">tell</span> <span class="o">=</span> <span class="n">companion</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">paragraphs</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
@@ -222,11 +227,11 @@
             <span class="n">button</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">screen</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Companion.story"><a class="viewcode-back" href="../../../Zelda.companion.html#Zelda.companion.Companion.Companion.story">[docs]</a>    <span class="k">def</span> <span class="nf">story</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Tell the story. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Tell the story.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">show_msg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">tell</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Companion.display"><a class="viewcode-back" href="../../../Zelda.companion.html#Zelda.companion.Companion.Companion.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Draw the companion on the screen. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Draw the companion on the screen.&quot;&quot;&quot;</span>
         <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">,</span> <span class="n">COMPANION_COLORS</span><span class="p">[</span><span class="s2">&quot;MAIN_COLOR&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_box</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
         <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">,</span> <span class="n">COMPANION_COLORS</span><span class="p">[</span><span class="s2">&quot;OUTLINE_COLOR&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_box</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
         <span class="n">gradient_rect</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_box</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">)</span>
@@ -258,6 +263,7 @@
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -295,7 +301,15 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -304,8 +318,8 @@
       &copy;2022, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
 

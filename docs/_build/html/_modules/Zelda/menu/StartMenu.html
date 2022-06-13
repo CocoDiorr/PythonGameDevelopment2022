@@ -11,11 +11,13 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
    
   <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
@@ -25,14 +27,17 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for Zelda.menu.StartMenu</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pygame</span>
+<span></span><span class="sd">&quot;&quot;&quot;This module is used to operate with start menu.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pygame</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Callable</span>
-<span class="kn">from</span> <span class="nn">Zelda.audio.soundpack.SoundPack</span> <span class="k">import</span> <span class="n">SoundPack</span>
-<span class="kn">from</span> <span class="nn">Zelda.config.Config</span> <span class="k">import</span> <span class="n">WINDOW_RESOLUTION</span><span class="p">,</span> <span class="n">UI_SETTINGS</span><span class="p">,</span> <span class="n">DEFAULT_LOCALE</span><span class="p">,</span> <span class="n">MENU</span><span class="p">,</span> <span class="n">BUTTON_SOUNDS</span><span class="p">,</span> <span class="n">MUSIC_VOLUME</span><span class="p">,</span> <span class="n">SOUNDS_VOLUME</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span> <span class="nn">Zelda.audio.soundpack.SoundPack</span> <span class="kn">import</span> <span class="n">SoundPack</span>
+<span class="kn">from</span> <span class="nn">Zelda.config.Config</span> <span class="kn">import</span> <span class="n">WINDOW_RESOLUTION</span><span class="p">,</span> <span class="n">UI_SETTINGS</span><span class="p">,</span> <span class="n">DEFAULT_LOCALE</span><span class="p">,</span> <span class="n">MENU</span><span class="p">,</span> <span class="n">BUTTON_SOUNDS</span><span class="p">,</span> <span class="n">MUSIC_VOLUME</span><span class="p">,</span> <span class="n">SOUNDS_VOLUME</span>
 
 <span class="kn">import</span> <span class="nn">gettext</span>
 <span class="n">translation</span> <span class="o">=</span> <span class="n">gettext</span><span class="o">.</span><span class="n">translation</span><span class="p">(</span><span class="s2">&quot;StartMenu&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;locale&quot;</span><span class="p">,</span> <span class="s2">&quot;start_menu&quot;</span><span class="p">),</span> <span class="n">languages</span><span class="o">=</span><span class="p">[</span><span class="n">DEFAULT_LOCALE</span><span class="p">])</span>
@@ -40,8 +45,9 @@
 
 
 <div class="viewcode-block" id="StartMenu"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.StartMenu">[docs]</a><span class="k">class</span> <span class="nc">StartMenu</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot; StartMenu class. &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="s2">&quot;Game&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;StartMenu class.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">:</span> <span class="s2">&quot;Game&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Init the Start menu.</span>
 
@@ -118,7 +124,7 @@
                <span class="bp">self</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">sounds_volume</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;sounds&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
 <div class="viewcode-block" id="StartMenu.display"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.StartMenu.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Draw the Start menu. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Draw the Start menu.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bg_images</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cur_frame</span><span class="p">],</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">-=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">times</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -145,16 +151,16 @@
                 <span class="n">button</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">surface</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="StartMenu.play_button"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.StartMenu.play_button">[docs]</a>    <span class="k">def</span> <span class="nf">play_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Call the play button. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Call the play button.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">create_map</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">game_state</span> <span class="o">=</span> <span class="s2">&quot;play&quot;</span></div>
 
 <div class="viewcode-block" id="StartMenu.settings_button"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.StartMenu.settings_button">[docs]</a>    <span class="k">def</span> <span class="nf">settings_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Call the settings button. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Call the settings button.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">settings_on</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_on</span></div>
 
 <div class="viewcode-block" id="StartMenu.exit_button"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.StartMenu.exit_button">[docs]</a>    <span class="k">def</span> <span class="nf">exit_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Call the exit button. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Call the exit button.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="StartMenu.lang_button"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.StartMenu.lang_button">[docs]</a>    <span class="k">def</span> <span class="nf">lang_button</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -182,8 +188,9 @@
 
 
 <div class="viewcode-block" id="Item"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.Item">[docs]</a><span class="k">class</span> <span class="nc">Item</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot; Item class. &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">image_hovered</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">midtop</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">parent</span><span class="p">:</span> <span class="s2">&quot;Object&quot;</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">args</span><span class="p">:</span> <span class="s2">&quot;args&quot;</span><span class="p">,</span> <span class="n">numb</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_numb</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Item class.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">image_hovered</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">midtop</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">parent</span><span class="p">:</span> <span class="s2">&quot;Object&quot;</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">args</span><span class="p">:</span> <span class="s2">&quot;args&quot;</span><span class="p">,</span> <span class="n">numb</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_numb</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Init the Item class.</span>
 
@@ -233,7 +240,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span> <span class="o">=</span> <span class="n">SoundPack</span><span class="p">(</span><span class="n">BUTTON_SOUNDS</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">sounds_volume</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Item.hover"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.Item.hover">[docs]</a>    <span class="k">def</span> <span class="nf">hover</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Hover on the button.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Hover on the button.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">button_rect</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">button_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect_hovered</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_hovered</span>
@@ -242,7 +249,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span></div>
 
 <div class="viewcode-block" id="Item.click"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.Item.click">[docs]</a>    <span class="k">def</span> <span class="nf">click</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Click the button. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Click the button.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">button_rect</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()):</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">buttons_event</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pressed</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
@@ -262,7 +269,7 @@
 
 <div class="viewcode-block" id="Item.display"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.Item.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">:</span> <span class="s2">&quot;pygame.display&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Draw the button on the screen</span>
+<span class="sd">        Draw the button on the screen.</span>
 
 <span class="sd">        :param surface:</span>
 
@@ -298,8 +305,9 @@
 
 
 <div class="viewcode-block" id="LangButton"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.LangButton">[docs]</a><span class="k">class</span> <span class="nc">LangButton</span><span class="p">(</span><span class="n">Item</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Language button. Inherited from the Item. &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">image_hovered</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">midtop</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">parent</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Language button. Inherited from Item class.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">image_hovered</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">midtop</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">parent</span><span class="p">:</span>
     <span class="s2">&quot;Object&quot;</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">args</span><span class="p">:</span> <span class="s2">&quot;args&quot;</span><span class="p">,</span> <span class="n">numb</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_numb</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Init the Item class.</span>
@@ -320,7 +328,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">lang</span> <span class="o">=</span> <span class="n">lang</span>
 
 <div class="viewcode-block" id="LangButton.display"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.LangButton.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Draw the language button. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Draw the language button.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hover</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">locale</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">lang</span><span class="p">:</span>
@@ -330,8 +338,9 @@
 
 
 <div class="viewcode-block" id="Toggle"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.Toggle">[docs]</a><span class="k">class</span> <span class="nc">Toggle</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot; Toggle Class. &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">numb</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_numb</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_value</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">update_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Toggle Class.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">numb</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_numb</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_value</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">update_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Init the Toggle class.</span>
 
@@ -377,21 +386,20 @@
 <span class="sd">        :param max_value: maximum volume in the game</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#3D0814&quot;</span>
 
         <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bottom</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
         <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">slider</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Toggle.hover"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.Toggle.hover">[docs]</a>    <span class="k">def</span> <span class="nf">hover</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Hover on the button. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Hover on the button.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rect</span><span class="o">.</span><span class="n">collidepoint</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">slider</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value_rect</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">slider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rect</span></div>
 
 <div class="viewcode-block" id="Toggle.slide"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.Toggle.slide">[docs]</a>    <span class="k">def</span> <span class="nf">slide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Slide the button. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Slide the button.&quot;&quot;&quot;</span>
         <span class="n">mouse_pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">slider</span><span class="o">.</span><span class="n">left</span> <span class="o">-</span> <span class="mi">10</span> <span class="o">&lt;=</span> <span class="n">mouse_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slider</span><span class="o">.</span><span class="n">right</span> <span class="o">+</span> <span class="mi">10</span> <span class="ow">and</span> \
             <span class="bp">self</span><span class="o">.</span><span class="n">slider</span><span class="o">.</span><span class="n">top</span> <span class="o">-</span> <span class="mi">10</span> <span class="o">&lt;=</span> <span class="n">mouse_pos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slider</span><span class="o">.</span><span class="n">bottom</span> <span class="o">+</span> <span class="mi">10</span><span class="p">:</span>
@@ -402,7 +410,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">update_volume</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Toggle.update_volume"><a class="viewcode-back" href="../../../Zelda.menu.html#Zelda.menu.StartMenu.Toggle.update_volume">[docs]</a>    <span class="k">def</span> <span class="nf">update_volume</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Upgrade volume. &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Upgrade volume.&quot;&quot;&quot;</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_volume&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_func</span><span class="p">:</span>
             <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">game</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">update_volume</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
@@ -429,6 +437,7 @@
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -466,7 +475,15 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -475,8 +492,8 @@
       &copy;2022, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
 
