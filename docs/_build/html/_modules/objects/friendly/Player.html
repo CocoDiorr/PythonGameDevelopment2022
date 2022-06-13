@@ -42,18 +42,25 @@
 <span class="kn">from</span> <span class="nn">objects.weapon.Shield</span> <span class="k">import</span> <span class="n">Shield</span>
 <span class="kn">from</span> <span class="nn">objects.enemy.Enemy</span> <span class="k">import</span> <span class="n">Enemy</span>
 
+
 <div class="viewcode-block" id="Player"><a class="viewcode-back" href="../../../modules/objects.friendly.html#objects.friendly.Player.Player">[docs]</a><span class="k">class</span> <span class="nc">Player</span><span class="p">(</span><span class="n">Entity</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Player class.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="n">groups</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Init player.</span>
+
+<span class="sd">        :param level: Level</span>
+<span class="sd">        :param groups: tuple</span>
+<span class="sd">        :param position: position where to create player</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">PLAYER_ANIMATION_PATH</span><span class="p">,</span> <span class="n">PLAYER_SOUNDS</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">PLAYER_ABS_ACCEL</span><span class="p">,</span> <span class="n">PLAYER_MAX_SPEED</span><span class="p">,</span> <span class="n">PLAYER_HEALTH</span><span class="p">,</span> <span class="n">max_health</span><span class="o">=</span><span class="n">PLAYER_MAX_HEALTH</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">PLAYER_ENERGY</span><span class="p">,</span> <span class="n">max_energy</span><span class="o">=</span><span class="n">PLAYER_MAX_ENERGY</span><span class="p">)</span> <span class="c1"># move constants from config to __init__ (to create player with certain health, weapon, etc, in new location)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weapons</span> <span class="o">=</span> <span class="p">[</span><span class="n">Bow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">,</span> <span class="bp">self</span><span class="p">),]</span>
-        <span class="c1"># self.weapons = [ShootingWeapon(self.level, SHOOTING_WEAPON_SPRITE_PATH, self, SHOOTING_WEAPON_DISTANCE, WEAPON_COOLDOWN, BULLET_SPEED, BULLET_DAMAGE, BULLET_RANGE, BULLET_SPRITE_PATH )]  # TODO: move to inventory later</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">curr_weapon</span> <span class="o">=</span> <span class="mi">0</span>    <span class="c1"># index of self.weapons array</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">shield</span> <span class="o">=</span> <span class="n">Shield</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dust</span> <span class="o">=</span> <span class="mi">1500</span>
 
 <div class="viewcode-block" id="Player.input"><a class="viewcode-back" href="../../../modules/objects.friendly.html#objects.friendly.Player.Player.input">[docs]</a>    <span class="k">def</span> <span class="nf">input</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Input from keyboard and mouse.&quot;&quot;&quot;</span>
         <span class="n">keys</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">get_pressed</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">keys</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">K_w</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">keys</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">K_s</span><span class="p">]:</span>
@@ -74,16 +81,11 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">accel</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
 
-
-        <span class="c1"># self.look_angle = pygame.math.Vector2(pygame.mouse.get_pos()) - self.pos</span>
-        <span class="c1"># self.look_angle = pygame.math.Vector2(pygame.mouse.get_pos()) - pygame.math.Vector2(pygame.display.get_surface().get_size()[0]//2, pygame.display.get_surface().get_size()[1]//2)</span>
-
         <span class="k">if</span> <span class="n">keys</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">K_LSHIFT</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sprint_on</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sprint_off</span><span class="p">()</span>
 
-        <span class="c1"># self.look_angle = pygame.math.Vector2(pygame.mouse.get_pos()) - self.pos</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">look_angle</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">mouse</span><span class="o">.</span><span class="n">get_pos</span><span class="p">())</span> <span class="o">-</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_surface</span><span class="p">()</span><span class="o">.</span><span class="n">get_size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_surface</span><span class="p">()</span><span class="o">.</span><span class="n">get_size</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">look_angle</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">look_angle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">look_angle</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
@@ -94,32 +96,34 @@
         <span class="k">if</span> <span class="n">mouse</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">shield</span><span class="o">.</span><span class="n">reflect_bullets</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Player.update_weapons"><a class="viewcode-back" href="../../../modules/objects.friendly.html#objects.friendly.Player.Player.update_weapons">[docs]</a>    <span class="k">def</span> <span class="nf">update_weapons</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+<div class="viewcode-block" id="Player.update_weapons"><a class="viewcode-back" href="../../../modules/objects.friendly.html#objects.friendly.Player.Player.update_weapons">[docs]</a>    <span class="k">def</span> <span class="nf">update_weapons</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :param dt: </span>
-
+<span class="sd">        Update position and using of player weapons.</span>
+<span class="sd">        </span>
+<span class="sd">        :param dt: delta time for main loop updating</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">weapon</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">weapons</span><span class="p">:</span>
             <span class="n">weapon</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Player.update"><a class="viewcode-back" href="../../../modules/objects.friendly.html#objects.friendly.Player.Player.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">):</span>
+<div class="viewcode-block" id="Player.update"><a class="viewcode-back" href="../../../modules/objects.friendly.html#objects.friendly.Player.Player.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update player position and weapons.</span>
 
-<span class="sd">        :param dt: </span>
-
+<span class="sd">        :param dt: delta time for main loop updating</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span><span class="o">.</span><span class="n">update_volume</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">sounds_volume</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_animation_state</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">animate</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update_weapons</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sprint</span><span class="p">)</span></div>
 
-
-    <span class="c1"># def get_hit(self, damage):  # overload later for invincible time</span>
-    <span class="c1">#     return super().get_hit(damage)</span>
-
 <div class="viewcode-block" id="Player.get_dust"><a class="viewcode-back" href="../../../modules/objects.friendly.html#objects.friendly.Player.Player.get_dust">[docs]</a>    <span class="k">def</span> <span class="nf">get_dust</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enemy</span><span class="p">:</span> <span class="n">Enemy</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add dust to pay for stories.</span>
+
+<span class="sd">        :param enemy: killed enemy</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">enemy</span><span class="p">,</span> <span class="s2">&quot;weapon&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">enemy</span><span class="o">.</span><span class="n">weapon</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="s2">&quot;dust&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">enemy</span><span class="o">.</span><span class="n">weapon</span><span class="p">,</span> <span class="n">ShootingWeapon</span><span class="p">):</span>
@@ -145,7 +149,15 @@
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../mod.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/audio.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/button.html">button</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/companion.html">companion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/game.html">game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/level.html">level</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/menu.html">menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/objects.html">objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/ui.html">ui</a></li>
 </ul>
 
 <div class="relations">

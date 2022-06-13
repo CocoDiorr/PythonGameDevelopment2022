@@ -4,9 +4,16 @@ from config.Config import *
 
 
 class Solid(pygame.sprite.Sprite):
+    """Solid objects class."""
+    def __init__(self, pos: pygame.math.Vector2, groups: tuple, sprite_type: str, surface=pygame.Surface((TILESIZE, TILESIZE))):
+        """
+        Init solid object.
 
-    def __init__(self, pos, groups, sprite_type, surface=pygame.Surface((TILESIZE, TILESIZE))):
-        """ """
+        :param pos: solid object position
+        :param groups: can be visible, obstacle or both
+        :param sprite_type: type of solid object
+        :param surface: surface where to draw solid object
+        """
 
         super().__init__(groups)
         self.sprite_type = sprite_type
