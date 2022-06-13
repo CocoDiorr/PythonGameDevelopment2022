@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-12 03:13+0300\n"
+"POT-Creation-Date: 2022-06-13 03:50+0300\n"
 "PO-Revision-Date: 2022-06-12 02:05+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,11 +19,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: menu/StartMenu.py:85
+#: menu/StartMenu.py:115
+msgid "Music"
+msgstr "Музыка"
+
+#: menu/StartMenu.py:116
+msgid "Sounds"
+msgstr "Эффекты"
+
+#: menu/StartMenu.py:118
 msgid "Volume"
 msgstr "Громкость"
 
-#: menu/StartMenu.py:89
+#: menu/StartMenu.py:122
 msgid "Choose language"
 msgstr "Выберите язык"
 
