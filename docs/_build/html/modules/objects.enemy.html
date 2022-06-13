@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>objects.enemy &#8212; level  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="objects.friendly" href="objects.friendly.html" />
+    <link rel="prev" title="objects" href="objects.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="objects-enemy">
+<h1>objects.enemy<a class="headerlink" href="#objects-enemy" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-objects.enemy.Enemy">
+<span id="objects-enemy-enemy"></span><h2>objects.enemy.Enemy<a class="headerlink" href="#module-objects.enemy.Enemy" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="objects.enemy.Enemy.Enemy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">objects.enemy.Enemy.</span></span><span class="sig-name descname"><span class="pre">Enemy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">animations_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_accel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">health</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attack_radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">notice_radius</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/enemy/Enemy.html#Enemy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.enemy.Enemy.Enemy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="objects.main.html#objects.main.Entity.Entity" title="objects.main.Entity.Entity"><code class="xref py py-class docutils literal notranslate"><span class="pre">objects.main.Entity.Entity</span></code></a></p>
+<p>Base enemy class. Inherited from Entity.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="objects.enemy.Enemy.Enemy.equip_weapon">
+<span class="sig-name descname"><span class="pre">equip_weapon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weapon</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/enemy/Enemy.html#Enemy.equip_weapon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.enemy.Enemy.Enemy.equip_weapon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equip enemy with weapon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>weapon</strong> – Weapon</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="objects.enemy.Enemy.Enemy.get_player_direction">
+<span class="sig-name descname"><span class="pre">get_player_direction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/enemy/Enemy.html#Enemy.get_player_direction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.enemy.Enemy.Enemy.get_player_direction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get direction from enemy to player.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="objects.enemy.Enemy.Enemy.get_player_distance">
+<span class="sig-name descname"><span class="pre">get_player_distance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/enemy/Enemy.html#Enemy.get_player_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.enemy.Enemy.Enemy.get_player_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get distance from enemy to player</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="objects.enemy.Enemy.Enemy.get_status">
+<span class="sig-name descname"><span class="pre">get_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/enemy/Enemy.html#Enemy.get_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.enemy.Enemy.Enemy.get_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get enemy status: idle, move or attack.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="objects.enemy.Enemy.Enemy.kill">
+<span class="sig-name descname"><span class="pre">kill</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/enemy/Enemy.html#Enemy.kill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.enemy.Enemy.Enemy.kill" title="Permalink to this definition">¶</a></dt>
+<dd><p>remove the Sprite from all Groups</p>
+<p>Sprite.kill(): return None</p>
+<p>The Sprite is removed from all the Groups that contain it. This won’t
+change anything about the state of the Sprite. It is possible to
+continue to use the Sprite after this method has been called, including
+adding it to Groups.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="objects.enemy.Enemy.Enemy.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/enemy/Enemy.html#Enemy.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.enemy.Enemy.Enemy.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update enemy position and weapon using.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dt</strong> – float: delta time for main loop updating</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-objects.enemy.FastShooter">
+<span id="objects-enemy-fastshooter"></span><h2>objects.enemy.FastShooter<a class="headerlink" href="#module-objects.enemy.FastShooter" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="objects.enemy.FastShooter.FastShooter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">objects.enemy.FastShooter.</span></span><span class="sig-name descname"><span class="pre">FastShooter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/enemy/FastShooter.html#FastShooter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.enemy.FastShooter.FastShooter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#objects.enemy.Enemy.Enemy" title="objects.enemy.Enemy.Enemy"><code class="xref py py-class docutils literal notranslate"><span class="pre">objects.enemy.Enemy.Enemy</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-objects.enemy.Ninja">
+<span id="objects-enemy-ninja"></span><h2>objects.enemy.Ninja<a class="headerlink" href="#module-objects.enemy.Ninja" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="objects.enemy.Ninja.Ninja">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">objects.enemy.Ninja.</span></span><span class="sig-name descname"><span class="pre">Ninja</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/enemy/Ninja.html#Ninja"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.enemy.Ninja.Ninja" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#objects.enemy.Enemy.Enemy" title="objects.enemy.Enemy.Enemy"><code class="xref py py-class docutils literal notranslate"><span class="pre">objects.enemy.Enemy.Enemy</span></code></a></p>
+<p>Enemy ninja class.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-objects.enemy.Skeleton">
+<span id="objects-enemy-skeleton"></span><h2>objects.enemy.Skeleton<a class="headerlink" href="#module-objects.enemy.Skeleton" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="objects.enemy.Skeleton.Skeleton">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">objects.enemy.Skeleton.</span></span><span class="sig-name descname"><span class="pre">Skeleton</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/enemy/Skeleton.html#Skeleton"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.enemy.Skeleton.Skeleton" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#objects.enemy.Enemy.Enemy" title="objects.enemy.Enemy.Enemy"><code class="xref py py-class docutils literal notranslate"><span class="pre">objects.enemy.Enemy.Enemy</span></code></a></p>
+<p>Enemy skeleton class.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-objects.enemy.StrongSwordsman">
+<span id="objects-enemy-strongswordsman"></span><h2>objects.enemy.StrongSwordsman<a class="headerlink" href="#module-objects.enemy.StrongSwordsman" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="objects.enemy.StrongSwordsman.StrongSwordsman">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">objects.enemy.StrongSwordsman.</span></span><span class="sig-name descname"><span class="pre">StrongSwordsman</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/enemy/StrongSwordsman.html#StrongSwordsman"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.enemy.StrongSwordsman.StrongSwordsman" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#objects.enemy.Enemy.Enemy" title="objects.enemy.Enemy.Enemy"><code class="xref py py-class docutils literal notranslate"><span class="pre">objects.enemy.Enemy.Enemy</span></code></a></p>
+<p>Enemy strong swordsman class.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-objects.enemy.Swordsman">
+<span id="objects-enemy-swordsman"></span><h2>objects.enemy.Swordsman<a class="headerlink" href="#module-objects.enemy.Swordsman" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="objects.enemy.Swordsman.Swordsman">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">objects.enemy.Swordsman.</span></span><span class="sig-name descname"><span class="pre">Swordsman</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/enemy/Swordsman.html#Swordsman"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.enemy.Swordsman.Swordsman" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#objects.enemy.Enemy.Enemy" title="objects.enemy.Enemy.Enemy"><code class="xref py py-class docutils literal notranslate"><span class="pre">objects.enemy.Enemy.Enemy</span></code></a></p>
+<p>Enemy swordsman class.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-objects.enemy.Turret">
+<span id="objects-enemy-turret"></span><h2>objects.enemy.Turret<a class="headerlink" href="#module-objects.enemy.Turret" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="objects.enemy.Turret.Turret">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">objects.enemy.Turret.</span></span><span class="sig-name descname"><span class="pre">Turret</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/enemy/Turret.html#Turret"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.enemy.Turret.Turret" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#objects.enemy.Enemy.Enemy" title="objects.enemy.Enemy.Enemy"><code class="xref py py-class docutils literal notranslate"><span class="pre">objects.enemy.Enemy.Enemy</span></code></a></p>
+<p>Enemy turret class.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">level</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="audio.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="button.html">button</a></li>
+<li class="toctree-l1"><a class="reference internal" href="companion.html">companion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="game.html">game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="level.html">level</a></li>
+<li class="toctree-l1"><a class="reference internal" href="menu.html">menu</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="objects.html">objects</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">objects.enemy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-objects.enemy.Enemy">objects.enemy.Enemy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-objects.enemy.FastShooter">objects.enemy.FastShooter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-objects.enemy.Ninja">objects.enemy.Ninja</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-objects.enemy.Skeleton">objects.enemy.Skeleton</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-objects.enemy.StrongSwordsman">objects.enemy.StrongSwordsman</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-objects.enemy.Swordsman">objects.enemy.Swordsman</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-objects.enemy.Turret">objects.enemy.Turret</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="objects.friendly.html">objects.friendly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects.main.html">objects.main</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects.weapon.html">objects.weapon</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html">ui</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../mod.html">&lt;no title&gt;</a><ul>
+  <li><a href="objects.html">objects</a><ul>
+      <li>Previous: <a href="objects.html" title="previous chapter">objects</a></li>
+      <li>Next: <a href="objects.friendly.html" title="next chapter">objects.friendly</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="../_sources/modules/objects.enemy.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

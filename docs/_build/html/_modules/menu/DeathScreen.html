@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>menu.DeathScreen &#8212; level  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for menu.DeathScreen</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">config.Config</span> <span class="k">import</span> <span class="n">MENU</span><span class="p">,</span> <span class="n">UI_SETTINGS</span><span class="p">,</span> <span class="n">WINDOW_RESOLUTION</span><span class="p">,</span> <span class="n">DEFAULT_LOCALE</span>
+
+<span class="kn">import</span> <span class="nn">gettext</span>
+<span class="n">translation</span> <span class="o">=</span> <span class="n">gettext</span><span class="o">.</span><span class="n">translation</span><span class="p">(</span><span class="s2">&quot;DeathScreen&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;locale&quot;</span><span class="p">,</span> <span class="s2">&quot;death_screen&quot;</span><span class="p">),</span> <span class="n">languages</span><span class="o">=</span><span class="p">[</span><span class="n">DEFAULT_LOCALE</span><span class="p">])</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">translation</span><span class="o">.</span><span class="n">gettext</span>
+
+
+<div class="viewcode-block" id="DeathScreen"><a class="viewcode-back" href="../../modules/menu.html#menu.DeathScreen.DeathScreen">[docs]</a><span class="k">class</span> <span class="nc">DeathScreen</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">locale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">locale</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_surface</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">Font</span><span class="p">(</span><span class="n">UI_SETTINGS</span><span class="p">[</span><span class="s2">&quot;UI_FONT&quot;</span><span class="p">],</span> <span class="n">MENU</span><span class="p">[</span><span class="s2">&quot;FONT_SIZE&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">transp_bg</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Surface</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">,</span> <span class="n">pygame</span><span class="o">.</span><span class="n">SRCALPHA</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transp_bg</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">128</span><span class="p">))</span>
+
+<div class="viewcode-block" id="DeathScreen.display"><a class="viewcode-back" href="../../modules/menu.html#menu.DeathScreen.DeathScreen.display">[docs]</a>    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">text_surf_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;You died&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">MENU</span><span class="p">[</span><span class="s2">&quot;FONT_COLOR&quot;</span><span class="p">])</span>
+        <span class="n">text_rect_1</span> <span class="o">=</span> <span class="n">text_surf_1</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">midtop</span><span class="o">=</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.2</span><span class="p">)))</span>
+
+        <span class="n">text_surf_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Press SPACE to exit&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">MENU</span><span class="p">[</span><span class="s2">&quot;FONT_COLOR&quot;</span><span class="p">])</span>
+        <span class="n">text_rect_2</span> <span class="o">=</span> <span class="n">text_surf_2</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">midtop</span><span class="o">=</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">WINDOW_RESOLUTION</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.6</span><span class="p">)))</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transp_bg</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text_surf_1</span><span class="p">,</span> <span class="n">text_rect_1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text_surf_2</span><span class="p">,</span> <span class="n">text_rect_2</span><span class="p">)</span>
+
+        <span class="n">keys</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">key</span><span class="o">.</span><span class="n">get_pressed</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">keys</span><span class="p">[</span><span class="n">pygame</span><span class="o">.</span><span class="n">K_SPACE</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">game_state</span> <span class="o">=</span> <span class="s2">&quot;start&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">locale</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">music_volume</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">sounds_volume</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DeathScreen.update_locale"><a class="viewcode-back" href="../../modules/menu.html#menu.DeathScreen.DeathScreen.update_locale">[docs]</a>    <span class="k">def</span> <span class="nf">update_locale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lang</span><span class="p">):</span>
+        <span class="k">global</span> <span class="n">translation</span>
+        <span class="k">global</span> <span class="n">_</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">locale</span> <span class="o">=</span> <span class="n">lang</span>
+
+        <span class="n">translation</span> <span class="o">=</span> <span class="n">gettext</span><span class="o">.</span><span class="n">translation</span><span class="p">(</span><span class="s2">&quot;DeathScreen&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;locale&quot;</span><span class="p">,</span> <span class="s2">&quot;death_screen&quot;</span><span class="p">),</span> <span class="n">languages</span><span class="o">=</span><span class="p">[</span><span class="n">lang</span><span class="p">])</span>
+        <span class="n">translation</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">translation</span><span class="o">.</span><span class="n">gettext</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">level</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../mod.html">audio</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

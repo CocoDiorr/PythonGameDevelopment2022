@@ -1,2 +1,6 @@
 __pycache__
 .idea
+*.mo
+*/*.mo
+*/*/*.mo
+*/*/*/*.mo
