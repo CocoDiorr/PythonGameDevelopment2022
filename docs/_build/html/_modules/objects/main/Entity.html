@@ -37,21 +37,31 @@
 
 
 <div class="viewcode-block" id="Entity"><a class="viewcode-back" href="../../../modules/objects.main.html#objects.main.Entity.Entity">[docs]</a><span class="k">class</span> <span class="nc">Entity</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">Sprite</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">animations_path</span><span class="p">,</span> <span class="n">sounds</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">abs_accel</span><span class="p">,</span> <span class="n">max_speed</span><span class="p">,</span> <span class="n">health</span><span class="p">,</span> <span class="n">max_health</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_energy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">look_angle</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot;Base entity class.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="n">groups</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">animations_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sounds</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">position</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">,</span> <span class="n">abs_accel</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_speed</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">health</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_health</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_energy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">look_angle</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Init base entity.</span>
+
+<span class="sd">        :param level: Level</span>
+<span class="sd">        :param groups: visible or obstacle gro</span>
+<span class="sd">        :param animations_path: path to entity animation sheet</span>
+<span class="sd">        :param sounds: entity sounds</span>
+<span class="sd">        :param position: position where entity is created</span>
+<span class="sd">        :param abs_accel: acceleration of entity</span>
+<span class="sd">        :param max_speed: entity maximum speed</span>
+<span class="sd">        :param health: entity health</span>
+<span class="sd">        :param max_health: entity maximum health</span>
+<span class="sd">        :param energy: entity energy, used in sprint</span>
+<span class="sd">        :param max_energy: entity maximum energy</span>
+<span class="sd">        :param look_angle: entity looking direction</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span>
-<span class="c1"># &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span>
-<span class="c1">#         self.size = size</span>
-<span class="c1">#         self.image = pygame.image.load(image_path).convert_alpha()</span>
-<span class="c1">#         self.image = pygame.transform.scale(self.image, (64, 64))</span>
-<span class="c1"># =======</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">anim_state</span> <span class="o">=</span> <span class="s1">&#39;down_idle&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">animations</span> <span class="o">=</span> <span class="n">SpriteSheet</span><span class="p">(</span><span class="n">animations_path</span><span class="p">)</span><span class="o">.</span><span class="n">get_animations</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_frame_index</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_animation_speed</span> <span class="o">=</span> <span class="n">ANIMATION_SPEED</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">animations</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">anim_state</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-<span class="c1"># &gt;&gt;&gt;&gt;&gt;&gt;&gt; 0159bc375d81a9ca68ac4c16a4c22337961d4882</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span> <span class="o">=</span> <span class="n">SoundPack</span><span class="p">(</span><span class="n">sounds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">sounds_volume</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
@@ -77,13 +87,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">look_angle</span> <span class="o">=</span> <span class="n">look_angle</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="o">-</span><span class="mi">26</span><span class="p">,</span> <span class="o">-</span><span class="mi">26</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprite_type</span> <span class="o">=</span> <span class="s1">&#39;entity&#39;</span>
 
 <div class="viewcode-block" id="Entity.sprint_on"><a class="viewcode-back" href="../../../modules/objects.main.html#objects.main.Entity.Entity.sprint_on">[docs]</a>    <span class="k">def</span> <span class="nf">sprint_on</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Start sprint.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sprint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="Entity.sprint_off"><a class="viewcode-back" href="../../../modules/objects.main.html#objects.main.Entity.Entity.sprint_off">[docs]</a>    <span class="k">def</span> <span class="nf">sprint_off</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Stop sprint.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sprint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="Entity.set_animation_state"><a class="viewcode-back" href="../../../modules/objects.main.html#objects.main.Entity.Entity.set_animation_state">[docs]</a>    <span class="k">def</span> <span class="nf">set_animation_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -119,7 +130,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Change entity position.</span>
 
-<span class="sd">        :param sprint: Default value = False: move faster flag</span>
+<span class="sd">        :param sprint: move faster flag</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">accel</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
@@ -169,29 +180,10 @@
 
 <div class="viewcode-block" id="Entity.collision"><a class="viewcode-back" href="../../../modules/objects.main.html#objects.main.Entity.Entity.collision">[docs]</a>    <span class="k">def</span> <span class="nf">collision</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if entity collides with obstacles.</span>
 
-<span class="sd">        :param direction: </span>
-
+<span class="sd">        :param direction: direction of collide, can be vertical or horizontal</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># if direction == &#39;horizontal&#39;:</span>
-        <span class="c1">#     collided_sprite = pygame.sprite.spritecollideany(self, self.level.obstacle)</span>
-        <span class="c1">#     if collided_sprite:</span>
-        <span class="c1">#         if self.speed.x &gt; 0:  # moving right</span>
-        <span class="c1">#             self.rect.right = collided_sprite.rect.left</span>
-        <span class="c1">#             self.pos = pygame.math.Vector2(self.rect.center)</span>
-        <span class="c1">#         if self.speed.x &lt; 0:  # moving left</span>
-        <span class="c1">#             self.rect.left = collided_sprite.rect.right</span>
-        <span class="c1">#             self.pos = pygame.math.Vector2(self.rect.center)</span>
-        <span class="c1">#</span>
-        <span class="c1"># if direction == &#39;vertical&#39;:</span>
-        <span class="c1">#     collided_sprite = pygame.sprite.spritecollideany(self, self.level.obstacle)</span>
-        <span class="c1">#     if collided_sprite:</span>
-        <span class="c1">#         if self.speed.y &gt; 0:  # moving down</span>
-        <span class="c1">#             self.rect.bottom = collided_sprite.rect.top</span>
-        <span class="c1">#             self.pos = pygame.math.Vector2(self.rect.center)</span>
-        <span class="c1">#         if self.speed.y &lt; 0:  # moving up</span>
-        <span class="c1">#             self.rect.top = collided_sprite.rect.bottom</span>
-        <span class="c1">#             self.pos = pygame.math.Vector2(self.rect.center)</span>
         <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;horizontal&#39;</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">sprite</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">obstacle</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">sprite</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">colliderect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="p">):</span>
@@ -211,14 +203,14 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">sprite</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">bottom</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">center</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="Entity.get_hit"><a class="viewcode-back" href="../../../modules/objects.main.html#objects.main.Entity.Entity.get_hit">[docs]</a>    <span class="k">def</span> <span class="nf">get_hit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">damage</span><span class="p">):</span>
+<div class="viewcode-block" id="Entity.get_hit"><a class="viewcode-back" href="../../../modules/objects.main.html#objects.main.Entity.Entity.get_hit">[docs]</a>    <span class="k">def</span> <span class="nf">get_hit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">damage</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get hit if entity was attacked.</span>
 
-<span class="sd">        :param damage: </span>
-
+<span class="sd">        :param damage: hit damage</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">-</span> <span class="n">damage</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span><span class="o">.</span><span class="n">update_volume</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">sounds_volume</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="s2">&quot;hurt&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
@@ -245,7 +237,15 @@
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../mod.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/audio.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/button.html">button</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/companion.html">companion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/game.html">game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/level.html">level</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/menu.html">menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/objects.html">objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/ui.html">ui</a></li>
 </ul>
 
 <div class="relations">

@@ -28,19 +28,21 @@
           <div class="body" role="main">
             
   <h1>Source code for objects.enemy.Swordsman</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">objects.weapon.ColdSteel</span> <span class="k">import</span> <span class="n">ColdSteel</span>
+<span></span><span class="kn">import</span> <span class="nn">pygame.math</span>
+
+<span class="kn">from</span> <span class="nn">objects.weapon.ColdSteel</span> <span class="k">import</span> <span class="n">ColdSteel</span>
 <span class="kn">from</span> <span class="nn">objects.enemy.Enemy</span> <span class="k">import</span> <span class="n">Enemy</span>
 <span class="kn">from</span> <span class="nn">config.Config</span> <span class="k">import</span> <span class="o">*</span>
 
 
 <div class="viewcode-block" id="Swordsman"><a class="viewcode-back" href="../../../modules/objects.enemy.html#objects.enemy.Swordsman.Swordsman">[docs]</a><span class="k">class</span> <span class="nc">Swordsman</span><span class="p">(</span><span class="n">Enemy</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Enemy swordsman class.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create swordsman.</span>
 
 <span class="sd">        :param level: Level</span>
-<span class="sd">        :param position: tuple: position where swordsman is created</span>
+<span class="sd">        :param position: position where swordsman is created</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="p">(</span><span class="n">level</span><span class="o">.</span><span class="n">visible</span><span class="p">,</span> <span class="n">level</span><span class="o">.</span><span class="n">entity</span><span class="p">),</span> <span class="n">SWORDSMAN_ANIMATION</span><span class="p">,</span> <span class="n">SWORDSMAN_SOUNDS</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">SWORDSMAN_ABS_ACCEL</span><span class="p">,</span> <span class="n">SWORDSMAN_MAX_SPEED</span><span class="p">,</span> <span class="n">SWORDSMAN_HEALTH</span><span class="p">,</span> <span class="n">SWORDSMAN_ATTACK_RADIUS</span><span class="p">,</span> <span class="n">SWORDSMAN_NOTICE_RADIUS</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">equip_weapon</span><span class="p">(</span><span class="n">ColdSteel</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="p">(</span><span class="n">level</span><span class="o">.</span><span class="n">visible</span><span class="p">,</span> <span class="n">level</span><span class="o">.</span><span class="n">cold_steels</span><span class="p">),</span> <span class="n">SWORD_SPRITE_PATH</span><span class="p">,</span> <span class="n">SWORD_SOUNDS</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">SWORD_DISTANCE</span><span class="p">,</span> <span class="n">SWORD_COOLDOWN</span><span class="p">,</span> <span class="n">SWORD_DAMAGE</span><span class="p">))</span></div>
@@ -65,7 +67,15 @@
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../mod.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/audio.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/button.html">button</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/companion.html">companion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/game.html">game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/level.html">level</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/menu.html">menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/objects.html">objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/ui.html">ui</a></li>
 </ul>
 
 <div class="relations">

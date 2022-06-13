@@ -10,14 +10,6 @@ objects.enemy.Enemy
    :undoc-members:
    :show-inheritance:
 
-objects.enemy.FastShooter
---------------------------------
-
-.. automodule:: objects.enemy.FastShooter
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 objects.enemy.Ninja
 --------------------------
 

@@ -35,34 +35,44 @@
 <span id="objects-friendly-player"></span><h2>objects.friendly.Player<a class="headerlink" href="#module-objects.friendly.Player" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="objects.friendly.Player.Player">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">objects.friendly.Player.</span></span><span class="sig-name descname"><span class="pre">Player</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/friendly/Player.html#Player"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.friendly.Player.Player" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">objects.friendly.Player.</span></span><span class="sig-name descname"><span class="pre">Player</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="level.html#level.Level.Level" title="level.Level.Level"><span class="pre">Level</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pygame.math.Vector2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/friendly/Player.html#Player"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.friendly.Player.Player" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="objects.main.html#objects.main.Entity.Entity" title="objects.main.Entity.Entity"><code class="xref py py-class docutils literal notranslate"><span class="pre">objects.main.Entity.Entity</span></code></a></p>
+<p>Player class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="objects.friendly.Player.Player.get_dust">
 <span class="sig-name descname"><span class="pre">get_dust</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enemy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="objects.enemy.html#objects.enemy.Enemy.Enemy" title="objects.enemy.Enemy.Enemy"><span class="pre">objects.enemy.Enemy.Enemy</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/friendly/Player.html#Player.get_dust"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.friendly.Player.Player.get_dust" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Add dust to pay for stories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>enemy</strong> – killed enemy</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="objects.friendly.Player.Player.input">
 <span class="sig-name descname"><span class="pre">input</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/friendly/Player.html#Player.input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.friendly.Player.Player.input" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Input from keyboard and mouse.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="objects.friendly.Player.Player.update">
-<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/friendly/Player.html#Player.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.friendly.Player.Player.update" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/friendly/Player.html#Player.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.friendly.Player.Player.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update player position and weapons.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dt</strong> – </p>
+<dd class="field-odd"><p><strong>dt</strong> – delta time for main loop updating</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="objects.friendly.Player.Player.update_weapons">
-<span class="sig-name descname"><span class="pre">update_weapons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/friendly/Player.html#Player.update_weapons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.friendly.Player.Player.update_weapons" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">update_weapons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/objects/friendly/Player.html#Player.update_weapons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#objects.friendly.Player.Player.update_weapons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update position and using of player weapons.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dt</strong> – </p>
+<dd class="field-odd"><p><strong>dt</strong> – delta time for main loop updating</p>
 </dd>
 </dl>
 </dd></dl>

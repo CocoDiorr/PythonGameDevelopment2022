@@ -33,9 +33,9 @@
 
 
 <div class="viewcode-block" id="YSortCameraGroup"><a class="viewcode-back" href="../../modules/level.html#level.Camera.YSortCameraGroup">[docs]</a><span class="k">class</span> <span class="nc">YSortCameraGroup</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">Group</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot; Make camera draw the map, obstacles and visibles with offset.&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
+        <span class="sd">&quot;&quot;&quot; Init camera for map, obstacles and visibles with offset. &quot;&quot;&quot;</span>
         <span class="c1"># general setup</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_surface</span><span class="p">()</span>
@@ -49,10 +49,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">floor_surf</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">scale2x</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">floor_surf</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">floor_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">floor_surf</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">topleft</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
-<div class="viewcode-block" id="YSortCameraGroup.custom_draw"><a class="viewcode-back" href="../../modules/level.html#level.Camera.YSortCameraGroup.custom_draw">[docs]</a>    <span class="k">def</span> <span class="nf">custom_draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player</span><span class="p">):</span>
+<div class="viewcode-block" id="YSortCameraGroup.custom_draw"><a class="viewcode-back" href="../../modules/level.html#level.Camera.YSortCameraGroup.custom_draw">[docs]</a>    <span class="k">def</span> <span class="nf">custom_draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player</span><span class="p">:</span> <span class="s2">&quot;Player&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Draw the map, obstacles and visibles.</span>
 
-<span class="sd">        :param player: </span>
+<span class="sd">        :param player: &quot;Player&quot;</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -74,10 +75,10 @@
 
 
 <div class="viewcode-block" id="YSortBulletsCameraGroup"><a class="viewcode-back" href="../../modules/level.html#level.Camera.YSortBulletsCameraGroup">[docs]</a><span class="k">class</span> <span class="nc">YSortBulletsCameraGroup</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">Group</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot; Make camera draw bullets with offset. &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
+        <span class="sd">&quot;&quot;&quot; Init camera for bullets with offset. &quot;&quot;&quot;</span>
         <span class="c1"># general setup</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">get_surface</span><span class="p">()</span>
@@ -85,10 +86,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">half_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_surface</span><span class="o">.</span><span class="n">get_size</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">()</span>
 
-<div class="viewcode-block" id="YSortBulletsCameraGroup.custom_draw"><a class="viewcode-back" href="../../modules/level.html#level.Camera.YSortBulletsCameraGroup.custom_draw">[docs]</a>    <span class="k">def</span> <span class="nf">custom_draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player</span><span class="p">):</span>
+<div class="viewcode-block" id="YSortBulletsCameraGroup.custom_draw"><a class="viewcode-back" href="../../modules/level.html#level.Camera.YSortBulletsCameraGroup.custom_draw">[docs]</a>    <span class="k">def</span> <span class="nf">custom_draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player</span><span class="p">:</span> <span class="s2">&quot;Player&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Draw bullets.</span>
 
-<span class="sd">        :param player: </span>
+<span class="sd">        :param player: &quot;Player&quot;</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -119,7 +121,15 @@
 <h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../mod.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/audio.html">audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/button.html">button</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/companion.html">companion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/config.html">config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/game.html">game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/level.html">level</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/menu.html">menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/objects.html">objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/ui.html">ui</a></li>
 </ul>
 
 <div class="relations">
