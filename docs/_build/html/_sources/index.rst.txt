@@ -1,16 +1,16 @@
-.. level documentation master file, created by
-   sphinx-quickstart on Mon Jun 13 14:31:36 2022.
+.. Zelda documentation master file, created by
+   sphinx-quickstart on Tue Jun 14 01:11:07 2022.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to level's documentation!
+Welcome to Zelda's documentation!
 =================================
 
 .. toctree::
    :maxdepth: 4
    :caption: Contents:
 
-   mod
+   Zelda
 
 
 Indices and tables

@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zelda.objects.main.Entity &#8212; Zelda  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for Zelda.objects.main.Entity</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pygame</span>
+<span class="kn">import</span> <span class="nn">pygame.math</span>
+<span class="kn">import</span> <span class="nn">pygame.sprite</span>
+<span class="kn">from</span> <span class="nn">Zelda.audio.soundpack.SoundPack</span> <span class="k">import</span> <span class="n">SoundPack</span>
+<span class="kn">from</span> <span class="nn">Zelda.config.Config</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">Zelda.config.SpriteSheet</span> <span class="k">import</span> <span class="n">SpriteSheet</span>
+
+
+<div class="viewcode-block" id="Entity"><a class="viewcode-back" href="../../../../Zelda.objects.main.html#Zelda.objects.main.Entity.Entity">[docs]</a><span class="k">class</span> <span class="nc">Entity</span><span class="p">(</span><span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">Sprite</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base entity class.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="s2">&quot;Level&quot;</span><span class="p">,</span> <span class="n">groups</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">animations_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sounds</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">position</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">,</span> <span class="n">abs_accel</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_speed</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">health</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_health</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_energy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">look_angle</span><span class="p">:</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Init base entity.</span>
+
+<span class="sd">        :param level: Level</span>
+<span class="sd">        :param groups: visible or obstacle gro</span>
+<span class="sd">        :param animations_path: path to entity animation sheet</span>
+<span class="sd">        :param sounds: entity sounds</span>
+<span class="sd">        :param position: position where entity is created</span>
+<span class="sd">        :param abs_accel: acceleration of entity</span>
+<span class="sd">        :param max_speed: entity maximum speed</span>
+<span class="sd">        :param health: entity health</span>
+<span class="sd">        :param max_health: entity maximum health</span>
+<span class="sd">        :param energy: entity energy, used in sprint</span>
+<span class="sd">        :param max_energy: entity maximum energy</span>
+<span class="sd">        :param look_angle: entity looking direction</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anim_state</span> <span class="o">=</span> <span class="s1">&#39;down_idle&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">animations</span> <span class="o">=</span> <span class="n">SpriteSheet</span><span class="p">(</span><span class="n">animations_path</span><span class="p">)</span><span class="o">.</span><span class="n">get_animations</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_frame_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_animation_speed</span> <span class="o">=</span> <span class="n">ANIMATION_SPEED</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">animations</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">anim_state</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span> <span class="o">=</span> <span class="n">SoundPack</span><span class="p">(</span><span class="n">sounds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">sounds_volume</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accel</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_speed</span> <span class="o">=</span> <span class="n">max_speed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">abs_accel</span> <span class="o">=</span> <span class="n">abs_accel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed_fade</span> <span class="o">=</span> <span class="n">ENTITY_SPEED_FADE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">=</span> <span class="n">health</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprint</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">max_health</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">max_health</span> <span class="o">=</span> <span class="n">health</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">max_health</span> <span class="o">=</span> <span class="n">max_health</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">=</span> <span class="n">energy</span>
+        <span class="k">if</span> <span class="n">max_energy</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">max_energy</span> <span class="o">=</span> <span class="n">energy</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">max_energy</span> <span class="o">=</span> <span class="n">max_energy</span>
+        <span class="k">if</span> <span class="n">look_angle</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">look_angle</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">look_angle</span> <span class="o">=</span> <span class="n">look_angle</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">inflate</span><span class="p">(</span><span class="o">-</span><span class="mi">26</span><span class="p">,</span> <span class="o">-</span><span class="mi">26</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprite_type</span> <span class="o">=</span> <span class="s1">&#39;entity&#39;</span>
+
+<div class="viewcode-block" id="Entity.sprint_on"><a class="viewcode-back" href="../../../../Zelda.objects.main.html#Zelda.objects.main.Entity.Entity.sprint_on">[docs]</a>    <span class="k">def</span> <span class="nf">sprint_on</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Start sprint.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Entity.sprint_off"><a class="viewcode-back" href="../../../../Zelda.objects.main.html#Zelda.objects.main.Entity.Entity.sprint_off">[docs]</a>    <span class="k">def</span> <span class="nf">sprint_off</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Stop sprint.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sprint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Entity.set_animation_state"><a class="viewcode-back" href="../../../../Zelda.objects.main.html#Zelda.objects.main.Entity.Entity.set_animation_state">[docs]</a>    <span class="k">def</span> <span class="nf">set_animation_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Animation state: down, up, left or right.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">look_angle</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">look_angle</span><span class="o">.</span><span class="n">x</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">anim_state</span> <span class="o">=</span> <span class="s1">&#39;down&#39;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">look_angle</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="o">-</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">look_angle</span><span class="o">.</span><span class="n">x</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">anim_state</span> <span class="o">=</span> <span class="s1">&#39;up&#39;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">look_angle</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">look_angle</span><span class="o">.</span><span class="n">y</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">anim_state</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">look_angle</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">look_angle</span><span class="o">.</span><span class="n">y</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">anim_state</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
+
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">ENTITY_SPEED_ZERO</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">ENTITY_SPEED_ZERO</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;idle&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">anim_state</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">anim_state</span> <span class="o">+=</span> <span class="s1">&#39;_idle&#39;</span></div>
+
+<div class="viewcode-block" id="Entity.animate"><a class="viewcode-back" href="../../../../Zelda.objects.main.html#Zelda.objects.main.Entity.Entity.animate">[docs]</a>    <span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Animate entity walk.&quot;&quot;&quot;</span>
+        <span class="n">animation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">animations</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">anim_state</span><span class="p">]</span>
+
+        <span class="c1"># loop over the frame index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_frame_index</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_animation_speed</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frame_index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">animation</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_frame_index</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># set the image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">animation</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_frame_index</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">(</span><span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">center</span><span class="p">)</span></div>
+        <span class="c1"># self.hitbox = self.rect.inflate(0, -26)</span>
+
+<div class="viewcode-block" id="Entity.move"><a class="viewcode-back" href="../../../../Zelda.objects.main.html#Zelda.objects.main.Entity.Entity.move">[docs]</a>    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sprint</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change entity position.</span>
+
+<span class="sd">        :param sprint: move faster flag</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">accel</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">accel</span><span class="o">.</span><span class="n">scale_to_length</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">abs_accel</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">accel</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">ENTITY_SPEED_ZERO</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">x</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed_fade</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">accel</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">ENTITY_SPEED_ZERO</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">y</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed_fade</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accel</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_speed</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_speed</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">scale_to_length</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_speed</span><span class="p">)</span>
+
+        <span class="n">curr_max_speed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_speed</span>
+        <span class="n">curr_speed</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sprint</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">sprint</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">accel</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">-</span> <span class="n">ENERGY_SPEND</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">curr_max_speed</span> <span class="o">*=</span> <span class="n">SPRINT_MULTIPLIER</span>
+                <span class="n">curr_speed</span> <span class="o">*=</span> <span class="n">SPRINT_MULTIPLIER</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">+</span> <span class="n">ENERGY_RECOVER</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_energy</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">energy</span> <span class="o">&gt;=</span> <span class="n">MIN_SPRINT_ENERGY</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sprint</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sprint</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">curr_max_speed</span> <span class="ow">and</span> <span class="n">curr_speed</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">curr_max_speed</span><span class="p">:</span>
+                <span class="n">curr_speed</span><span class="o">.</span><span class="n">scale_to_length</span><span class="p">(</span><span class="n">curr_max_speed</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">curr_speed</span><span class="o">.</span><span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span>
+        <span class="c1"># self.hitbox.x = self.pos.x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collision</span><span class="p">(</span><span class="s1">&#39;horizontal&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">curr_speed</span><span class="o">.</span><span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos</span>
+        <span class="c1"># self.hitbox.y = self.pos.y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collision</span><span class="p">(</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">center</span></div>
+
+<div class="viewcode-block" id="Entity.collision"><a class="viewcode-back" href="../../../../Zelda.objects.main.html#Zelda.objects.main.Entity.Entity.collision">[docs]</a>    <span class="k">def</span> <span class="nf">collision</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if entity collides with obstacles.</span>
+
+<span class="sd">        :param direction: direction of collide, can be vertical or horizontal</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;horizontal&#39;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sprite</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">obstacle</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">sprite</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">colliderect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">sprite</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">left</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">sprite</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">right</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="s1">&#39;vertical&#39;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sprite</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">obstacle</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">sprite</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">colliderect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">bottom</span> <span class="o">=</span> <span class="n">sprite</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">top</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">sprite</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">bottom</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">Vector2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hitbox</span><span class="o">.</span><span class="n">center</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Entity.get_hit"><a class="viewcode-back" href="../../../../Zelda.objects.main.html#Zelda.objects.main.Entity.Entity.get_hit">[docs]</a>    <span class="k">def</span> <span class="nf">get_hit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">damage</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get hit if entity was attacked.</span>
+
+<span class="sd">        :param damage: hit damage</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">-</span> <span class="n">damage</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span><span class="o">.</span><span class="n">update_volume</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">game</span><span class="o">.</span><span class="n">sounds_volume</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sounds</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="s2">&quot;hurt&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s2">&quot;weapon&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">weapon</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s2">&quot;shield&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">shield</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">Zelda</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Zelda.html">Zelda</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
