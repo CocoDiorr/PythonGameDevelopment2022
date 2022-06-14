@@ -3,14 +3,36 @@ import pygame
 import pygame.math
 import pygame.sprite
 from Zelda.audio.soundpack.SoundPack import SoundPack
-from Zelda.config.Config import *
 from Zelda.config.SpriteSheet import SpriteSheet
+from Zelda.config.Config import (
+    ANIMATION_SPEED,
+    ENTITY_SPEED_FADE,
+    ENTITY_SPEED_ZERO,
+    ENERGY_SPEND,
+    SPRINT_MULTIPLIER,
+    ENERGY_RECOVER,
+    MIN_SPRINT_ENERGY,
+)
 
 
 class Entity(pygame.sprite.Sprite):
     """Base entity class."""
 
-    def __init__(self, level: "Level", groups: tuple, animations_path: str, sounds: dict[str, set[str]], position: pygame.math.Vector2, abs_accel: int, max_speed: int, health: int, max_health=None, energy=None, max_energy=None, look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0)):
+    def __init__(
+        self,
+        level: "Level",
+        groups: tuple,
+        animations_path: str,
+        sounds: dict[str, set[str]],
+        position: pygame.math.Vector2,
+        abs_accel: int,
+        max_speed: int,
+        health: int,
+        max_health=None,
+        energy=None,
+        max_energy=None,
+        look_angle: pygame.math.Vector2 = pygame.math.Vector2(1, 0),
+    ):
         """
         Init base entity.
 
@@ -29,7 +51,7 @@ class Entity(pygame.sprite.Sprite):
         """
         super().__init__(groups)
         self.level = level
-        self.anim_state = 'down_idle'
+        self.anim_state = "down_idle"
         self.animations = SpriteSheet(animations_path).get_animations()
         self._frame_index = 0
         self._animation_speed = ANIMATION_SPEED
@@ -59,7 +81,7 @@ class Entity(pygame.sprite.Sprite):
         self.look_angle = look_angle.normalize()
 
         self.hitbox = self.rect.inflate(-26, -26)
-        self.sprite_type = 'entity'
+        self.sprite_type = "entity"
 
     def sprint_on(self):
         """Start sprint."""
@@ -72,17 +94,20 @@ class Entity(pygame.sprite.Sprite):
     def set_animation_state(self):
         """Animation state: down, up, left or right."""
         if self.look_angle.y > abs(self.look_angle.x):
-            self.anim_state = 'down'
+            self.anim_state = "down"
         elif self.look_angle.y < -abs(self.look_angle.x):
-            self.anim_state = 'up'
+            self.anim_state = "up"
         elif self.look_angle.x > abs(self.look_angle.y):
-            self.anim_state = 'right'
+            self.anim_state = "right"
         elif self.look_angle.x < -abs(self.look_angle.y):
-            self.anim_state = 'left'
+            self.anim_state = "left"
 
-        if abs(self.speed.x) <= ENTITY_SPEED_ZERO and abs(self.speed.y) <= ENTITY_SPEED_ZERO:
-            if 'idle' not in self.anim_state:
-                self.anim_state += '_idle'
+        if (
+            abs(self.speed.x) <= ENTITY_SPEED_ZERO
+            and abs(self.speed.y) <= ENTITY_SPEED_ZERO
+        ):
+            if "idle" not in self.anim_state:
+                self.anim_state += "_idle"
 
     def animate(self):
         """Animate entity walk."""
@@ -95,8 +120,7 @@ class Entity(pygame.sprite.Sprite):
 
         # set the image
         self.image = animation[int(self._frame_index)]
-        self.rect = self.image.get_rect(center = self.hitbox.center)
-        # self.hitbox = self.rect.inflate(0, -26)
+        self.rect = self.image.get_rect(center=self.hitbox.center)
 
     def move(self, sprint=False):
         """
@@ -122,7 +146,12 @@ class Entity(pygame.sprite.Sprite):
         curr_max_speed = self.max_speed
         curr_speed = pygame.math.Vector2(self.speed)
         if not (self.energy is None):
-            if self.sprint[0] and self.sprint[1] and self.energy > 0 and self.accel.length() != 0:
+            if (
+                self.sprint[0]
+                and self.sprint[1]
+                and self.energy > 0
+                and self.accel.length() != 0
+            ):
                 self.energy = max(self.energy - ENERGY_SPEND, 0)
                 curr_max_speed *= SPRINT_MULTIPLIER
                 curr_speed *= SPRINT_MULTIPLIER
@@ -139,13 +168,12 @@ class Entity(pygame.sprite.Sprite):
         self.rect.center = self.pos
         self.hitbox.center = self.pos
         # self.hitbox.x = self.pos.x
-        self.collision('horizontal')
+        self.collision("horizontal")
 
         self.pos.y += curr_speed.y
         self.rect.center = self.pos
         self.hitbox.center = self.pos
-        # self.hitbox.y = self.pos.y
-        self.collision('vertical')
+        self.collision("vertical")
 
         self.rect.center = self.hitbox.center
 
@@ -155,7 +183,7 @@ class Entity(pygame.sprite.Sprite):
 
         :param direction: direction of collide, can be vertical or horizontal
         """
-        if direction == 'horizontal':
+        if direction == "horizontal":
             for sprite in self.level.obstacle:
                 if sprite.hitbox.colliderect(self.hitbox):
                     if self.speed.x > 0:
@@ -164,7 +192,7 @@ class Entity(pygame.sprite.Sprite):
                     if self.speed.x < 0:
                         self.hitbox.left = sprite.hitbox.right
                         self.pos = pygame.math.Vector2(self.hitbox.center)
-        if direction == 'vertical':
+        if direction == "vertical":
             for sprite in self.level.obstacle:
                 if sprite.hitbox.colliderect(self.hitbox):
                     if self.speed.y > 0:

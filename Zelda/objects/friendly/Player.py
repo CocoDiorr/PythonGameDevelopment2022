@@ -4,14 +4,25 @@ import pygame.sprite
 import pygame.key
 import pygame.mouse
 import pygame.math
-from Zelda.config.Config import *
 from Zelda.objects.main.Entity import Entity
-from Zelda.objects.weapon.Bullet import Bullet
 from Zelda.objects.weapon.ColdSteel import ColdSteel
 from Zelda.objects.weapon.ShootingWeapon import ShootingWeapon
 from Zelda.objects.weapon.Bow import Bow
 from Zelda.objects.weapon.Shield import Shield
 from Zelda.objects.enemy.Enemy import Enemy
+from Zelda.config.Config import (
+    PLAYER_ANIMATION_PATH,
+    PLAYER_SOUNDS,
+    PLAYER_ABS_ACCEL,
+    PLAYER_MAX_SPEED,
+    PLAYER_HEALTH,
+    PLAYER_MAX_HEALTH,
+    PLAYER_ENERGY,
+    PLAYER_MAX_ENERGY,
+    GET_DUST_HEALTH_MULTIPLIER,
+    GET_DUST_WEAPON_MULTIPLIER,
+    GET_DUST_MULTIPLIER,
+)
 
 
 class Player(Entity):
@@ -25,9 +36,23 @@ class Player(Entity):
         :param groups: tuple
         :param position: position where to create player
         """
-        super().__init__(level, groups, PLAYER_ANIMATION_PATH, PLAYER_SOUNDS, position, PLAYER_ABS_ACCEL, PLAYER_MAX_SPEED, PLAYER_HEALTH, max_health=PLAYER_MAX_HEALTH, energy=PLAYER_ENERGY, max_energy=PLAYER_MAX_ENERGY) # move constants from config to __init__ (to create player with certain health, weapon, etc, in new location)
-        self.weapons = [Bow(self.level, self),]
-        self.curr_weapon = 0    # index of self.weapons array
+        super().__init__(
+            level,
+            groups,
+            PLAYER_ANIMATION_PATH,
+            PLAYER_SOUNDS,
+            position,
+            PLAYER_ABS_ACCEL,
+            PLAYER_MAX_SPEED,
+            PLAYER_HEALTH,
+            max_health=PLAYER_MAX_HEALTH,
+            energy=PLAYER_ENERGY,
+            max_energy=PLAYER_MAX_ENERGY,
+        )
+        self.weapons = [
+            Bow(self.level, self),
+        ]
+        self.curr_weapon = 0  # index of self.weapons array
         self.shield = Shield(self.level, self)
         self.dust = 1500
 
@@ -37,19 +62,19 @@ class Player(Entity):
 
         if keys[pygame.K_w] and not keys[pygame.K_s]:
             self.accel.y = -1
-            self.status = 'up'
+            self.status = "up"
         elif keys[pygame.K_s] and not keys[pygame.K_w]:
             self.accel.y = 1
-            self.status = 'down'
+            self.status = "down"
         else:
             self.accel.y = 0
 
         if keys[pygame.K_d] and not keys[pygame.K_a]:
             self.accel.x = 1
-            self.status = 'right'
+            self.status = "right"
         elif keys[pygame.K_a] and not keys[pygame.K_d]:
             self.accel.x = -1
-            self.status = 'left'
+            self.status = "left"
         else:
             self.accel.x = 0
 
@@ -58,7 +83,12 @@ class Player(Entity):
         else:
             self.sprint_off()
 
-        self.look_angle = pygame.math.Vector2(pygame.mouse.get_pos()) - pygame.math.Vector2(pygame.display.get_surface().get_size()[0]//2, pygame.display.get_surface().get_size()[1]//2)
+        self.look_angle = pygame.math.Vector2(
+            pygame.mouse.get_pos()
+        ) - pygame.math.Vector2(
+            pygame.display.get_surface().get_size()[0] // 2,
+            pygame.display.get_surface().get_size()[1] // 2,
+        )
         if self.look_angle.length() != 0:
             self.look_angle = self.look_angle.normalize()
 
@@ -99,6 +129,22 @@ class Player(Entity):
         if hasattr(enemy, "weapon") and not (enemy.weapon is None):
             self.sounds.play("dust")
             if isinstance(enemy.weapon, ShootingWeapon):
-                self.dust += int((GET_DUST_HEALTH_MULTIPLIER * enemy.max_health + GET_DUST_WEAPON_MULTIPLIER * enemy.weapon.bullet_damage / enemy.weapon.cooldown) * GET_DUST_MULTIPLIER)
+                self.dust += int(
+                    (
+                        GET_DUST_HEALTH_MULTIPLIER * enemy.max_health
+                        + GET_DUST_WEAPON_MULTIPLIER
+                        * enemy.weapon.bullet_damage
+                        / enemy.weapon.cooldown
+                    )
+                    * GET_DUST_MULTIPLIER
+                )
             elif isinstance(enemy.weapon, ColdSteel):
-                self.dust += int((GET_DUST_HEALTH_MULTIPLIER * enemy.max_health + GET_DUST_WEAPON_MULTIPLIER * enemy.weapon.damage / enemy.weapon.cooldown) * GET_DUST_MULTIPLIER)
+                self.dust += int(
+                    (
+                        GET_DUST_HEALTH_MULTIPLIER * enemy.max_health
+                        + GET_DUST_WEAPON_MULTIPLIER
+                        * enemy.weapon.damage
+                        / enemy.weapon.cooldown
+                    )
+                    * GET_DUST_MULTIPLIER
+                )

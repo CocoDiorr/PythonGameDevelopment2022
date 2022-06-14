@@ -3,7 +3,14 @@ import pygame
 import pygame.display
 import pygame.mixer
 from Zelda.audio.soundpack.SoundPack import MusicPack
-from Zelda.config.Config import *
+from Zelda.config.Config import (
+    MUSIC_VOLUME,
+    SOUNDS_VOLUME,
+    WINDOW_RESOLUTION,
+    GAME_MUSIC,
+    FPS,
+    BACKGROUND_COLOR,
+)
 from Zelda.level.Level import Level
 from Zelda.menu.StartMenu import StartMenu
 
@@ -11,7 +18,12 @@ from Zelda.menu.StartMenu import StartMenu
 class Game:
     """Game class."""
 
-    def __init__(self, locale: str = 'en', music_volume: float = MUSIC_VOLUME, sounds_volume: float = SOUNDS_VOLUME):
+    def __init__(
+        self,
+        locale: str = "en",
+        music_volume: float = MUSIC_VOLUME,
+        sounds_volume: float = SOUNDS_VOLUME,
+    ):
         """
         Init base weapon.
 

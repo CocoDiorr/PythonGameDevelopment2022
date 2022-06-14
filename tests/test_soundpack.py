@@ -4,8 +4,6 @@ from unittest.mock import MagicMock
 import pygame
 from Zelda.audio.soundpack.SoundPack import SoundPack, MusicPack
 
-# python -m unittest discover -s tests
-
 class FakeSoundFactory:
     def __init__(self):
         self.sounds = []

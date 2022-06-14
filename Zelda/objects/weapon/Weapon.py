@@ -4,14 +4,22 @@ import pygame.math
 import pygame.sprite
 import pygame.rect
 from Zelda.audio.soundpack.SoundPack import SoundPack
-from Zelda.config.Config import *
+from Zelda.config.Config import SCALE
 
 
 class Weapon(pygame.sprite.Sprite):
     """Base weapon class."""
 
     def __init__(
-        self, level: "Level", groups: tuple, image_path: str, sounds: dict[str, set[str]], owner: "Entity", owner_distance: int, cooldown: int, extra_scale=1.
+        self,
+        level: "Level",
+        groups: tuple,
+        image_path: str,
+        sounds: dict[str, set[str]],
+        owner: "Entity",
+        owner_distance: int,
+        cooldown: int,
+        extra_scale=1.0,
     ):
         """
         Init base weapon.
@@ -29,7 +37,10 @@ class Weapon(pygame.sprite.Sprite):
         self.level = level
         self.start_image = pygame.image.load(image_path).convert_alpha()
         width, height = self.start_image.get_width(), self.start_image.get_height()
-        self.start_image = pygame.transform.scale(self.start_image, (int(width * SCALE * extra_scale), int(height * SCALE * extra_scale)))
+        self.start_image = pygame.transform.scale(
+            self.start_image,
+            (int(width * SCALE * extra_scale), int(height * SCALE * extra_scale)),
+        )
         self.image = self.start_image
         self.rect = self.image.get_rect()
         self.sounds = SoundPack(sounds, self.level.game.sounds_volume)
