@@ -1,9 +1,20 @@
+"""This module is used to operate with Shuriken."""
 from Zelda.objects.weapon.ShootingWeapon import ShootingWeapon
-from Zelda.config.Config import *
+from Zelda.config.Config import (
+    SHURIKEN_IMAGE_PATH,
+    SHURIKEN_SOUNDS,
+    SHURIKEN_DISTANCE,
+    SHIELD_COOLDOWN,
+    SHURIKEN_SPEED,
+    SHURIKEN_DAMAGE,
+    SHURIKEN_RANGE,
+    SHURIKEN_EXTRA_SCALE,
+)
 
 
 class Shuriken(ShootingWeapon):
     """Shuriken weapon class."""
+
     def __init__(self, level: "Level", owner: "Entity"):
         """
         Init shuriken weapon.
@@ -23,5 +34,5 @@ class Shuriken(ShootingWeapon):
             SHURIKEN_RANGE,
             SHURIKEN_IMAGE_PATH,
             SHURIKEN_EXTRA_SCALE,
-            SHURIKEN_EXTRA_SCALE
+            SHURIKEN_EXTRA_SCALE,
         )

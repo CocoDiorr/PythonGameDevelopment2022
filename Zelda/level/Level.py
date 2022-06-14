@@ -1,6 +1,5 @@
-
+"""This module is used to draw the map."""
 import pygame
-from random import choice
 import pygame.sprite
 import pygame.math
 from random import randint
@@ -15,15 +14,26 @@ from Zelda.companion.Companion import Companion
 from Zelda.ui.UI import UI
 from Zelda.menu.EscMenu import EscMenu
 from Zelda.menu.DeathScreen import DeathScreen
-from Zelda.config.Config import *
-from Zelda.level.Support import *
-from Zelda.level.Camera import *
+from Zelda.config.Config import (
+    LEVEL_0_FLOORBLOCKS,
+    LEVEL_0_GRASS,
+    LEVEL_0_OBJECTS,
+    LEVEL_0_PLAYER,
+    LEVEL_0_ENTITIES,
+    GRASS_PICS_FOLDER,
+    OBJECTS_PICS_FOLDER,
+    TILESIZE,
+)
+from Zelda.level.Support import import_folder, import_csv_layout
+from Zelda.level.Camera import YSortCameraGroup, YSortBulletsCameraGroup
 
 
 class Level:
-    """ Level class. """
+    """Level class."""
+
     def __init__(self, locale: str, game: "Game"):
-        """ Init Level class.
+        """
+        Init Level class.
 
         :param locale: name of locale ('en' or 'ru')
         :param game: Game
@@ -57,41 +67,56 @@ class Level:
         self.cold_steels = pygame.sprite.Group()
 
     def create_map(self):
-        """ Create a map."""
-
+        """Create a map."""
         layouts = {
-            'boundary': import_csv_layout(LEVEL_0_FLOORBLOCKS),
-            'grass': import_csv_layout(LEVEL_0_GRASS),
-            'object': import_csv_layout(LEVEL_0_OBJECTS),
-            'player': import_csv_layout(LEVEL_0_PLAYER),
-            'entities': import_csv_layout(LEVEL_0_ENTITIES),
+            "boundary": import_csv_layout(LEVEL_0_FLOORBLOCKS),
+            "grass": import_csv_layout(LEVEL_0_GRASS),
+            "object": import_csv_layout(LEVEL_0_OBJECTS),
+            "player": import_csv_layout(LEVEL_0_PLAYER),
+            "entities": import_csv_layout(LEVEL_0_ENTITIES),
         }
         graphics = {
-            'grass': import_folder(GRASS_PICS_FOLDER),
-            'objects': import_folder(OBJECTS_PICS_FOLDER),
+            "grass": import_folder(GRASS_PICS_FOLDER),
+            "objects": import_folder(OBJECTS_PICS_FOLDER),
         }
 
         for style, layout in layouts.items():
             for row_index, row in enumerate(layout):
                 for col_index, col in enumerate(row):
-                    if col != '-1':
+                    if col != "-1":
                         x = col_index * TILESIZE
                         y = row_index * TILESIZE
-                        if style == 'boundary':
-                            Solid((x, y), [self.obstacle], 'invisible')
-                        if style == 'grass':
-                            random_grass_image = graphics['grass'][f'{col}.png']
-                            random_grass_image = pygame.transform.scale(random_grass_image, (TILESIZE, TILESIZE))
-                            Solid((x, y), [self.visible, self.obstacle], 'grass', random_grass_image)
-                        if style == 'object':
-                            surf = graphics['objects'][f'{col}.png']
-                            surf = pygame.transform.scale(surf, (2 * TILESIZE, 2 * TILESIZE))
-                            Solid((x, y), [self.visible, self.obstacle], 'object', surf)
+                        if style == "boundary":
+                            Solid((x, y), [self.obstacle], "invisible")
+                        if style == "grass":
+                            random_grass_image = graphics["grass"][f"{col}.png"]
+                            random_grass_image = pygame.transform.scale(
+                                random_grass_image, (TILESIZE, TILESIZE)
+                            )
+                            Solid(
+                                (x, y),
+                                [self.visible, self.obstacle],
+                                "grass",
+                                random_grass_image,
+                            )
+                        if style == "object":
+                            surf = graphics["objects"][f"{col}.png"]
+                            surf = pygame.transform.scale(
+                                surf, (2 * TILESIZE, 2 * TILESIZE)
+                            )
+                            Solid((x, y), [self.visible, self.obstacle], "object", surf)
                             pass
-                        if style == 'player':
-                            self.player = Player(self, (self.visible, self.entity,), (x, y))
-                        if style == 'entities':
-                            tmp = randint(1,5)
+                        if style == "player":
+                            self.player = Player(
+                                self,
+                                (
+                                    self.visible,
+                                    self.entity,
+                                ),
+                                (x, y),
+                            )
+                        if style == "entities":
+                            tmp = randint(1, 5)
                             if tmp == 1:
                                 Skeleton(self, (x, y))
                             elif tmp == 2:
@@ -106,42 +131,50 @@ class Level:
         self.companion.player = self.player
 
     def bullets_update(self):
-        """ Update bullets. """
+        """Update bullets."""
         self.bullets.update()
 
-        entity_collide = pygame.sprite.groupcollide(self.bullets, self.entity, False, False)
+        entity_collide = pygame.sprite.groupcollide(
+            self.bullets, self.entity, False, False
+        )
         for bullet, entities in entity_collide.items():
             for entity in entities:
-                if entity != bullet.owner:  # mb later change on enemy group and player
+                if entity != bullet.owner:
                     bullet.kill()
                     entity.get_hit(bullet.damage)
 
-        cold_steel_collide = pygame.sprite.groupcollide(self.cold_steels, self.entity, False, False)
+        cold_steel_collide = pygame.sprite.groupcollide(
+            self.cold_steels, self.entity, False, False
+        )
         for cold_steel, entities in cold_steel_collide.items():
             if any(cold_steel.uses):
                 for entity in entities:
                     if entity != cold_steel.owner:
                         entity.get_hit(cold_steel.damage)
 
-        shield_collide = pygame.sprite.groupcollide(self.shield, self.bullets, False, False)
+        shield_collide = pygame.sprite.groupcollide(
+            self.shield, self.bullets, False, False
+        )
         for shield, bullets in shield_collide.items():
             if any(shield.uses):
                 for bullet in bullets:
                     if bullet.owner != shield.owner:
                         shield.redirect_bullet(bullet)
 
-        obstacles_collide = pygame.sprite.groupcollide(self.bullets, self.obstacle, False, False)
+        obstacles_collide = pygame.sprite.groupcollide(
+            self.bullets, self.obstacle, False, False
+        )
         for bullet, obstacles in obstacles_collide.items():
             for obstacle in obstacles:
                 if bullet.owner != obstacle:
-                    if obstacle.sprite_type != 'invisible':
+                    if obstacle.sprite_type != "invisible":
                         bullet.kill()
-                        if obstacle.sprite_type == 'grass':
+                        if obstacle.sprite_type == "grass":
                             obstacle.kill()
                         continue
 
     def companion_call(self):
-        """ Call the companion. """
+        """Call the companion."""
         self.companion.companion_state = "greeting"
         if self.game_state != "companion":
             self.game_state = "companion"
@@ -149,14 +182,14 @@ class Level:
             self.game_state = "active"
 
     def esc_menu_call(self):
-        """ Call escape menu. """
+        """Call escape menu."""
         if self.game_state != "esc":
             self.game_state = "esc"
         else:
             self.game_state = "active"
 
     def death(self):
-        """ Call death screen. """
+        """Call death screen."""
         if self.player.health <= 0:
             self.game_state = "death"
 

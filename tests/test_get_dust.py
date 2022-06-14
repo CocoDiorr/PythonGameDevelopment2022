@@ -1,9 +1,9 @@
 import unittest
 from unittest.mock import MagicMock, patch
-from objects.friendly.Player import Player
-from objects.weapon.ColdSteel import ColdSteel
-from objects.weapon.ShootingWeapon import ShootingWeapon
-from config.Config import *
+from Zelda.objects.friendly.Player import Player
+from Zelda.objects.weapon.ColdSteel import ColdSteel
+from Zelda.objects.weapon.ShootingWeapon import ShootingWeapon
+from Zelda.config.Config import *
 
 class TestPlayerGetDust(unittest.TestCase):
     def setUp(self):
@@ -14,7 +14,7 @@ class TestPlayerGetDust(unittest.TestCase):
         self.enemy = MagicMock()
 
     def test_01_correct_work_shooting_weapon(self):
-        with patch('objects.friendly.Player', spec=ShootingWeapon) as sw:
+        with patch('Zelda.objects.friendly.Player', spec=ShootingWeapon) as sw:
             self.enemy.weapon = sw
             self.enemy.max_health = 10
             self.enemy.weapon.bullet_damage = 20
@@ -24,7 +24,7 @@ class TestPlayerGetDust(unittest.TestCase):
         assert self.player.dust == self.start_dust + addition
     
     def test_02_correct_work_cold_steel(self):
-        with patch('objects.friendly.Player', spec=ColdSteel) as cs:
+        with patch('Zelda.objects.friendly.Player', spec=ColdSteel) as cs:
             self.enemy.weapon = cs
             self.enemy.max_health = 10
             self.enemy.weapon.damage = 20

@@ -2,9 +2,7 @@ import os
 import unittest
 from unittest.mock import MagicMock
 import pygame
-from audio.soundpack.SoundPack import SoundPack, MusicPack
-
-# python -m unittest discover -s tests
+from Zelda.audio.soundpack.SoundPack import SoundPack, MusicPack
 
 class FakeSoundFactory:
     def __init__(self):

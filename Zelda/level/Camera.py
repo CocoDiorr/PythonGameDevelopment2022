@@ -1,11 +1,13 @@
+"""This module is used to draw movements."""
 import pygame
-from Zelda.config.Config import *
+from Zelda.config.Config import LEVEL_0_PIC_PATH, TILESIZE
 
 
 class YSortCameraGroup(pygame.sprite.Group):
-    """ Make camera draw the map, obstacles and visibles with offset."""
+    """Make camera draw the map, obstacles and visibles with offset."""
+
     def __init__(self):
-        """ Init camera for map, obstacles and visibles with offset. """
+        """Init camera for map, obstacles and visibles with offset."""
         # general setup
         super().__init__()
         self.display_surface = pygame.display.get_surface()
@@ -26,28 +28,27 @@ class YSortCameraGroup(pygame.sprite.Group):
         :param player: Player
 
         """
-
         # getting the offset
-        self.offset.x = player.rect.centerx - self.half_width + int(TILESIZE/2)
-        self.offset.y = player.rect.centery - self.half_height + int(TILESIZE/2)
+        self.offset.x = player.rect.centerx - self.half_width + int(TILESIZE / 2)
+        self.offset.y = player.rect.centery - self.half_height + int(TILESIZE / 2)
 
         # drawing the floor
         floor_offset_pos = self.floor_rect.topleft - self.offset
         self.display_surface.blit(self.floor_surf, floor_offset_pos)
 
-        self.offset.x -= int(TILESIZE/2)
+        self.offset.x -= int(TILESIZE / 2)
         self.offset.y -= int(TILESIZE / 2)
 
-        # for sprite in self.sprites():
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)
 
 
 class YSortBulletsCameraGroup(pygame.sprite.Group):
-    """ Make camera draw bullets with offset. """
+    """Make camera draw bullets with offset."""
+
     def __init__(self):
-        """ Init camera for bullets with offset. """
+        """Init camera for bullets with offset."""
         # general setup
         super().__init__()
         self.display_surface = pygame.display.get_surface()
@@ -66,7 +67,6 @@ class YSortBulletsCameraGroup(pygame.sprite.Group):
         self.offset.x = player.rect.centerx - self.half_width
         self.offset.y = player.rect.centery - self.half_height
 
-        # for sprite in self.sprites():
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)
