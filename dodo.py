@@ -1,7 +1,7 @@
 import os
 
 
-DOIT_CONFIG = {"default_tasks": ["extract", "update", "compile", "tests", "docstyle", "flake"]}
+DOIT_CONFIG = {"default_tasks": ["extract", "update", "compile", "tests", "docstyle", "flake", "docs"]}
 
 Death_screen = os.path.join(os.path.dirname(__file__), "Zelda", "menu", "DeathScreen.py")
 Death_screen_msg = os.path.join(os.path.dirname(__file__), "Zelda", "locale", "death_screen", "messages.pot")
@@ -70,4 +70,10 @@ def task_docstyle():
 def task_flake():
     return {
         "actions": ["flake8"]
+    }
+
+
+def task_docs():
+    return {
+        "actions": ["make -C docs html"]
     }
