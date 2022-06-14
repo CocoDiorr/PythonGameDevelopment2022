@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-13 03:50+0300\n"
+"POT-Creation-Date: 2022-06-14 03:03+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: menu/StartMenu.py:115
+#: Zelda/menu/StartMenu.py:104
 msgid "Music"
 msgstr ""
 
-#: menu/StartMenu.py:116
+#: Zelda/menu/StartMenu.py:105
 msgid "Sounds"
 msgstr ""
 
-#: menu/StartMenu.py:118
+#: Zelda/menu/StartMenu.py:107
 msgid "Volume"
 msgstr ""
 
-#: menu/StartMenu.py:122
+#: Zelda/menu/StartMenu.py:111
 msgid "Choose language"
 msgstr ""
 

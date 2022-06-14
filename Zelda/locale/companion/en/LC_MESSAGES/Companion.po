@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-12 03:11+0300\n"
+"POT-Creation-Date: 2022-06-14 03:03+0300\n"
 "PO-Revision-Date: 2022-06-12 02:00+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: companion/Companion.py:106
+#: Zelda/companion/Companion.py:118
 msgid "Hi, haven't seen you in a while ! <3"
 msgstr ""
 
-#: companion/Companion.py:107
+#: Zelda/companion/Companion.py:119
 msgid "Do you want a story ?"
 msgstr ""
 
-#: companion/Companion.py:122
+#: Zelda/companion/Companion.py:134
 msgid "Yes"
 msgstr ""
 
-#: companion/Companion.py:124
+#: Zelda/companion/Companion.py:136
 msgid "No"
 msgstr ""
 
-#: companion/Companion.py:139
+#: Zelda/companion/Companion.py:164
 msgid "How much would you pay ?"
 msgstr ""
 
