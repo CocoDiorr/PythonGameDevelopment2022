@@ -1,4 +1,5 @@
 recursive-include tests *
 recursive-include docs *
-recursive-include locale *.po
+recursive-include Zelda/locale *.po
+recursive-exclude Zelda/locale *.mo
 include dodo.py
