@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-14 03:03+0300\n"
+"POT-Creation-Date: 2022-06-14 03:08+0300\n"
 "PO-Revision-Date: 2022-06-12 19:25+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: Zelda/menu/DeathScreen.py:30
+#: Zelda/menu/DeathScreen.py:37
 msgid "You died"
 msgstr ""
 
-#: Zelda/menu/DeathScreen.py:33
+#: Zelda/menu/DeathScreen.py:42
 msgid "Press SPACE to exit"
 msgstr ""
 

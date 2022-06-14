@@ -1,0 +1,4 @@
+recursive-include tests *
+recursive-include docs *
+recursive-include locale *.po
+include dodo.py

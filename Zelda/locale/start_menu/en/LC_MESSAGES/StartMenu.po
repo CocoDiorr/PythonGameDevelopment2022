@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-14 03:03+0300\n"
+"POT-Creation-Date: 2022-06-14 03:08+0300\n"
 "PO-Revision-Date: 2022-06-12 02:05+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: Zelda/menu/StartMenu.py:104
+#: Zelda/menu/StartMenu.py:198
 msgid "Music"
 msgstr ""
 
-#: Zelda/menu/StartMenu.py:105
+#: Zelda/menu/StartMenu.py:199
 msgid "Sounds"
 msgstr ""
 
-#: Zelda/menu/StartMenu.py:107
+#: Zelda/menu/StartMenu.py:201
 msgid "Volume"
 msgstr ""
 
-#: Zelda/menu/StartMenu.py:111
+#: Zelda/menu/StartMenu.py:207
 msgid "Choose language"
 msgstr ""
 

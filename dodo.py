@@ -15,17 +15,19 @@ Companion = os.path.join(os.path.dirname(__file__), "Zelda", "companion", "Compa
 Companion_msg = os.path.join(os.path.dirname(__file__), "Zelda", "locale", "companion", "messages.pot")
 Companion_locale = Companion_msg.replace("messages.pot", "")
 
+
 def task_extract():
     return {
         "actions": ["pybabel extract " + Death_screen + " -o " + Death_screen_msg,
                     "pybabel extract " + Start_menu + " -o " + Start_menu_msg,
                     "pybabel extract " + Companion + " -o " + Companion_msg
                     ],
-        "file_dep": [Death_screen, Start_menu,Companion],
+        "file_dep": [Death_screen, Start_menu, Companion],
 
         "targets": [Death_screen_msg, Start_menu_msg, Companion_msg]
 
     }
+
 
 def task_update():
     return {
@@ -35,6 +37,7 @@ def task_update():
 
         "file_dep": [Death_screen_msg, Start_menu_msg, Companion_msg]
     }
+
 
 def task_compile():
     return {
@@ -51,15 +54,18 @@ def task_compile():
                     os.path.join(Companion_locale, "ru", "LC_MESSAGES", "Companion.mo")]
     }
 
+
 def task_tests():
     return {
         "actions": ["python3 -m unittest discover -s tests"]
     }
 
+
 def task_docstyle():
     return {
-        "actions": ["pydocstyle"]
+        "actions": ["pydocstyle Zelda"]
     }
+
 
 def task_flake():
     return {
