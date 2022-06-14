@@ -75,5 +75,5 @@ def task_flake():
 
 def task_docs():
     return {
-        "actions": ["make -C docs html"]
+        "actions": ["make -C docs html", ""]
     }
